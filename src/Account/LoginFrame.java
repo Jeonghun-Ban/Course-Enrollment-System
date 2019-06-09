@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
 import control.CLogin;
+import enrollment.EnrollFrame;
 
 public class LoginFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -28,6 +29,7 @@ public class LoginFrame extends JFrame{
 	private JPanel idPanel, pwPanel, btnPanel;//패널...
 	private JButton button1,button2;//버튼
 	private ActionListener actionListener;
+	private EnrollFrame enrollmentFrame;
 	
 	public LoginFrame() {
 		super("명지대학교 수강신청 로그인");
@@ -97,6 +99,10 @@ public class LoginFrame extends JFrame{
 					
 				try {
 					cLogin.authenticate(id, pw);
+					enrollmentFrame = new EnrollFrame();
+					enrollmentFrame.setVisible(true);
+					enrollmentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					dispose();
 				} catch (FileNotFoundException | InvalidUserException e1) {
 					// TODO Auto-generated catch block
 					label.setText(e1.getMessage());
