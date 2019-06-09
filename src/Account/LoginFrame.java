@@ -77,7 +77,8 @@ public class LoginFrame extends JFrame{
 		container.add(pwPanel);
 		container.add(btnPanel);
 		
-		this.setSize(300, 420); // x,yรเ
+		this.setSize(250, 420); // x,yรเ
+		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
 	}
