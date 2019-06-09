@@ -5,16 +5,19 @@ import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.border.EtchedBorder;
 
 import Cource.CourceFrame;
@@ -27,7 +30,7 @@ public class LoginFrame extends JFrame{
 	private JTextField idField;
 	private JPasswordField pwField;
 	private JPanel idPanel, pwPanel, btnPanel;//패널...
-	private JButton button1,button2;//버튼
+	private JButton loginBtn,registerBtn;//버튼
 	private ActionListener actionListener;
 	private CourceFrame enrollmentFrame;
 	
@@ -59,16 +62,20 @@ public class LoginFrame extends JFrame{
 		pwPanel = new JPanel();
 		pwLb = new JLabel("PW: ");
 		pwField = new JPasswordField(10);
+		pwField.registerKeyboardAction(this.actionListener, "login", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER,0), JComponent.WHEN_FOCUSED);
 		pwPanel.add(pwLb);
 		pwPanel.add(pwField);
 		
 		// 로그인 회원가입 패널
 		btnPanel = new JPanel();
-		button1 = new JButton("로그인");
-		button2 = new JButton("회원가입");
-		button1.addActionListener(actionListener);
-		btnPanel.add(button1);
-		btnPanel.add(button2);
+		
+		loginBtn = new JButton("로그인");
+		loginBtn.setActionCommand("login");
+		loginBtn.addActionListener(actionListener);
+		btnPanel.add(loginBtn);
+		
+		registerBtn = new JButton("회원가입");
+		btnPanel.add(registerBtn);
 		
 		// 컨테이너에 컴포넌트 추가
 		container.add(image);
@@ -88,7 +95,7 @@ public class LoginFrame extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if (e.getSource() == button1) {
+			if (e.getActionCommand()=="login") {
 				CLogin cLogin = new CLogin();
 				String id = idField.getText();
 				String pw = "";
@@ -100,6 +107,7 @@ public class LoginFrame extends JFrame{
 					
 				try {
 					cLogin.authenticate(id, pw);
+					// 로그인이 되었을 시 실행되는 코드
 					enrollmentFrame = new CourceFrame();
 					enrollmentFrame.setVisible(true);
 					enrollmentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
