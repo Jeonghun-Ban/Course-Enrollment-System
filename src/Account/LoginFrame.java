@@ -30,7 +30,7 @@ public class LoginFrame extends JFrame{
 	private JTextField idField;
 	private JPasswordField pwField;
 	private JPanel idPanel, pwPanel, btnPanel;//패널...
-	private JButton loginBtn,registerBtn;//버튼
+	private JButton loginBtn, registerBtn;//버튼
 	private ActionListener actionListener;
 	private CourceFrame enrollmentFrame;
 	

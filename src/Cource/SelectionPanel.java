@@ -1,5 +1,6 @@
 package Cource;
 
+import java.awt.Dimension;
 import java.io.FileNotFoundException;
 
 import javax.swing.JPanel;
@@ -22,16 +23,19 @@ public class SelectionPanel extends JPanel {
 		JScrollPane scrollpane = new JScrollPane();
 		this.campus = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.campus);
+		scrollpane.setPreferredSize(new Dimension(150,150));
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
 		this.college = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.college);
+		scrollpane.setPreferredSize(new Dimension(150,150));
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
 		this.department = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.department);
+		scrollpane.setPreferredSize(new Dimension(150,150));
 		this.add(scrollpane);
 		
 		this.lecture = new LectureTable();
