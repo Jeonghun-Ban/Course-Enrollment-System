@@ -17,8 +17,8 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EtchedBorder;
 
+import Cource.CourceFrame;
 import control.CLogin;
-import enrollment.EnrollFrame;
 
 public class LoginFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -29,7 +29,7 @@ public class LoginFrame extends JFrame{
 	private JPanel idPanel, pwPanel, btnPanel;//패널...
 	private JButton button1,button2;//버튼
 	private ActionListener actionListener;
-	private EnrollFrame enrollmentFrame;
+	private CourceFrame enrollmentFrame;
 	
 	public LoginFrame() {
 		super("명지대학교 수강신청 로그인");
@@ -99,7 +99,7 @@ public class LoginFrame extends JFrame{
 					
 				try {
 					cLogin.authenticate(id, pw);
-					enrollmentFrame = new EnrollFrame();
+					enrollmentFrame = new CourceFrame();
 					enrollmentFrame.setVisible(true);
 					enrollmentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					dispose();

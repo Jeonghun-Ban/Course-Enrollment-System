@@ -4,7 +4,7 @@ import javax.swing.JFrame;
 
 import Account.LoginFrame;
 import Account.LoginPanel;
-import enrollment.EnrollFrame;
+import Cource.CourceFrame;
 
 public class Main {
 
