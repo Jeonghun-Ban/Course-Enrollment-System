@@ -1,5 +1,6 @@
 package Account;
 
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -41,7 +42,6 @@ public class LoginFrame extends JFrame{
 		Icon logo = new ImageIcon("image/logo.jfif");
 		image = new JLabel(logo);
 		image.setBorder(eborder);
-		image.setToolTipText("로고");
 		
 		// 라벨
 		label = new JLabel("ID와 PW를 입력하세요.");
@@ -99,7 +99,8 @@ public class LoginFrame extends JFrame{
 					cLogin.authenticate(id, pw);
 				} catch (FileNotFoundException | InvalidUserException e1) {
 					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					label.setText(e1.getMessage());
+			        label.setForeground(Color.RED);
 				}
 				
 			}
