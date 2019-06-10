@@ -21,7 +21,6 @@ import javax.swing.KeyStroke;
 import javax.swing.border.EtchedBorder;
 
 import Cource.CourceFrame;
-import control.CLogin;
 
 public class LoginFrame extends JFrame{
 	private static final long serialVersionUID = 1L;

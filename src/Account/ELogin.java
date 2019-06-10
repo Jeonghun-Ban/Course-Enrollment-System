@@ -3,8 +3,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
-import exception.InvalidUserException;
-
 public class ELogin {
 	private String userId;
 	private String password;

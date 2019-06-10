@@ -1,9 +1,6 @@
 package Account;
 import java.io.FileNotFoundException;
 
-import entity.ELogin;
-import exception.InvalidUserException;
-
 public class CLogin {
 
 	private ELogin eLogin;

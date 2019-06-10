@@ -3,8 +3,6 @@ package main;
 import javax.swing.JFrame;
 
 import Account.LoginFrame;
-import Account.LoginPanel;
-import Cource.CourceFrame;
 
 public class Main {
 
