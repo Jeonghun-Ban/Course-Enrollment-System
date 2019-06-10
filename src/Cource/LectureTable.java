@@ -1,11 +1,9 @@
 package Cource;
 
-import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.util.Vector;
 
 import javax.swing.JTable;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 public class LectureTable extends JTable {
@@ -14,12 +12,12 @@ public class LectureTable extends JTable {
 	private CLecture cLecture;
 	private Vector<ELecture> eLectures;
 	// model
-	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
+	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간"};
 	private DefaultTableModel model;
 
 	public LectureTable() {
 		// attributes
-		this.setPreferredSize(new Dimension(600, 200));
+		
 		// create service
 		this.cLecture = new CLecture();
 		// set model

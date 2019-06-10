@@ -31,10 +31,10 @@ public class LoginFrame extends JFrame{
 	private JPanel idPanel, pwPanel, btnPanel;//패널...
 	private JButton loginBtn, registerBtn;//버튼
 	private ActionListener actionListener;
-	private CourceFrame enrollmentFrame;
+	private CourceFrame courceFrame;
 	
 	public LoginFrame() {
-		super("명지대학교 수강신청 로그인");
+		super("로그인");
 		this.actionListener = new ActionHandler(); 
 		
 		// 컨테이너
@@ -107,9 +107,9 @@ public class LoginFrame extends JFrame{
 				try {
 					cLogin.authenticate(id, pw);
 					// 로그인이 되었을 시 실행되는 코드
-					enrollmentFrame = new CourceFrame();
-					enrollmentFrame.setVisible(true);
-					enrollmentFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+					courceFrame = new CourceFrame(id);
+					courceFrame.setVisible(true);
+					courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 					dispose();
 				} catch (FileNotFoundException | InvalidUserException e1) {
 					// TODO Auto-generated catch block
