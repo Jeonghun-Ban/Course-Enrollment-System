@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.Vector;
 
 import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 public class LectureTable extends JTable {
@@ -22,7 +23,14 @@ public class LectureTable extends JTable {
 			// create service
 			this.cLecture = new CLecture();
 			// set model
-			this.model = new DefaultTableModel(null, header);
+			this.model = new DefaultTableModel(null, header){
+				// 수정 금지 기능
+				private static final long serialVersionUID = 1L;
+				public boolean isCellEditable(int rowIndex, int colIndex){
+					return false; 
+					} 
+				};
+				
 			this.setModel(model);
 		}
 		
