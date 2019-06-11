@@ -7,12 +7,12 @@ import java.util.Vector;
 
 import Cource.ELecture;
 
-public class DAOBasket {
+public class DAOInquire {
 
 	public Vector<ELecture> storedLectures = new Vector<>();
 
-	public Vector<ELecture> show(String id) throws FileNotFoundException {
-		Scanner scanner = new Scanner(new FileReader("data/basket" + id));
+	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
+		Scanner scanner = new Scanner(new FileReader("data/"+ fileName + id));
 		while (scanner.hasNext()) {
 			ELecture storedLecture = new ELecture();
 			storedLecture.read(scanner);

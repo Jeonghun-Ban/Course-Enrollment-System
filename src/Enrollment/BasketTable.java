@@ -12,16 +12,16 @@ public class BasketTable extends JTable {
 	private static final long serialVersionUID = 1L;
 
 	// service
-	CBasket cBasket;
+	CInquire cInquire;
 	Vector<ELecture> storedLectures;
 	// model
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
 	public BasketTable(String id) {
-		cBasket = new CBasket();
+		cInquire = new CInquire();
 		try {
-			storedLectures = cBasket.show(id);
+			storedLectures = cInquire.show("basket", id);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
