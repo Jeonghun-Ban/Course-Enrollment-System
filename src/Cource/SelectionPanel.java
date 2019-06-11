@@ -1,12 +1,9 @@
 package Cource;
 
 import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.Vector;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -18,11 +15,8 @@ public class SelectionPanel extends JPanel {
 	private DirectoryList campus;
 	private DirectoryList college;
 	private DirectoryList department;
-	private LectureTable lecture;
+	public LectureTable lecture;
 	private ListSelectionListener listSelectionListener;
-	private ActionListener actionListener;
-
-	private JButton basketBtn, applyBtn;
 
 	public SelectionPanel() {
 		this.listSelectionListener = new ListSelectionHandler();
@@ -47,19 +41,6 @@ public class SelectionPanel extends JPanel {
 		scrollpane.setViewportView(this.lecture);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);
-
-		// 버튼 이벤트
-		this.actionListener = new ActionHandler();
-
-		basketBtn = new JButton("장바구니담기");
-		basketBtn.setActionCommand("basket");
-		basketBtn.addActionListener(actionListener);
-		this.add(basketBtn);
-
-		applyBtn = new JButton("수강신청");
-		applyBtn.setActionCommand("apply");
-		applyBtn.addActionListener(actionListener);
-		this.add(applyBtn);
 
 		this.refresh(null);
 
@@ -92,10 +73,6 @@ public class SelectionPanel extends JPanel {
 		}
 
 	}
-
-	public Vector<ELecture> getItem() {
-		return this.lecture.getSelectedLectures();
-	}
 	
 	private class ListSelectionHandler implements ListSelectionListener {
 
@@ -107,17 +84,4 @@ public class SelectionPanel extends JPanel {
 
 	}
 	
-	private class ActionHandler implements ActionListener{
-
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// TODO Auto-generated method stub
-			if (e.getActionCommand() == "basket") {
-				
-			} else if (e.getActionCommand() == "apply") {
-				
-			}
-		}
-	
-	}
 }
