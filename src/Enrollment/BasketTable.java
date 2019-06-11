@@ -1,5 +1,6 @@
 package Enrollment;
 
+import java.io.FileNotFoundException;
 import java.util.Vector;
 
 import javax.swing.JTable;
@@ -10,11 +11,21 @@ import Cource.ELecture;
 public class BasketTable extends JTable {
 	private static final long serialVersionUID = 1L;
 
+	// service
+	CBasket cBasket;
+	Vector<ELecture> storedLectures;
 	// model
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
-	public BasketTable() {
+	public BasketTable(String id) {
+		cBasket = new CBasket();
+		try {
+			storedLectures = cBasket.show(id);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// set model
 		this.model = new DefaultTableModel(null, header) {
 			// 수정 금지 기능
@@ -26,6 +37,16 @@ public class BasketTable extends JTable {
 		};
 
 		this.setModel(model);
+		
+		for (ELecture lecture : storedLectures) {
+			Vector<String> row = new Vector<>();
+			row.add(Integer.toString(lecture.getNumber()));
+			row.add(lecture.getName());
+			row.add(lecture.getProfessor());
+			row.add(Integer.toString(lecture.getCredit()));
+			row.add(lecture.getTime());
+			this.model.addRow(row);
+		}
 
 	}
 

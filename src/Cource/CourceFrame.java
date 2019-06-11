@@ -34,7 +34,7 @@ public class CourceFrame extends JFrame{
 		this.selectionPanel.setSize(650, 500);
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
 		this.enrollBtnPanel.setSize(100,100);
-		this.enrollmentPanel = new EnrollmentPanel();
+		this.enrollmentPanel = new EnrollmentPanel(id);
 		this.enrollmentPanel.setSize(650, 500);
 		
 		this.add(selectionPanel);

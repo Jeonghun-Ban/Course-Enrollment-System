@@ -10,9 +10,9 @@ public class EnrollmentPanel extends JPanel{
 	
 	public BasketTable basketTable;
 	
-	public EnrollmentPanel() {
+	public EnrollmentPanel(String id) {
 		JScrollPane scrollpane = new JScrollPane();
-		basketTable = new BasketTable();
+		basketTable = new BasketTable(id);
 		scrollpane.setViewportView(this.basketTable);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);
