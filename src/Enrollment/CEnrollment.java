@@ -5,12 +5,12 @@ import java.util.Vector;
 
 import Cource.ELecture;
 
-public class CBasket {
+public class CEnrollment {
 
-	public DAOBasket dAOBasket;
+	public DAOEnrollment dAOBasket;
 	
-	public CBasket() {
-		this.dAOBasket = new DAOBasket();
+	public CEnrollment() {
+		this.dAOBasket = new DAOEnrollment();
 	}
 	public Vector<ELecture> add(Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub

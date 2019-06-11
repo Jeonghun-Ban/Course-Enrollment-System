@@ -1,0 +1,21 @@
+package Enrollment;
+
+import java.awt.Dimension;
+
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+
+public class EnrollmentPanel extends JPanel{
+	private static final long serialVersionUID = 1L;
+	
+	public BasketTable basketTable;
+	
+	public EnrollmentPanel() {
+		JScrollPane scrollpane = new JScrollPane();
+		basketTable = new BasketTable();
+		scrollpane.setViewportView(this.basketTable);
+		scrollpane.setPreferredSize(new Dimension(600, 200));
+		this.add(scrollpane);
+	}
+	
+}

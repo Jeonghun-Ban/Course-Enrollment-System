@@ -8,8 +8,9 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 
-import Enrollment.CBasket;
+import Enrollment.CEnrollment;
 import Enrollment.EnrollBtnPanel;
+import Enrollment.EnrollmentPanel;
 
 public class CourceFrame extends JFrame{
 	private static final long serialVersionUID = 1L;
@@ -17,10 +18,11 @@ public class CourceFrame extends JFrame{
 	// UI
 	public SelectionPanel selectionPanel;
 	private EnrollBtnPanel enrollBtnPanel;
+	private EnrollmentPanel enrollmentPanel;
 	private ActionListener actionListener;
 	
 	private String id; // 아이디
-	private CBasket cBasket;
+	private CEnrollment cEnrollment;
 	
 	public CourceFrame(String id) {
 		this.id = id;
@@ -32,21 +34,25 @@ public class CourceFrame extends JFrame{
 		this.selectionPanel.setSize(650, 500);
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
 		this.enrollBtnPanel.setSize(100,100);
+		this.enrollmentPanel = new EnrollmentPanel();
+		this.enrollmentPanel.setSize(650, 500);
 		
 		this.add(selectionPanel);
 		this.add(enrollBtnPanel);
+		this.add(enrollmentPanel);
 		
 		this.setLayout(new FlowLayout());
 		this.setSize(1200,1000); // x,y축
 		this.setLocationRelativeTo(null);
 		
-		cBasket = new CBasket();
+		cEnrollment = new CEnrollment();
 	}
 	
 	public void addLectures() {
 		Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
 		try {
-			cBasket.add(lectures, id);
+			Vector<ELecture> storedLectures = cEnrollment.add(lectures, id);
+			this.enrollmentPanel.basketTable.refresh(storedLectures);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,7 +66,6 @@ public class CourceFrame extends JFrame{
 			// TODO Auto-generated method stub
 			if (e.getActionCommand() == "basket") {
 				 addLectures();
-				
 			} else if (e.getActionCommand() == "apply") {
 				
 			}

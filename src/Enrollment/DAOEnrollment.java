@@ -8,9 +8,9 @@ import java.util.Vector;
 
 import Cource.ELecture;
 
-public class DAOBasket {
+public class DAOEnrollment {
 
-	public Vector<ELecture> basketItems = new Vector<ELecture>();
+	public Vector<ELecture> storedLectures;
 
 	public Vector<ELecture> add(Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
@@ -22,17 +22,18 @@ public class DAOBasket {
 					+ lecture.getCredit() + " " + lecture.getTime() + "\r\n");
 			fw.close();
 		}
-
-		// read basket vector
+		
+		// read storedLectures
+		storedLectures = new Vector<>();
 		Scanner scanner = new Scanner(new FileReader("data/basket" + id));
 		while (scanner.hasNext()) {
-			ELecture basketItem = new ELecture();
-			basketItem.read(scanner);
-			basketItems.add(basketItem);
+			ELecture storedLecture = new ELecture();
+			storedLecture.read(scanner);
+			storedLectures.add(storedLecture);
 		}
 		scanner.close();
 		// vector return
-		return basketItems;
+		return storedLectures;
 	}
 
 }

@@ -16,7 +16,6 @@ public class LectureTable extends JTable {
 	private DefaultTableModel model;
 
 	public LectureTable() {
-		// attributes
 		
 		// create service
 		this.cLecture = new CLecture();
