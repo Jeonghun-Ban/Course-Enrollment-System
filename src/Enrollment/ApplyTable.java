@@ -8,7 +8,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Cource.ELecture;
 
-public class BasketTable extends JTable {
+public class ApplyTable extends JTable{
 	private static final long serialVersionUID = 1L;
 
 	// service
@@ -18,7 +18,7 @@ public class BasketTable extends JTable {
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
-	public BasketTable(String id) {
+	public ApplyTable(String id) {
 		cInquire = new CInquire();
 		
 		// set model
@@ -34,7 +34,7 @@ public class BasketTable extends JTable {
 		this.setModel(model);
 		
 		try {
-			storedLectures = cInquire.show("basket", id);
+			storedLectures = cInquire.show("apply", id);
 			
 			for (ELecture lecture : storedLectures) {
 				Vector<String> row = new Vector<>();
@@ -49,9 +49,9 @@ public class BasketTable extends JTable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+		
 	}
-
+	
 	public void refresh(Vector<ELecture> lectures) {
 		// TODO Auto-generated method stub
 		
@@ -69,5 +69,4 @@ public class BasketTable extends JTable {
 		
 		this.updateUI();
 	}
-
 }

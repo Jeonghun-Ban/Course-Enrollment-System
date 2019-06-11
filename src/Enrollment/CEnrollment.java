@@ -12,9 +12,9 @@ public class CEnrollment {
 	public CEnrollment() {
 		this.dAOBasket = new DAOEnrollment();
 	}
-	public Vector<ELecture> add(Vector<ELecture> lectures, String id) throws IOException {
+	public Vector<ELecture> add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
-		return dAOBasket.add(lectures, id);
+		return dAOBasket.add(fileName, lectures, id);
 	}
 
 }

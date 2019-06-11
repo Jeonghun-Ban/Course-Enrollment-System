@@ -12,12 +12,12 @@ public class DAOEnrollment {
 
 	public Vector<ELecture> storedLectures;
 
-	public Vector<ELecture> add(Vector<ELecture> lectures, String id) throws IOException {
+	public Vector<ELecture> add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
 
 		// file write
 		for (ELecture lecture : lectures) {	
-			FileWriter fw = new FileWriter("data/basket" + id, true);
+			FileWriter fw = new FileWriter("data/" + fileName + id, true);
 			fw.write(lecture.getNumber() + " " + lecture.getName() + " " + lecture.getProfessor() + " "
 					+ lecture.getCredit() + " " + lecture.getTime() + "\r\n");
 			fw.close();
@@ -25,7 +25,7 @@ public class DAOEnrollment {
 		
 		// read storedLectures
 		storedLectures = new Vector<>();
-		Scanner scanner = new Scanner(new FileReader("data/basket" + id));
+		Scanner scanner = new Scanner(new FileReader("data/"+ fileName + id));
 		while (scanner.hasNext()) {
 			ELecture storedLecture = new ELecture();
 			storedLecture.read(scanner);

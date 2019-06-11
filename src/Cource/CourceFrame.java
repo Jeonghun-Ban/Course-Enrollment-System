@@ -48,11 +48,17 @@ public class CourceFrame extends JFrame{
 		cEnrollment = new CEnrollment();
 	}
 	
-	public void addLectures() {
+	public void addLectures(String opt) {
 		Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
 		try {
-			Vector<ELecture> storedLectures = cEnrollment.add(lectures, id);
-			this.enrollmentPanel.basketTable.refresh(storedLectures);
+			if(opt.equals("basket")) {
+				Vector<ELecture> storedLectures = cEnrollment.add("basket", lectures, id);
+				this.enrollmentPanel.basketTable.refresh(storedLectures);
+			}else if(opt.equals("apply")) {
+				Vector<ELecture> storedLectures = cEnrollment.add("apply", lectures, id);
+				this.enrollmentPanel.applyTable.refresh(storedLectures);
+			}
+			
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,9 +71,9 @@ public class CourceFrame extends JFrame{
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
 			if (e.getActionCommand() == "basket") {
-				 addLectures();
+				 addLectures("basket");
 			} else if (e.getActionCommand() == "apply") {
-				
+				addLectures("apply");
 			}
 		}
 		
