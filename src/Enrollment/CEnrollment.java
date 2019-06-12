@@ -1,5 +1,6 @@
 package Enrollment;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Vector;
 
@@ -7,14 +8,19 @@ import Cource.ELecture;
 
 public class CEnrollment {
 
-	public DAOEnrollment dAOBasket;
+	public DAOEnrollment dAOEnrollment;
 	
 	public CEnrollment() {
-		this.dAOBasket = new DAOEnrollment();
+		this.dAOEnrollment = new DAOEnrollment();
 	}
-	public Vector<ELecture> add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
+	
+	public void add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
-		return dAOBasket.add(fileName, lectures, id);
+		dAOEnrollment.add(fileName, lectures, id);
+	}
+	
+	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
+		return dAOEnrollment.show(fileName, id);
 	}
 
 }

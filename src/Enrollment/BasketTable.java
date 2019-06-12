@@ -12,14 +12,12 @@ public class BasketTable extends JTable {
 	private static final long serialVersionUID = 1L;
 
 	// service
-	CInquire cInquire;
 	Vector<ELecture> storedLectures;
 	// model
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
-	public BasketTable(String id) {
-		cInquire = new CInquire();
+	public BasketTable(String id, CEnrollment cEnrollment) {
 		
 		// set model
 		this.model = new DefaultTableModel(null, header) {
@@ -34,7 +32,7 @@ public class BasketTable extends JTable {
 		this.setModel(model);
 		
 		try {
-			storedLectures = cInquire.show("basket", id);
+			storedLectures = cEnrollment.show("basket", id);
 			
 			for (ELecture lecture : storedLectures) {
 				Vector<String> row = new Vector<>();

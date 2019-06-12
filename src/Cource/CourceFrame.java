@@ -26,6 +26,7 @@ public class CourceFrame extends JFrame{
 	
 	public CourceFrame(String id) {
 		this.id = id;
+		cEnrollment = new CEnrollment();
 		
 		this.setTitle("명지대학교 수강신청 시스템 | "+this.id+"님 안녕하세요?");
 		this.actionListener = new ActionHandler();
@@ -34,7 +35,7 @@ public class CourceFrame extends JFrame{
 		this.selectionPanel.setSize(650, 500);
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
 		this.enrollBtnPanel.setSize(100,100);
-		this.enrollmentPanel = new EnrollmentPanel(id);
+		this.enrollmentPanel = new EnrollmentPanel(id, cEnrollment);
 		this.enrollmentPanel.setSize(650, 500);
 		
 		this.add(selectionPanel);
@@ -45,17 +46,18 @@ public class CourceFrame extends JFrame{
 		this.setSize(1200,1000); // x,y축
 		this.setLocationRelativeTo(null);
 		
-		cEnrollment = new CEnrollment();
 	}
 	
 	public void addLectures(String opt) {
 		Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
 		try {
 			if(opt.equals("basket")) {
-				Vector<ELecture> storedLectures = cEnrollment.add("basket", lectures, id);
+				cEnrollment.add("basket", lectures, id);
+				Vector<ELecture> storedLectures = cEnrollment.show("basket", id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 			}else if(opt.equals("apply")) {
-				Vector<ELecture> storedLectures = cEnrollment.add("apply", lectures, id);
+				cEnrollment.add("apply", lectures, id);
+				Vector<ELecture> storedLectures = cEnrollment.show("apply", id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
 			

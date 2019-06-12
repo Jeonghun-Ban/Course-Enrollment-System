@@ -1,5 +1,6 @@
 package Enrollment;
 
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class DAOEnrollment {
 
 	public Vector<ELecture> storedLectures;
 
-	public Vector<ELecture> add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
+	public void add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
 
 		// file write
@@ -23,7 +24,13 @@ public class DAOEnrollment {
 			fw.close();
 		}
 		
-		// read storedLectures
+	}
+
+	public void delete() {
+		
+	}
+	
+	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
 		storedLectures = new Vector<>();
 		Scanner scanner = new Scanner(new FileReader("data/"+ fileName + id));
 		while (scanner.hasNext()) {
@@ -32,8 +39,8 @@ public class DAOEnrollment {
 			storedLectures.add(storedLecture);
 		}
 		scanner.close();
-		// vector return
-		return storedLectures;
+		
+		return storedLectures; 
 	}
 
 }
