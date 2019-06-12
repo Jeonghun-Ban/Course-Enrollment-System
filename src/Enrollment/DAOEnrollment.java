@@ -11,7 +11,7 @@ import Cource.ELecture;
 
 public class DAOEnrollment {
 
-	public Vector<ELecture> storedLectures;
+	public Vector<ELecture> storedLectures = new Vector<>();
 
 	public void add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
@@ -31,7 +31,7 @@ public class DAOEnrollment {
 	}
 	
 	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
-		storedLectures = new Vector<>();
+		storedLectures.removeAllElements();
 		Scanner scanner = new Scanner(new FileReader("data/"+ fileName + id));
 		while (scanner.hasNext()) {
 			ELecture storedLecture = new ELecture();
