@@ -1,5 +1,6 @@
 package Cource;
 
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.Vector;
 
@@ -15,8 +16,10 @@ public class LectureTable extends JTable {
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간"};
 	private DefaultTableModel model;
 
-	public LectureTable() {
+	public LectureTable(MouseListener mouseListener) {
 		
+		//mouseListener
+		this.addMouseListener(mouseListener);
 		// create service
 		this.cLecture = new CLecture();
 		// set model

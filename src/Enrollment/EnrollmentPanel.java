@@ -1,6 +1,7 @@
 package Enrollment;
 
 import java.awt.Dimension;
+import java.awt.event.MouseListener;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -11,15 +12,15 @@ public class EnrollmentPanel extends JPanel{
 	public BasketTable basketTable;
 	public ApplyTable applyTable;
 	
-	public EnrollmentPanel(String id, CEnrollment cEnrollment) {
+	public EnrollmentPanel(String id, CEnrollment cEnrollment, MouseListener mouseListener) {
 		JScrollPane scrollpane = new JScrollPane();
-		basketTable = new BasketTable(id, cEnrollment);
+		basketTable = new BasketTable(id, cEnrollment, mouseListener);
 		scrollpane.setViewportView(this.basketTable);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
-		applyTable = new ApplyTable(id, cEnrollment);
+		applyTable = new ApplyTable(id, cEnrollment, mouseListener);
 		scrollpane.setViewportView(this.applyTable);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);

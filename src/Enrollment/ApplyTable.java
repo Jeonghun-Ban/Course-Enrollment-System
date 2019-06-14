@@ -1,5 +1,6 @@
 package Enrollment;
 
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.Vector;
 
@@ -17,7 +18,9 @@ public class ApplyTable extends JTable{
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
-	public ApplyTable(String id, CEnrollment cEnrollment) {
+	public ApplyTable(String id, CEnrollment cEnrollment, MouseListener mouseListener) {
+		//mouseListener
+		this.addMouseListener(mouseListener);
 		
 		// set model
 		this.model = new DefaultTableModel(null, header) {

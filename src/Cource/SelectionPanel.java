@@ -1,8 +1,8 @@
 package Cource;
 
 import java.awt.Dimension;
+import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
-import java.util.Vector;
 
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -18,7 +18,7 @@ public class SelectionPanel extends JPanel {
 	public LectureTable lecture;
 	private ListSelectionListener listSelectionListener;
 
-	public SelectionPanel() {
+	public SelectionPanel(MouseListener mouseListener) {
 		this.listSelectionListener = new ListSelectionHandler();
 
 		JScrollPane scrollpane = new JScrollPane();
@@ -37,7 +37,7 @@ public class SelectionPanel extends JPanel {
 		this.add(scrollpane);
 
 		scrollpane = new JScrollPane();
-		this.lecture = new LectureTable();
+		this.lecture = new LectureTable(mouseListener);
 		scrollpane.setViewportView(this.lecture);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);
