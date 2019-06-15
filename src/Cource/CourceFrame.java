@@ -1,5 +1,6 @@
 package Cource;
 
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,7 @@ public class CourceFrame extends JFrame {
 	private CBasket cBasket;
 	private CApply cApply;
 	
+	private boolean lecture = false;
 	private boolean basket = false;
 	private boolean apply = false;
 
@@ -43,11 +45,11 @@ public class CourceFrame extends JFrame {
 		this.mouseListener = new MouseHandler();
 
 		this.selectionPanel = new SelectionPanel(mouseListener);
-		this.selectionPanel.setSize(650, 500);
+		this.selectionPanel.setPreferredSize(new Dimension(1000, 380));
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
-		this.enrollBtnPanel.setSize(100, 100);
+		this.enrollBtnPanel.setPreferredSize(new Dimension(1000, 50));
 		this.enrollmentPanel = new EnrollmentPanel(id, cBasket, cApply, mouseListener);
-		this.enrollmentPanel.setSize(650, 500);
+		this.enrollmentPanel.setPreferredSize(new Dimension(1000, 420));
 
 		this.add(selectionPanel);
 		this.add(enrollBtnPanel);
@@ -55,19 +57,32 @@ public class CourceFrame extends JFrame {
 
 		this.setLayout(new FlowLayout());
 		this.setSize(1200, 1000); // x,y√‡
+		this.setMinimumSize(new Dimension(650, 0));
 		this.setLocationRelativeTo(null);
 
 	}
 
 	public void addLectures(String opt) {
-		Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
 		try {
 			if (opt.equals("basket")) {
-				cBasket.add(lectures, id);
+				if(lecture) {
+					Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
+					cBasket.add(lectures, id);
+				} else if(apply) {
+					Vector<ELecture> lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
+					cBasket.add(lectures, id);
+				}
 				Vector<ELecture> storedLectures = cBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
+				
 			} else if (opt.equals("apply")) {
-				cApply.add(lectures, id);
+				if(lecture) {
+					Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
+					cApply.add(lectures, id);
+				} else if(basket) {
+					Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
+					cApply.add(lectures, id);
+				}
 				Vector<ELecture> storedLectures = cApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
@@ -113,14 +128,15 @@ public class CourceFrame extends JFrame {
 		if (source == this.selectionPanel.lecture) {
 			this.enrollmentPanel.basketTable.clearSelection();
 			this.enrollmentPanel.applyTable.clearSelection();
+			lecture = true; basket = false; apply = false;
 		} else if (source == this.enrollmentPanel.basketTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.applyTable.clearSelection();
-			basket = true; apply = false;
+			lecture = false; basket = true; apply = false;
 		} else if (source == this.enrollmentPanel.applyTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.basketTable.clearSelection();
-			basket = false; apply = true;
+			lecture = false; basket = false; apply = true;
 		}
 
 	}

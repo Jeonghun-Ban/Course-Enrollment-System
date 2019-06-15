@@ -16,6 +16,8 @@ public class DAOApply {
 	public void add(Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
 
+		
+		
 		// file write
 		for (ELecture lecture : lectures) {
 			FileWriter fw = new FileWriter("data/apply" + id, true);
