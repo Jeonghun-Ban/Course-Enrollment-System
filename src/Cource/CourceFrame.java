@@ -80,8 +80,8 @@ public class CourceFrame extends JFrame {
 			System.out.println(lectures.get(0).getName());
 			try {
 				cBasket.delete(lectures, id);
-//				Vector<ELecture> storedLectures = cEnrollment.show("basket", id);
-//				this.enrollmentPanel.basketTable.refresh(storedLectures);
+				Vector<ELecture> storedLectures = cBasket.show(id);
+				this.enrollmentPanel.basketTable.refresh(storedLectures);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -17,12 +17,12 @@ public class DAOBasket {
 		// TODO Auto-generated method stub
 
 		// file write
+		FileWriter fw = new FileWriter("data/basket" + id, true);
 		for (ELecture lecture : lectures) {
-			FileWriter fw = new FileWriter("data/basket" + id, true);
 			fw.write(lecture.getNumber() + " " + lecture.getName() + " " + lecture.getProfessor() + " "
 					+ lecture.getCredit() + " " + lecture.getTime() + "\r\n");
-			fw.close();
 		}
+		fw.close();
 
 	}
 
@@ -40,26 +40,16 @@ public class DAOBasket {
 	}
 
 	public void delete(Vector<ELecture> lectures, String id) throws IOException {
-		storedLectures = this.show(id);
 		for (ELecture lecture : lectures) {
-			System.out.println(lecture.getName());
-			for (ELecture storedLecture : storedLectures) {
-				
-				if (lecture.getNumber() == storedLecture.getNumber()) {
-					storedLectures.remove(storedLecture);
-				}
-			}
+			storedLectures.remove(lecture);
 		}
-
-		// file write
-		for (ELecture lecture : storedLectures) {
-			
-			FileWriter fw = new FileWriter("data/basket" + id);
-			fw.write(lecture.getNumber() + " " + lecture.getName() + " " + lecture.getProfessor() + " "
-					+ lecture.getCredit() + " " + lecture.getTime() + "\r\n");
-			fw.close();
+		
+		FileWriter fw = new FileWriter("data/basket" + id, false);
+		for (ELecture storedLecture : storedLectures) {
+			fw.write(storedLecture.getNumber() + " " + storedLecture.getName() + " " + storedLecture.getProfessor() + " "
+					+ storedLecture.getCredit() + " " + storedLecture.getTime() + "\r\n");
 		}
-
+		fw.close();
 	}
 
 
