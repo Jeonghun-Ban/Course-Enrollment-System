@@ -18,7 +18,7 @@ public class ApplyTable extends JTable{
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
-	public ApplyTable(String id, CEnrollment cEnrollment, MouseListener mouseListener) {
+	public ApplyTable(String id, CApply cApply, MouseListener mouseListener) {
 		//mouseListener
 		this.addMouseListener(mouseListener);
 		
@@ -35,7 +35,7 @@ public class ApplyTable extends JTable{
 		this.setModel(model);
 		
 		try {
-			storedLectures = cEnrollment.show("apply", id);
+			storedLectures = cApply.show("apply", id);
 			
 			for (ELecture lecture : storedLectures) {
 				Vector<String> row = new Vector<>();

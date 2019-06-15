@@ -8,7 +8,7 @@ import javax.swing.JPanel;
 public class EnrollBtnPanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	private JButton basketBtn, applyBtn;
+	private JButton basketBtn, applyBtn, deleteBtn;
 
 	public EnrollBtnPanel(ActionListener actionListener) {
 		// 버튼 이벤트
@@ -22,6 +22,11 @@ public class EnrollBtnPanel extends JPanel {
 		applyBtn.setActionCommand("apply");
 		applyBtn.addActionListener(actionListener);
 		this.add(applyBtn);
+		
+		deleteBtn = new JButton("삭제");
+		deleteBtn.setActionCommand("delete");
+		deleteBtn.addActionListener(actionListener);
+		this.add(deleteBtn);
 	}
 
 }

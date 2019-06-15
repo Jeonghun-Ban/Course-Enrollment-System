@@ -10,7 +10,8 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 
-import Enrollment.CEnrollment;
+import Enrollment.CApply;
+import Enrollment.CBasket;
 import Enrollment.EnrollBtnPanel;
 import Enrollment.EnrollmentPanel;
 
@@ -25,11 +26,13 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // 아이디
-	private CEnrollment cEnrollment;
+	private CBasket cBasket;
+	private CApply cApply;
 
 	public CourceFrame(String id) {
 		this.id = id;
-		cEnrollment = new CEnrollment();
+		cBasket = new CBasket();
+		cApply = new CApply();
 
 		this.setTitle("명지대학교 수강신청 시스템 | " + this.id + "님 안녕하세요?");
 		this.actionListener = new ActionHandler();
@@ -39,7 +42,7 @@ public class CourceFrame extends JFrame {
 		this.selectionPanel.setSize(650, 500);
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
 		this.enrollBtnPanel.setSize(100, 100);
-		this.enrollmentPanel = new EnrollmentPanel(id, cEnrollment, mouseListener);
+		this.enrollmentPanel = new EnrollmentPanel(id, cBasket, cApply, mouseListener);
 		this.enrollmentPanel.setSize(650, 500);
 
 		this.add(selectionPanel);
@@ -56,12 +59,12 @@ public class CourceFrame extends JFrame {
 		Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
 		try {
 			if (opt.equals("basket")) {
-				cEnrollment.add("basket", lectures, id);
-				Vector<ELecture> storedLectures = cEnrollment.show("basket", id);
+				cBasket.add("basket", lectures, id);
+				Vector<ELecture> storedLectures = cBasket.show("basket", id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 			} else if (opt.equals("apply")) {
-				cEnrollment.add("apply", lectures, id);
-				Vector<ELecture> storedLectures = cEnrollment.show("apply", id);
+				cApply.add("apply", lectures, id);
+				Vector<ELecture> storedLectures = cApply.show("apply", id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
 
@@ -70,6 +73,7 @@ public class CourceFrame extends JFrame {
 			e.printStackTrace();
 		}
 	}
+	
 	
 	private void setFocus(Object source) {
 		if( source == this.selectionPanel.lecture) {
@@ -94,6 +98,7 @@ public class CourceFrame extends JFrame {
 				addLectures("basket");
 			} else if (e.getActionCommand() == "apply") {
 				addLectures("apply");
+			} else if (e.getActionCommand() == "delete") {
 			}
 		}
 

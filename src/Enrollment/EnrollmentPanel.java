@@ -12,15 +12,15 @@ public class EnrollmentPanel extends JPanel{
 	public BasketTable basketTable;
 	public ApplyTable applyTable;
 	
-	public EnrollmentPanel(String id, CEnrollment cEnrollment, MouseListener mouseListener) {
+	public EnrollmentPanel(String id, CBasket cBasket, CApply cApply, MouseListener mouseListener) {
 		JScrollPane scrollpane = new JScrollPane();
-		basketTable = new BasketTable(id, cEnrollment, mouseListener);
+		basketTable = new BasketTable(id, cBasket, mouseListener);
 		scrollpane.setViewportView(this.basketTable);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
-		applyTable = new ApplyTable(id, cEnrollment, mouseListener);
+		applyTable = new ApplyTable(id, cApply, mouseListener);
 		scrollpane.setViewportView(this.applyTable);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);

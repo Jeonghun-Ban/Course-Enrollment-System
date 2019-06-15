@@ -18,7 +18,7 @@ public class BasketTable extends JTable {
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
-	public BasketTable(String id, CEnrollment cEnrollment, MouseListener mouseListener) {
+	public BasketTable(String id, CBasket cBasket, MouseListener mouseListener) {
 		//mouseListener
 		this.addMouseListener(mouseListener);
 		
@@ -35,7 +35,7 @@ public class BasketTable extends JTable {
 		this.setModel(model);
 		
 		try {
-			storedLectures = cEnrollment.show("basket", id);
+			storedLectures = cBasket.show("basket", id);
 			
 			for (ELecture lecture : storedLectures) {
 				Vector<String> row = new Vector<>();
@@ -53,6 +53,17 @@ public class BasketTable extends JTable {
 
 	}
 
+	public Vector<ELecture> getSelectedLectures() {
+		// TODO Auto-generated method stub
+		Vector<ELecture> selectedLectures = new Vector<>();
+		int[] selectedIndex = this.getSelectedRows();
+		for (int i=0; i<selectedIndex.length; i++) {
+			ELecture lecture = this.storedLectures.get(selectedIndex[i]);
+			selectedLectures.add(lecture);
+		}
+		return selectedLectures;
+	}
+	
 	public void refresh(Vector<ELecture> lectures) {
 		// TODO Auto-generated method stub
 		

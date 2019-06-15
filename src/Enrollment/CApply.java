@@ -6,21 +6,21 @@ import java.util.Vector;
 
 import Cource.ELecture;
 
-public class CEnrollment {
+public class CApply {
 
-	public DAOEnrollment dAOEnrollment;
+	public DAOApply dAOApply;
 	
-	public CEnrollment() {
-		this.dAOEnrollment = new DAOEnrollment();
+	public CApply() {
+		this.dAOApply = new DAOApply();
 	}
 	
 	public void add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
-		dAOEnrollment.add(fileName, lectures, id);
+		dAOApply.add(fileName, lectures, id);
 	}
 	
 	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
-		return dAOEnrollment.show(fileName, id);
+		return dAOApply.show(fileName, id);
 	}
 
 }

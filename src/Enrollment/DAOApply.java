@@ -9,7 +9,7 @@ import java.util.Vector;
 
 import Cource.ELecture;
 
-public class DAOEnrollment {
+public class DAOApply {
 
 	public Vector<ELecture> storedLectures = new Vector<>();
 
@@ -17,30 +17,26 @@ public class DAOEnrollment {
 		// TODO Auto-generated method stub
 
 		// file write
-		for (ELecture lecture : lectures) {	
+		for (ELecture lecture : lectures) {
 			FileWriter fw = new FileWriter("data/" + fileName + id, true);
 			fw.write(lecture.getNumber() + " " + lecture.getName() + " " + lecture.getProfessor() + " "
 					+ lecture.getCredit() + " " + lecture.getTime() + "\r\n");
 			fw.close();
 		}
-		
+
 	}
 
-	public void delete() {
-		
-	}
-	
 	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
 		storedLectures.removeAllElements();
-		Scanner scanner = new Scanner(new FileReader("data/"+ fileName + id));
+		Scanner scanner = new Scanner(new FileReader("data/" + fileName + id));
 		while (scanner.hasNext()) {
 			ELecture storedLecture = new ELecture();
 			storedLecture.read(scanner);
 			storedLectures.add(storedLecture);
 		}
 		scanner.close();
-		
-		return storedLectures; 
+
+		return storedLectures;
 	}
 
 }
