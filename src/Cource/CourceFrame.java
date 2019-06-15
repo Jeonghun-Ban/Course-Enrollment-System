@@ -26,8 +26,12 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // ¾ÆÀÌµð
+	
 	private CBasket cBasket;
 	private CApply cApply;
+	
+	private boolean basket = false;
+	private boolean apply = false;
 
 	public CourceFrame(String id) {
 		this.id = id;
@@ -75,7 +79,9 @@ public class CourceFrame extends JFrame {
 	}
 
 	public void deleteLectures() {
-		Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
+		
+		if(basket) {
+			Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 
 			System.out.println(lectures.get(0).getName());
 			try {
@@ -86,6 +92,20 @@ public class CourceFrame extends JFrame {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+		} else if(apply) {
+			Vector<ELecture> lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
+
+			System.out.println(lectures.get(0).getName());
+			try {
+				cApply.delete(lectures, id);
+				Vector<ELecture> storedLectures = cApply.show(id);
+				this.enrollmentPanel.applyTable.refresh(storedLectures);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 
 	}
 
@@ -96,9 +116,11 @@ public class CourceFrame extends JFrame {
 		} else if (source == this.enrollmentPanel.basketTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.applyTable.clearSelection();
+			basket = true; apply = false;
 		} else if (source == this.enrollmentPanel.applyTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.basketTable.clearSelection();
+			basket = false; apply = true;
 		}
 
 	}

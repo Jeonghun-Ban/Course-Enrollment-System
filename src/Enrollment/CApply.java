@@ -23,4 +23,8 @@ public class CApply {
 		return dAOApply.show(id);
 	}
 
+	public void delete(Vector<ELecture> lectures, String id) throws IOException {
+		// TODO Auto-generated method stub
+		dAOApply.delete(lectures, id);
+	}
 }

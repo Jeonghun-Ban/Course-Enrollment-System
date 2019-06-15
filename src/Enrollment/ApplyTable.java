@@ -13,7 +13,7 @@ public class ApplyTable extends JTable{
 	private static final long serialVersionUID = 1L;
 
 	// service
-	Vector<ELecture> storedLectures;
+	Vector<ELecture> lectures;
 	// model
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
@@ -35,9 +35,9 @@ public class ApplyTable extends JTable{
 		this.setModel(model);
 		
 		try {
-			storedLectures = cApply.show(id);
+			lectures = cApply.show(id);
 			
-			for (ELecture lecture : storedLectures) {
+			for (ELecture lecture : lectures) {
 				Vector<String> row = new Vector<>();
 				row.add(Integer.toString(lecture.getNumber()));
 				row.add(lecture.getName());
@@ -51,6 +51,17 @@ public class ApplyTable extends JTable{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public Vector<ELecture> getSelectedLectures() {
+		// TODO Auto-generated method stub
+		Vector<ELecture> selectedLectures = new Vector<>();
+		int[] selectedIndex = this.getSelectedRows();
+		for (int i=0; i<selectedIndex.length; i++) {
+			ELecture lecture = this.lectures.get(selectedIndex[i]);
+			selectedLectures.add(lecture);
+		}
+		return selectedLectures;
 	}
 	
 	public void refresh(Vector<ELecture> lectures) {

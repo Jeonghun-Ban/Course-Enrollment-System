@@ -38,5 +38,19 @@ public class DAOApply {
 
 		return storedLectures;
 	}
+	
+	public void delete(Vector<ELecture> lectures, String id) throws IOException {
+		for (ELecture lecture : lectures) {
+			storedLectures.remove(lecture);
+		}
+		
+		FileWriter fw = new FileWriter("data/apply" + id, false);
+		for (ELecture storedLecture : storedLectures) {
+			fw.write(storedLecture.getNumber() + " " + storedLecture.getName() + " " + storedLecture.getProfessor() + " "
+					+ storedLecture.getCredit() + " " + storedLecture.getTime() + "\r\n");
+		}
+		fw.close();
+	}
+
 
 }
