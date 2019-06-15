@@ -59,12 +59,12 @@ public class CourceFrame extends JFrame {
 		Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
 		try {
 			if (opt.equals("basket")) {
-				cBasket.add("basket", lectures, id);
-				Vector<ELecture> storedLectures = cBasket.show("basket", id);
+				cBasket.add(lectures, id);
+				Vector<ELecture> storedLectures = cBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 			} else if (opt.equals("apply")) {
-				cApply.add("apply", lectures, id);
-				Vector<ELecture> storedLectures = cApply.show("apply", id);
+				cApply.add(lectures, id);
+				Vector<ELecture> storedLectures = cApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
 
@@ -73,20 +73,34 @@ public class CourceFrame extends JFrame {
 			e.printStackTrace();
 		}
 	}
-	
-	
+
+	public void deleteLectures() {
+		Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
+
+			System.out.println(lectures.get(0).getName());
+			try {
+				cBasket.delete(lectures, id);
+//				Vector<ELecture> storedLectures = cEnrollment.show("basket", id);
+//				this.enrollmentPanel.basketTable.refresh(storedLectures);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+	}
+
 	private void setFocus(Object source) {
-		if( source == this.selectionPanel.lecture) {
+		if (source == this.selectionPanel.lecture) {
 			this.enrollmentPanel.basketTable.clearSelection();
 			this.enrollmentPanel.applyTable.clearSelection();
 		} else if (source == this.enrollmentPanel.basketTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.applyTable.clearSelection();
-		} else if(source == this.enrollmentPanel.applyTable){
+		} else if (source == this.enrollmentPanel.applyTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.basketTable.clearSelection();
 		}
-		
+
 	}
 
 	private class ActionHandler implements ActionListener {
@@ -99,6 +113,7 @@ public class CourceFrame extends JFrame {
 			} else if (e.getActionCommand() == "apply") {
 				addLectures("apply");
 			} else if (e.getActionCommand() == "delete") {
+				deleteLectures();
 			}
 		}
 

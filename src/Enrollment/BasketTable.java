@@ -35,7 +35,7 @@ public class BasketTable extends JTable {
 		this.setModel(model);
 		
 		try {
-			storedLectures = cBasket.show("basket", id);
+			storedLectures = cBasket.show(id);
 			
 			for (ELecture lecture : storedLectures) {
 				Vector<String> row = new Vector<>();

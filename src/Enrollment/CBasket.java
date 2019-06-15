@@ -14,13 +14,18 @@ public class CBasket {
 		this.dAOBasket = new DAOBasket();
 	}
 	
-	public void add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
+	public void add(Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
-		dAOBasket.add(fileName, lectures, id);
+		dAOBasket.add(lectures, id);
 	}
 	
-	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
-		return dAOBasket.show(fileName, id);
+	public Vector<ELecture> show(String id) throws FileNotFoundException {
+		return dAOBasket.show(id);
+	}
+
+	public void delete(Vector<ELecture> lectures, String id) throws IOException {
+		// TODO Auto-generated method stub
+		dAOBasket.delete(lectures, id);
 	}
 
 }

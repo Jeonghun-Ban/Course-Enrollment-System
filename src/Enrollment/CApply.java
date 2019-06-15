@@ -14,13 +14,13 @@ public class CApply {
 		this.dAOApply = new DAOApply();
 	}
 	
-	public void add(String fileName, Vector<ELecture> lectures, String id) throws IOException {
+	public void add(Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
-		dAOApply.add(fileName, lectures, id);
+		dAOApply.add(lectures, id);
 	}
 	
-	public Vector<ELecture> show(String fileName, String id) throws FileNotFoundException {
-		return dAOApply.show(fileName, id);
+	public Vector<ELecture> show(String id) throws FileNotFoundException {
+		return dAOApply.show(id);
 	}
 
 }

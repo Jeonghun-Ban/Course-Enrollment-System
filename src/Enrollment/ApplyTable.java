@@ -35,7 +35,7 @@ public class ApplyTable extends JTable{
 		this.setModel(model);
 		
 		try {
-			storedLectures = cApply.show("apply", id);
+			storedLectures = cApply.show(id);
 			
 			for (ELecture lecture : storedLectures) {
 				Vector<String> row = new Vector<>();
