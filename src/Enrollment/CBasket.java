@@ -14,9 +14,9 @@ public class CBasket {
 		this.dAOBasket = new DAOBasket();
 	}
 	
-	public void add(Vector<ELecture> lectures, String id) throws IOException {
+	public void add(Vector<ELecture> lectures, Vector<ELecture> applyLectures, String id) throws IOException {
 		// TODO Auto-generated method stub
-		dAOBasket.add(lectures, id);
+		dAOBasket.add(lectures, applyLectures, id);
 	}
 	
 	public Vector<ELecture> show(String id) throws FileNotFoundException {

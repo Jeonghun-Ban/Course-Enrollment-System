@@ -14,9 +14,9 @@ public class CApply {
 		this.dAOApply = new DAOApply();
 	}
 	
-	public void add(Vector<ELecture> lectures, String id) throws IOException {
+	public void add(Vector<ELecture> lectures, Vector<ELecture> basketLectures, String id) throws IOException {
 		// TODO Auto-generated method stub
-		dAOApply.add(lectures, id);
+		dAOApply.add(lectures, basketLectures, id);
 	}
 	
 	public Vector<ELecture> show(String id) throws FileNotFoundException {

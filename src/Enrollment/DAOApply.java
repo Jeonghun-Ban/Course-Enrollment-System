@@ -13,7 +13,7 @@ public class DAOApply {
 
 	public Vector<ELecture> storedLectures = new Vector<>();
 
-	public void add(Vector<ELecture> lectures, String id) throws IOException {
+	public void add(Vector<ELecture> lectures, Vector<ELecture> basketLectures, String id) throws IOException {
 		// TODO Auto-generated method stub
 
 		// 중복 강의리스트 삭제
@@ -22,6 +22,16 @@ public class DAOApply {
 			for (int j = 0; j < lectures.size(); j++) {
 				ELecture lecture = lectures.get(j);
 				if (lecture.getNumber() == storedLecture.getNumber()) {
+					lectures.remove(lecture);
+				}
+			}
+		}
+		
+		for (int i = 0; i < basketLectures.size(); i++) {
+			ELecture basketLecture = basketLectures.get(i);
+			for (int j = 0; j < lectures.size(); j++) {
+				ELecture lecture = lectures.get(j);
+				if (lecture.getNumber() == basketLecture.getNumber()) {
 					lectures.remove(lecture);
 				}
 			}

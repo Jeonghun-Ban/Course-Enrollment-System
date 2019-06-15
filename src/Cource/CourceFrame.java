@@ -27,17 +27,18 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // 아이디
-	
+
 	private CBasket cBasket;
 	private CApply cApply;
-	
+
 	// 선택된 패널
 	private boolean lecture = false;
 	private boolean basket = false;
 	private boolean apply = false;
-	
+
 	// 선택한 강좌 리스트
 	Vector<ELecture> lectures;
+	Vector<ELecture> storedLectures;
 
 	public CourceFrame(String id) {
 		this.id = id;
@@ -69,25 +70,27 @@ public class CourceFrame extends JFrame {
 	public void addLectures(String opt) {
 		try {
 			if (opt.equals("basket")) {
-				if(lecture) {
+				if (lecture) {
 					lectures = this.selectionPanel.lecture.getSelectedLectures();
-				} else if(apply) {
+				} else if (apply) {
 					lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 					this.deleteLectures();
 				}
-				cBasket.add(lectures, id);
-				Vector<ELecture> storedLectures = cBasket.show(id);
+				Vector<ELecture> applyLectures = cApply.show(id);
+				cBasket.add(lectures, applyLectures, id);
+				storedLectures = cBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
-				
+
 			} else if (opt.equals("apply")) {
-				if(lecture) {
+				if (lecture) {
 					lectures = this.selectionPanel.lecture.getSelectedLectures();
-				} else if(basket) {
+				} else if (basket) {
 					lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 					this.deleteLectures();
 				}
-				cApply.add(lectures, id);
-				Vector<ELecture> storedLectures = cApply.show(id);
+				Vector<ELecture> basketLectures = cBasket.show(id);
+				cApply.add(lectures, basketLectures, id);
+				storedLectures = cApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
 
@@ -98,29 +101,28 @@ public class CourceFrame extends JFrame {
 	}
 
 	public void deleteLectures() {
-		
-		if(basket) {
+
+		if (basket) {
 			lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 			try {
 				cBasket.delete(lectures, id);
-				Vector<ELecture> storedLectures = cBasket.show(id);
+				storedLectures = cBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if(apply) {
+		} else if (apply) {
 			lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 			try {
 				cApply.delete(lectures, id);
-				Vector<ELecture> storedLectures = cApply.show(id);
+				storedLectures = cApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
 
 	}
 
@@ -128,15 +130,21 @@ public class CourceFrame extends JFrame {
 		if (source == this.selectionPanel.lecture) {
 			this.enrollmentPanel.basketTable.clearSelection();
 			this.enrollmentPanel.applyTable.clearSelection();
-			lecture = true; basket = false; apply = false;
+			lecture = true;
+			basket = false;
+			apply = false;
 		} else if (source == this.enrollmentPanel.basketTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.applyTable.clearSelection();
-			lecture = false; basket = true; apply = false;
+			lecture = false;
+			basket = true;
+			apply = false;
 		} else if (source == this.enrollmentPanel.applyTable) {
 			this.selectionPanel.lecture.clearSelection();
 			this.enrollmentPanel.basketTable.clearSelection();
-			lecture = false; basket = false; apply = true;
+			lecture = false;
+			basket = false;
+			apply = true;
 		}
 
 	}
