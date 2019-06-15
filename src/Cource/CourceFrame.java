@@ -31,9 +31,13 @@ public class CourceFrame extends JFrame {
 	private CBasket cBasket;
 	private CApply cApply;
 	
+	// 선택된 패널
 	private boolean lecture = false;
 	private boolean basket = false;
 	private boolean apply = false;
+	
+	// 선택한 강좌 리스트
+	Vector<ELecture> lectures;
 
 	public CourceFrame(String id) {
 		this.id = id;
@@ -66,25 +70,23 @@ public class CourceFrame extends JFrame {
 		try {
 			if (opt.equals("basket")) {
 				if(lecture) {
-					Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
-					cBasket.add(lectures, id);
+					lectures = this.selectionPanel.lecture.getSelectedLectures();
 				} else if(apply) {
-					Vector<ELecture> lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
-					cBasket.add(lectures, id);
+					lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 					this.deleteLectures();
 				}
+				cBasket.add(lectures, id);
 				Vector<ELecture> storedLectures = cBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 				
 			} else if (opt.equals("apply")) {
 				if(lecture) {
-					Vector<ELecture> lectures = this.selectionPanel.lecture.getSelectedLectures();
-					cApply.add(lectures, id);
+					lectures = this.selectionPanel.lecture.getSelectedLectures();
 				} else if(basket) {
-					Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
-					cApply.add(lectures, id);
+					lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 					this.deleteLectures();
 				}
+				cApply.add(lectures, id);
 				Vector<ELecture> storedLectures = cApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
@@ -98,7 +100,7 @@ public class CourceFrame extends JFrame {
 	public void deleteLectures() {
 		
 		if(basket) {
-			Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
+			lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 			try {
 				cBasket.delete(lectures, id);
 				Vector<ELecture> storedLectures = cBasket.show(id);
@@ -108,7 +110,7 @@ public class CourceFrame extends JFrame {
 				e.printStackTrace();
 			}
 		} else if(apply) {
-			Vector<ELecture> lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
+			lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 			try {
 				cApply.delete(lectures, id);
 				Vector<ELecture> storedLectures = cApply.show(id);
