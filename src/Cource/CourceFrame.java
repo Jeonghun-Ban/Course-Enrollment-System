@@ -71,6 +71,7 @@ public class CourceFrame extends JFrame {
 				} else if(apply) {
 					Vector<ELecture> lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 					cBasket.add(lectures, id);
+					this.deleteLectures();
 				}
 				Vector<ELecture> storedLectures = cBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
@@ -82,6 +83,7 @@ public class CourceFrame extends JFrame {
 				} else if(basket) {
 					Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 					cApply.add(lectures, id);
+					this.deleteLectures();
 				}
 				Vector<ELecture> storedLectures = cApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
@@ -97,8 +99,6 @@ public class CourceFrame extends JFrame {
 		
 		if(basket) {
 			Vector<ELecture> lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
-
-			System.out.println(lectures.get(0).getName());
 			try {
 				cBasket.delete(lectures, id);
 				Vector<ELecture> storedLectures = cBasket.show(id);
@@ -109,8 +109,6 @@ public class CourceFrame extends JFrame {
 			}
 		} else if(apply) {
 			Vector<ELecture> lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
-
-			System.out.println(lectures.get(0).getName());
 			try {
 				cApply.delete(lectures, id);
 				Vector<ELecture> storedLectures = cApply.show(id);

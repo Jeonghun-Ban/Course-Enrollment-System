@@ -16,6 +16,17 @@ public class DAOBasket {
 	public void add(Vector<ELecture> lectures, String id) throws IOException {
 		// TODO Auto-generated method stub
 
+		// 중복 강의리스트 삭제
+		for (int i = 0; i < storedLectures.size(); i++) {
+			ELecture storedLecture = storedLectures.get(i);
+			for (int j = 0; j < lectures.size(); j++) {
+				ELecture lecture = lectures.get(j);
+				if (lecture.getNumber() == storedLecture.getNumber()) {
+					lectures.remove(lecture);
+				}
+			}
+		}
+
 		// file write
 		FileWriter fw = new FileWriter("data/basket" + id, true);
 		for (ELecture lecture : lectures) {
@@ -40,17 +51,17 @@ public class DAOBasket {
 	}
 
 	public void delete(Vector<ELecture> lectures, String id) throws IOException {
+		// 선택한 객체 storedLectures에서 삭제
 		for (ELecture lecture : lectures) {
 			storedLectures.remove(lecture);
 		}
-		
+
 		FileWriter fw = new FileWriter("data/basket" + id, false);
 		for (ELecture storedLecture : storedLectures) {
-			fw.write(storedLecture.getNumber() + " " + storedLecture.getName() + " " + storedLecture.getProfessor() + " "
-					+ storedLecture.getCredit() + " " + storedLecture.getTime() + "\r\n");
+			fw.write(storedLecture.getNumber() + " " + storedLecture.getName() + " " + storedLecture.getProfessor()
+					+ " " + storedLecture.getCredit() + " " + storedLecture.getTime() + "\r\n");
 		}
 		fw.close();
 	}
-
 
 }
