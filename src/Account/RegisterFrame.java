@@ -1,15 +1,19 @@
 package Account;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -23,6 +27,7 @@ import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.Document;
 
 public class RegisterFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -46,11 +51,20 @@ public class RegisterFrame extends JFrame {
 
 		this.cLogin = cLogin;
 
-		this.setTitle("회원가입 폼");
+		this.setTitle("회원가입");
 		this.setSize(400, 545);
 		this.setLayout(new BorderLayout());
 
 		Font font = new Font("고딕", Font.BOLD, 15);
+		// 아이콘 이미지
+		File icon = new File("image/icon.gif");
+		try {
+			Image img = ImageIO.read(icon);
+			setIconImage(img);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		documentListener = new DocumentHandler();
 		actionListener = new ActionHandler();
@@ -94,9 +108,9 @@ public class RegisterFrame extends JFrame {
 		registerPanel.add(nameField);
 
 		submit = new JButton("제출");
-		submit.setEnabled(false);
-		submit.setActionCommand("sumbit");
+		submit.setActionCommand("submit");
 		submit.addActionListener(actionListener);
+		submit.setEnabled(false);
 
 		JScrollPane scrollpane = new JScrollPane();
 		scrollpane.setViewportView(this.registerPanel);
@@ -105,50 +119,60 @@ public class RegisterFrame extends JFrame {
 		this.add("South", submit);
 	}
 
-	public void changed() {
+	public void changed(Document document) {
 
-		id = idField.getText();
+		// 비밀번호 유효성 체크
+		if (document == rePwField.getDocument()) {
 
-		pw = "";
-		// password char[] to String
-		for (char cha : pwField.getPassword()) {
-			Character.toString(cha);
-			pw += cha;
-		}
+			pw = "";
+			for (char cha : pwField.getPassword()) {
+				Character.toString(cha);
+				pw += cha;
+			}
 
-		rePw = "";
-		// password char[] to String
-		for (char cha : rePwField.getPassword()) {
-			Character.toString(cha);
-			rePw += cha;
-		}
+			rePw = "";
+			for (char cha : rePwField.getPassword()) {
+				Character.toString(cha);
+				rePw += cha;
+			}
 
-		// 아이디 유효성 체크
-		if (!id.equals("")) {
+			if (pw.equals("") || rePw.equals("")) {
+				this.alert.setText("비밀번호를 입력하세요");
+				this.alert.setForeground(Color.RED);
+			} else if (pw.equals(rePw) && !rePw.equals("")) {
+				validPw = true;
+				this.alert.setText("올바른 비밀번호입니다.");
+				this.alert.setForeground(Color.BLACK);
+			} else if (!pw.equals(rePw) && !rePw.equals("")) {
+				validPw = false;
+				this.alert.setText("비밀번호가 같지 않습니다.");
+				this.alert.setForeground(Color.RED);
+			} else {
+				this.alert.setText(message);
+				this.alert.setForeground(Color.BLACK);
+			}
+		} // 아이디 유효성 체크
+		else if (document == idField.getDocument()) {
 			try {
-				validId = this.cLogin.validId(idField.getText());
-				if (!validId) {
+				id = idField.getText();
+				validId = this.cLogin.validId(id);
+				if (!validId && !id.equals("")) {
 					this.alert.setText("이미 존재하는 아이디입니다.");
+					this.alert.setForeground(Color.RED);
+				} else if (validId && !id.equals("")) {
+					this.alert.setText("올바른 아이디입니다.");
+					this.alert.setForeground(Color.BLACK);
 				} else {
 					this.alert.setText(message);
+					this.alert.setForeground(Color.BLACK);
 				}
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-
-		// 비밀번호 유효성 체크
-		if (!rePw.equals("")) {
-
-			if (pw.equals("")) {
-				this.alert.setText("비밀번호를 입력하세요");
-			} else if (pw.equals(rePw)) {
-				validPw = true;
-			} else {
-				validPw = false;
-				this.alert.setText("비밀번호가 같지 않습니다.");
-			}
+		} else {
+			this.alert.setText(message);
+			this.alert.setForeground(Color.BLACK);
 		}
 
 		// 아이디 비밀번호 모두 유효한 경우 버튼 활성화
@@ -182,19 +206,19 @@ public class RegisterFrame extends JFrame {
 		@Override
 		public void changedUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
-			changed();
+			changed(e.getDocument());
 		}
 
 		@Override
 		public void insertUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
-			changed();
+			changed(e.getDocument());
 		}
 
 		@Override
 		public void removeUpdate(DocumentEvent e) {
 			// TODO Auto-generated method stub
-			changed();
+			changed(e.getDocument());
 		}
 
 	}
