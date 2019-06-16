@@ -2,13 +2,16 @@ package Cource;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
 import java.io.IOException;
 import java.util.Vector;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Account.CLogin;
@@ -45,19 +48,29 @@ public class CourceFrame extends JFrame {
 	Vector<ELecture> storedLectures;
 
 	public CourceFrame(String id, CLogin cLogin, String name) {
-		
+
 		this.id = id;
 		this.name = name;
-		
+
 		cBasket = new CBasket();
 		cApply = new CApply();
 
 		this.setTitle("명지대학교 수강신청 시스템 | " + this.name + "님 안녕하세요?");
+		// 아이콘 이미지
+		File icon = new File("image/icon.gif");
+		try {
+			Image img = ImageIO.read(icon);
+			setIconImage(img);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		this.actionListener = new ActionHandler();
 		this.mouseListener = new MouseHandler();
 
 		this.greetPanel = new GreetPanel(name, actionListener);
-		this.greetPanel.setPreferredSize(new Dimension(1000,50));
+		this.greetPanel.setPreferredSize(new Dimension(1000, 50));
 		this.selectionPanel = new SelectionPanel(mouseListener);
 		this.selectionPanel.setPreferredSize(new Dimension(1000, 380));
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
@@ -172,7 +185,7 @@ public class CourceFrame extends JFrame {
 		}
 		dispose();
 	}
-	
+
 	private class ActionHandler implements ActionListener {
 
 		@Override
