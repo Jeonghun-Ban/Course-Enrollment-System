@@ -11,6 +11,7 @@ import java.util.Vector;
 
 import javax.swing.JFrame;
 
+import Account.CLogin;
 import Enrollment.CApply;
 import Enrollment.CBasket;
 import Enrollment.EnrollBtnPanel;
@@ -27,6 +28,7 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // 아이디
+	private String name;
 
 	private CBasket cBasket;
 	private CApply cApply;
@@ -40,12 +42,15 @@ public class CourceFrame extends JFrame {
 	Vector<ELecture> lectures;
 	Vector<ELecture> storedLectures;
 
-	public CourceFrame(String id) {
+	public CourceFrame(String id, CLogin cLogin, String name) {
+		
 		this.id = id;
+		this.name = name;
+		
 		cBasket = new CBasket();
 		cApply = new CApply();
 
-		this.setTitle("명지대학교 수강신청 시스템 | " + this.id + "님 안녕하세요?");
+		this.setTitle("명지대학교 수강신청 시스템 | " + this.name + "님 안녕하세요?");
 		this.actionListener = new ActionHandler();
 		this.mouseListener = new MouseHandler();
 

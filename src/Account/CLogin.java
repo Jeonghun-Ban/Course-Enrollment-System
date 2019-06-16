@@ -1,5 +1,6 @@
 package Account;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 public class CLogin {
 
@@ -13,6 +14,18 @@ public class CLogin {
 		this.eLogin.authenticate(userid, password);
 		return;
 		
+	}
+	
+	public String getName() {
+		return eLogin.getName();
+	}
+	
+	public void setOption(String opt, String id, String name) throws IOException {
+		eLogin.setOption(opt, id, name);
+	}
+	
+	public String[] getOption() throws FileNotFoundException {
+		return eLogin.getOption();
 	}
 	
 }

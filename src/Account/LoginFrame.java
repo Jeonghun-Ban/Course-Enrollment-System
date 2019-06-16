@@ -39,16 +39,19 @@ public class LoginFrame extends JFrame {
 	private JButton loginBtn, registerBtn;// 버튼
 	private JCheckBox checkId, checkLogin;
 	
-	private boolean idSelect, loginSelect;
+	private boolean idSelect;
 	private String[] option;
 	private CLogin cLogin;
+	private String name;
 
 	private ActionListener actionListener;
 	private CourceFrame courceFrame;
-
-	public LoginFrame() {
+	
+	public LoginFrame(CLogin cLogin) {
 		this.actionListener = new ActionHandler();
-		cLogin = new CLogin();
+		this.cLogin = cLogin;
+		this.name = cLogin.getName();
+		
 		try {
 			option = cLogin.getOption();
 		} catch (FileNotFoundException e1) {
@@ -88,10 +91,13 @@ public class LoginFrame extends JFrame {
 		idLb = new JLabel("   ID: ");
 		idLb.setFont(font);
 		idField = new JTextField(14);
-		if(option[0].equals("아이디")) {
+		
+		// 아이디가 저장되어 있는 경우, 아이디 불러오기
+		if(option[0].equals("아이디저장")) {
 			idField.setText(option[1]);
 			idSelect = true;
 		}
+		
 		textPanel.add(idLb);
 		textPanel.add(idField);
 		// pw
@@ -155,8 +161,15 @@ public class LoginFrame extends JFrame {
 				try {
 					cLogin.authenticate(id, pw);
 					// 로그인이 되었을 시 실행되는 코드
-					cLogin.setOption("아이디저장", id);
-					courceFrame = new CourceFrame(id, cLogin);
+					if(checkLogin.isSelected()) {
+						cLogin.setOption("자동로그인", id, name);
+					}else if(checkId.isSelected()) {
+						cLogin.setOption("아이디저장", id, "null");
+					}else {
+						cLogin.setOption("null", "null", "null");
+					}
+					
+					courceFrame = new CourceFrame(id, cLogin, name);
 					courceFrame.setVisible(true);
 					courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
