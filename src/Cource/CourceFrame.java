@@ -12,6 +12,7 @@ import java.util.Vector;
 import javax.swing.JFrame;
 
 import Account.CLogin;
+import Account.LoginFrame;
 import Enrollment.CApply;
 import Enrollment.CBasket;
 import Enrollment.EnrollBtnPanel;
@@ -21,6 +22,7 @@ public class CourceFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
 	// UI
+	private GreetPanel greetPanel;
 	public SelectionPanel selectionPanel;
 	private EnrollBtnPanel enrollBtnPanel;
 	private EnrollmentPanel enrollmentPanel;
@@ -54,6 +56,8 @@ public class CourceFrame extends JFrame {
 		this.actionListener = new ActionHandler();
 		this.mouseListener = new MouseHandler();
 
+		this.greetPanel = new GreetPanel(name, actionListener);
+		this.greetPanel.setPreferredSize(new Dimension(1000,50));
 		this.selectionPanel = new SelectionPanel(mouseListener);
 		this.selectionPanel.setPreferredSize(new Dimension(1000, 380));
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
@@ -61,6 +65,7 @@ public class CourceFrame extends JFrame {
 		this.enrollmentPanel = new EnrollmentPanel(id, cBasket, cApply, mouseListener);
 		this.enrollmentPanel.setPreferredSize(new Dimension(1000, 420));
 
+		this.add(greetPanel);
 		this.add(selectionPanel);
 		this.add(enrollBtnPanel);
 		this.add(enrollmentPanel);
@@ -154,6 +159,20 @@ public class CourceFrame extends JFrame {
 
 	}
 
+	public void logout() {
+		CLogin cLogin = new CLogin();
+		LoginFrame loginFrame = new LoginFrame(cLogin);
+		loginFrame.setVisible(true);
+		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		try {
+			cLogin.setOption("null", "null", "null");
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		dispose();
+	}
+	
 	private class ActionHandler implements ActionListener {
 
 		@Override
@@ -165,6 +184,8 @@ public class CourceFrame extends JFrame {
 				addLectures("apply");
 			} else if (e.getActionCommand() == "delete") {
 				deleteLectures();
+			} else if (e.getActionCommand() == "logout") {
+				logout();
 			}
 		}
 

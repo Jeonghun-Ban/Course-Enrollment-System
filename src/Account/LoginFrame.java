@@ -42,7 +42,6 @@ public class LoginFrame extends JFrame {
 	private boolean idSelect;
 	private String[] option;
 	private CLogin cLogin;
-	private String name;
 
 	private ActionListener actionListener;
 	private CourceFrame courceFrame;
@@ -50,7 +49,6 @@ public class LoginFrame extends JFrame {
 	public LoginFrame(CLogin cLogin) {
 		this.actionListener = new ActionHandler();
 		this.cLogin = cLogin;
-		this.name = cLogin.getName();
 		
 		try {
 			option = cLogin.getOption();
@@ -160,6 +158,7 @@ public class LoginFrame extends JFrame {
 
 				try {
 					cLogin.authenticate(id, pw);
+					String name = cLogin.getName();
 					// 로그인이 되었을 시 실행되는 코드
 					if(checkLogin.isSelected()) {
 						cLogin.setOption("자동로그인", id, name);
