@@ -21,7 +21,7 @@ public class DAOBasket {
 			ELecture storedLecture = storedLectures.get(i);
 			for (int j = 0; j < lectures.size(); j++) {
 				ELecture lecture = lectures.get(j);
-				if (lecture.getNumber() == storedLecture.getNumber()) {
+				if (lecture.getName().equals(storedLecture.getName())) {
 					lectures.remove(lecture);
 				}
 			}
@@ -31,7 +31,7 @@ public class DAOBasket {
 			ELecture applyLecture = applyLectures.get(i);
 			for (int j = 0; j < lectures.size(); j++) {
 				ELecture lecture = lectures.get(j);
-				if (lecture.getNumber() == applyLecture.getNumber()) {
+				if (lecture.getName().equals(applyLecture.getName())) {
 					lectures.remove(lecture);
 				}
 			}

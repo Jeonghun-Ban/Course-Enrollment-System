@@ -21,7 +21,7 @@ public class DAOApply {
 			ELecture storedLecture = storedLectures.get(i);
 			for (int j = 0; j < lectures.size(); j++) {
 				ELecture lecture = lectures.get(j);
-				if (lecture.getNumber() == storedLecture.getNumber()) {
+				if (lecture.getName().equals(storedLecture.getName())) {
 					lectures.remove(lecture);
 				}
 			}
@@ -31,7 +31,7 @@ public class DAOApply {
 			ELecture basketLecture = basketLectures.get(i);
 			for (int j = 0; j < lectures.size(); j++) {
 				ELecture lecture = lectures.get(j);
-				if (lecture.getNumber() == basketLecture.getNumber()) {
+				if (lecture.getName().equals(basketLecture.getName())) {
 					lectures.remove(lecture);
 				}
 			}
