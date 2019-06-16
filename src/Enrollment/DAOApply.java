@@ -14,7 +14,7 @@ import Cource.ELecture;
 public class DAOApply {
 
 	private Vector<ELecture> storedLectures = new Vector<>();
-	private boolean envalidLecture = false;
+	private boolean invalidLecture = false;
 
 	public void add(Vector<ELecture> lectures, Vector<ELecture> basketLectures, String id) throws IOException {
 		// TODO Auto-generated method stub
@@ -26,7 +26,7 @@ public class DAOApply {
 				ELecture lecture = lectures.get(j);
 				if (lecture.getName().equals(storedLecture.getName())) {
 					lectures.remove(lecture);
-					envalidLecture = true;
+					invalidLecture = true;
 				}
 			}
 		}
@@ -37,14 +37,15 @@ public class DAOApply {
 				ELecture lecture = lectures.get(j);
 				if (lecture.getName().equals(basketLecture.getName())) {
 					lectures.remove(lecture);
-					envalidLecture = true;
+					invalidLecture = true;
 				}
 			}
 		}
 
-		if(envalidLecture) {
+		if(invalidLecture) {
 			JOptionPane.showMessageDialog(null, "선택한 강좌 중에 이미 신청하거나 미리담은 강좌가 있습니다."
 					+ "\n(중복되지 않은 강좌가 있다면 정상적으로 추가됩니다.)", "중복된 강의 존재", JOptionPane.ERROR_MESSAGE);
+			invalidLecture = false;
 		}
 		
 		// file write
