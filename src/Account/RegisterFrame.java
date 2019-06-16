@@ -137,15 +137,15 @@ public class RegisterFrame extends JFrame {
 			}
 
 			if (pw.equals("") || rePw.equals("")) {
-				this.alert.setText("비밀번호를 입력하세요");
+				this.alert.setText("비밀번호를 입력해주세요");
 				this.alert.setForeground(Color.RED);
 			} else if (pw.equals(rePw) && !rePw.equals("")) {
 				validPw = true;
-				this.alert.setText("올바른 비밀번호입니다.");
+				this.alert.setText("비밀번호가 확인되었습니다.");
 				this.alert.setForeground(Color.BLACK);
 			} else if (!pw.equals(rePw) && !rePw.equals("")) {
 				validPw = false;
-				this.alert.setText("비밀번호가 같지 않습니다.");
+				this.alert.setText("비밀번호가 일치하지 않습니다.");
 				this.alert.setForeground(Color.RED);
 			} else {
 				this.alert.setText(message);
@@ -160,7 +160,7 @@ public class RegisterFrame extends JFrame {
 					this.alert.setText("이미 존재하는 아이디입니다.");
 					this.alert.setForeground(Color.RED);
 				} else if (validId && !id.equals("")) {
-					this.alert.setText("올바른 아이디입니다.");
+					this.alert.setText("사용 가능한 아이디입니다.");
 					this.alert.setForeground(Color.BLACK);
 				} else {
 					this.alert.setText(message);
