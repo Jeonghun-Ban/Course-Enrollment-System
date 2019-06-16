@@ -35,6 +35,22 @@ public class ELogin {
 			throw new InvalidUserException(); // throw
 	}
 
+	public boolean validId(String id) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		boolean valid = true;
+		Scanner scanner = new Scanner(new File("./data/login"));
+		
+		while(scanner.hasNext()) {
+			this.read(scanner);
+			if(this.userId.equals(id)) {
+				valid = false;
+				return valid;
+			}
+		}
+		valid = true;
+		return valid;
+	}
+	
 	public String getName() {
 		// TODO Auto-generated method stub
 		return name;
@@ -60,4 +76,12 @@ public class ELogin {
 		scanner.close();
 		return option;
 	}
+
+	public void addAccount(String id, String pw, String name) throws IOException {
+		// TODO Auto-generated method stub
+		FileWriter fw = new FileWriter("data/login", true);
+		fw.write(id+" "+pw+" "+name+"\r\n");
+		fw.close();
+	}
+
 }

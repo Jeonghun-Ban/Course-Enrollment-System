@@ -16,6 +16,10 @@ public class CLogin {
 		
 	}
 	
+	public boolean validId(String id) throws FileNotFoundException {
+		return eLogin.validId(id);
+	}
+	
 	public String getName() {
 		return eLogin.getName();
 	}
@@ -26,6 +30,10 @@ public class CLogin {
 	
 	public String[] getOption() throws FileNotFoundException {
 		return eLogin.getOption();
+	}
+	
+	public void addAccount(String id, String pw, String name) throws IOException {
+		eLogin.addAccount(id, pw, name);
 	}
 	
 }

@@ -6,6 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -45,6 +46,7 @@ public class LoginFrame extends JFrame {
 
 	private ActionListener actionListener;
 	private CourceFrame courceFrame;
+	private RegisterFrame registerFrame;
 	
 	public LoginFrame(CLogin cLogin) {
 		this.actionListener = new ActionHandler();
@@ -124,6 +126,8 @@ public class LoginFrame extends JFrame {
 		loginBtn.setPreferredSize(new Dimension(100, 50));
 
 		registerBtn = new JButton("회원가입");
+		registerBtn.setActionCommand("register");
+		registerBtn.addActionListener(actionListener);
 		registerBtn.setBorderPainted(false);
 		registerBtn.setContentAreaFilled(false);
 		registerBtn.setFocusPainted(false);
@@ -179,6 +183,12 @@ public class LoginFrame extends JFrame {
 					label.setForeground(Color.RED);
 				}
 
+			} else if(e.getActionCommand() == "register") {
+				registerFrame = new RegisterFrame(cLogin);
+				registerFrame.setVisible(true);
+				Point point = getLocation();
+				registerFrame.setLocation(point.x+390, point.y);
+				
 			}
 		}
 
