@@ -36,16 +36,8 @@ public class ApplyTable extends JTable{
 		
 		try {
 			lectures = cApply.show(id);
+			this.refresh(lectures);
 			
-			for (ELecture lecture : lectures) {
-				Vector<String> row = new Vector<>();
-				row.add(Integer.toString(lecture.getNumber()));
-				row.add(lecture.getName());
-				row.add(lecture.getProfessor());
-				row.add(Integer.toString(lecture.getCredit()));
-				row.add(lecture.getTime());
-				this.model.addRow(row);
-			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,6 +69,7 @@ public class ApplyTable extends JTable{
 			row.add(Integer.toString(lecture.getCredit()));
 			row.add(lecture.getTime());
 			this.model.addRow(row);
+			this.setAutoCreateRowSorter(true);
 		}
 		
 		this.updateUI();

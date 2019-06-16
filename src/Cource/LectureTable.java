@@ -59,6 +59,7 @@ public class LectureTable extends JTable {
 			row.add(Integer.toString(eLecture.getCredit()));
 			row.add(eLecture.getTime());
 			this.model.addRow(row);
+			this.setAutoCreateRowSorter(true);
 		}
 
 		this.updateUI();
