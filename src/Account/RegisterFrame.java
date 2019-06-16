@@ -6,6 +6,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
@@ -158,10 +159,17 @@ public class RegisterFrame extends JFrame {
 		System.out.println(name);
 		try {
 			cLogin.addAccount(id, pw, name);
+			
+			// 회원가입한 사용자의 파일 생성
+			FileWriter basket = new FileWriter("data/basket" + id, false);
+			basket.close();
+			FileWriter apply = new FileWriter("data/apply" + id, false);
+			apply.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 	}
 
 	private class DocumentHandler implements DocumentListener {
