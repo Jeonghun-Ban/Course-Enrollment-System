@@ -5,18 +5,21 @@ import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.KeyStroke;
 import javax.swing.SwingConstants;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -26,7 +29,7 @@ public class RegisterFrame extends JFrame {
 
 	private JTextField idField, nameField;
 	private JPasswordField pwField, rePwField;
-	private JButton confirm;
+	private JButton submit;
 	private JLabel idLabel, pwLabel, rePwLabel, nameLabel, alert;
 	private JPanel registerPanel;
 
@@ -76,6 +79,8 @@ public class RegisterFrame extends JFrame {
 		// name
 		nameLabel = new JLabel("이름");
 		nameField = new JTextField();
+		nameField.registerKeyboardAction(this.actionListener, "submit", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
+				JComponent.WHEN_FOCUSED);
 		nameField.getDocument().addDocumentListener(documentListener);
 
 		// add component in registerPanel
@@ -88,21 +93,22 @@ public class RegisterFrame extends JFrame {
 		registerPanel.add(nameLabel);
 		registerPanel.add(nameField);
 
-		confirm = new JButton("제출");
-		confirm.setEnabled(false);
-		confirm.addActionListener(actionListener);
+		submit = new JButton("제출");
+		submit.setEnabled(false);
+		submit.setActionCommand("sumbit");
+		submit.addActionListener(actionListener);
 
 		JScrollPane scrollpane = new JScrollPane();
 		scrollpane.setViewportView(this.registerPanel);
 		this.add("North", alert);
 		this.add(scrollpane);
-		this.add("South", confirm);
+		this.add("South", submit);
 	}
 
 	public void changed() {
 
 		id = idField.getText();
-		
+
 		pw = "";
 		// password char[] to String
 		for (char cha : pwField.getPassword()) {
@@ -147,19 +153,18 @@ public class RegisterFrame extends JFrame {
 
 		// 아이디 비밀번호 모두 유효한 경우 버튼 활성화
 		if (validPw && validId && !nameField.getText().equals("")) {
-			confirm.setEnabled(true);
+			submit.setEnabled(true);
 		} else {
-			confirm.setEnabled(false);
+			submit.setEnabled(false);
 		}
 	}
 
 	public void addAccount() {
 		// TODO Auto-generated method stub
 		name = nameField.getText();
-		System.out.println(name);
 		try {
 			cLogin.addAccount(id, pw, name);
-			
+
 			// 회원가입한 사용자의 파일 생성
 			FileWriter basket = new FileWriter("data/basket" + id, false);
 			basket.close();
@@ -169,7 +174,7 @@ public class RegisterFrame extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private class DocumentHandler implements DocumentListener {
@@ -199,8 +204,11 @@ public class RegisterFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			addAccount();
-			dispose();
+			if (e.getActionCommand() == "submit") {
+				addAccount();
+				dispose();
+			}
+
 		}
 
 	}
