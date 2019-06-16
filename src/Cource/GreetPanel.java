@@ -15,6 +15,7 @@ public class GreetPanel extends JPanel{
 	public GreetPanel(String name, ActionListener actionListener) {
 		greet = new JLabel("안녕하세요? "+name+"님 명지대학교 수강신청 시스템입니다.");
 		logout = new JButton("로그아웃");
+		logout.setFocusPainted(false);
 		logout.setActionCommand("logout");
 		logout.addActionListener(actionListener);
 		
