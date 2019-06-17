@@ -31,6 +31,9 @@ public class ApplyTable extends JTable{
 				return false;
 			}
 		};
+		
+		this.getTableHeader().setReorderingAllowed(false); // 컬럼 이동 금지
+		this.getTableHeader().setResizingAllowed(false); // 컬럼 사이즈 조정 금지
 
 		this.setModel(model);
 		
