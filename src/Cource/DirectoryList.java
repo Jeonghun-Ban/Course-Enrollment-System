@@ -1,6 +1,5 @@
 package Cource;
 
-import java.awt.Dimension;
 import java.io.FileNotFoundException;
 import java.util.Vector;
 
@@ -16,7 +15,6 @@ public class DirectoryList extends JList<String> {
 	Vector<String> listData;
 	
 	public DirectoryList(ListSelectionListener listSelectionListener) {
-		this.setPreferredSize(new Dimension(150,150));
 		this.cDirectory = new CDirectory();
 		
 		this.listData= new Vector<String>();

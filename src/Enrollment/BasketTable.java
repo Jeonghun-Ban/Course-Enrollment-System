@@ -1,5 +1,6 @@
 package Enrollment;
 
+import java.awt.Color;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 import java.util.Vector;
@@ -36,6 +37,7 @@ public class BasketTable extends JTable {
 		this.getTableHeader().setResizingAllowed(false); // 컬럼 사이즈 조정 금지
 
 		this.setModel(model);
+		this.setBackground(Color.LIGHT_GRAY);
 		
 		try {
 			lectures = cBasket.show(id);

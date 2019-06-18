@@ -1,5 +1,6 @@
 package Cource;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -55,7 +56,7 @@ public class CourceFrame extends JFrame {
 		cBasket = new CBasket();
 		cApply = new CApply();
 
-		this.setTitle("명지대학교 수강신청 시스템 | " + this.name + "님 안녕하세요?");
+		this.setTitle("명지대학교 수강신청 시스템");
 		// 아이콘 이미지
 		File icon = new File("image/icon.gif");
 		try {
@@ -65,25 +66,27 @@ public class CourceFrame extends JFrame {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
+	
 		this.actionListener = new ActionHandler();
 		this.mouseListener = new MouseHandler();
 
 		this.greetPanel = new GreetPanel(name, actionListener);
 		this.greetPanel.setPreferredSize(new Dimension(1000, 50));
 		this.selectionPanel = new SelectionPanel(mouseListener);
-		this.selectionPanel.setPreferredSize(new Dimension(1000, 380));
+		this.selectionPanel.setPreferredSize(new Dimension(1000, 370));
+		this.enrollmentPanel = new EnrollmentPanel(id, cBasket, cApply, mouseListener);
+		this.enrollmentPanel.setPreferredSize(new Dimension(600, 460));
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
 		this.enrollBtnPanel.setPreferredSize(new Dimension(1000, 50));
-		this.enrollmentPanel = new EnrollmentPanel(id, cBasket, cApply, mouseListener);
-		this.enrollmentPanel.setPreferredSize(new Dimension(1000, 420));
-
-		this.add(greetPanel);
-		this.add(selectionPanel);
-		this.add(enrollBtnPanel);
-		this.add(enrollmentPanel);
 
 		this.setLayout(new FlowLayout());
+		
+		this.add(greetPanel);
+		this.add(selectionPanel);
+		this.add(enrollmentPanel);
+		this.add(enrollBtnPanel);
+
+		
 		this.setSize(1200, 1000); // x,y축
 		this.setMinimumSize(new Dimension(650, 0));
 		this.setLocationRelativeTo(null);

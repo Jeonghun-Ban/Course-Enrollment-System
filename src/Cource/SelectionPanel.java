@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -16,26 +17,30 @@ public class SelectionPanel extends JPanel {
 	private DirectoryList college;
 	private DirectoryList department;
 	public LectureTable lecture;
+	
 	private ListSelectionListener listSelectionListener;
 
 	public SelectionPanel(MouseListener mouseListener) {
 		this.listSelectionListener = new ListSelectionHandler();
-
+		
 		JScrollPane scrollpane = new JScrollPane();
 		this.campus = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.campus);
+		scrollpane.setPreferredSize(new Dimension(195,150));
 		this.add(scrollpane);
 
 		scrollpane = new JScrollPane();
 		this.college = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.college);
+		scrollpane.setPreferredSize(new Dimension(195,150));
 		this.add(scrollpane);
 
 		scrollpane = new JScrollPane();
 		this.department = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.department);
+		scrollpane.setPreferredSize(new Dimension(195,150));
 		this.add(scrollpane);
-
+		
 		scrollpane = new JScrollPane();
 		this.lecture = new LectureTable(mouseListener);
 		scrollpane.setViewportView(this.lecture);
