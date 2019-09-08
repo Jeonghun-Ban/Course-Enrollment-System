@@ -1,10 +1,25 @@
 Course-Enrollment-System
 ---
+Project in Myongji University major course
+(procedural thinking and programming).
+
 ![version](https://img.shields.io/badge/Version-1.5.0-green.svg)
 ![language](https://img.shields.io/badge/Language-Java-Orange.svg)
 ![swing](https://img.shields.io/badge/GUI-Swing-Blue.svg)
 
-#### Info
-명지대학교 융합소프트웨어학부 전공수업(절차적사고와 프로그래밍)에서 진행한 프로젝트입니다.
+### Info
+This Project was implemented in the Java language and Swing GUI.
 
-학교의 수강신청시스템을 자바 언어로 구현하였습니다.
+### Function
+- Login
+  - remember ID
+  - auto login
+  - register
+  
+- Enrollment
+  - look up subjects
+  - add selected subjects to cart 
+  - apply for selected subjects
+  - remove subjects in cart or application
+  - move subjects in cart to application or vice versa
+  - save enrollment data by id
