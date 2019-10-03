@@ -1,4 +1,4 @@
-package Enrollment;
+ï»¿package Enrollment;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -19,7 +19,7 @@ public class DAOBasket {
 	public void add(Vector<ELecture> lectures, Vector<ELecture> applyLectures, String id) throws IOException {
 		// TODO Auto-generated method stub
 
-		// Áßº¹ °­ÀÇ¸®½ºÆ® »èÁ¦
+		// ì¤‘ë³µ ê°•ì˜ë¦¬ìŠ¤íŠ¸ ì‚­ì œ
 		for (int i = 0; i < storedLectures.size(); i++) {
 			ELecture storedLecture = storedLectures.get(i);
 			for (int j = 0; j < lectures.size(); j++) {
@@ -43,8 +43,8 @@ public class DAOBasket {
 		}
 
 		if(invalidLecture) {
-			JOptionPane.showMessageDialog(null, "¼±ÅÃÇÑ °­ÁÂ Áß¿¡ ÀÌ¹Ì ½ÅÃ»ÇÏ°Å³ª ¹Ì¸®´ãÀº °­ÁÂ°¡ ÀÖ½À´Ï´Ù."
-					+ "\n(Áßº¹µÇÁö ¾ÊÀº °­ÁÂ°¡ ÀÖ´Ù¸é Á¤»óÀûÀ¸·Î Ãß°¡µË´Ï´Ù.)", "Áßº¹µÈ °­ÀÇ Á¸Àç", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(null, "ì„ íƒí•œ ê°•ì¢Œ ì¤‘ì— ì´ë¯¸ ì‹ ì²­í•˜ê±°ë‚˜ ë¯¸ë¦¬ë‹´ì€ ê°•ì¢Œê°€ ìˆìŠµë‹ˆë‹¤."
+					+ "\n(ì¤‘ë³µë˜ì§€ ì•Šì€ ê°•ì¢Œê°€ ìˆë‹¤ë©´ ì •ìƒì ìœ¼ë¡œ ì¶”ê°€ë©ë‹ˆë‹¤.)", "ì¤‘ë³µëœ ê°•ì˜ ì¡´ì¬", JOptionPane.ERROR_MESSAGE);
 			invalidLecture = false;
 		}
 		
@@ -72,7 +72,7 @@ public class DAOBasket {
 	}
 
 	public void delete(Vector<ELecture> lectures, String id) throws IOException {
-		// ¼±ÅÃÇÑ °´Ã¼ storedLectures¿¡¼­ »èÁ¦
+		// ì„ íƒí•œ ê°ì²´ storedLecturesì—ì„œ ì‚­ì œ
 		for (ELecture lecture : lectures) {
 			storedLectures.remove(lecture);
 		}

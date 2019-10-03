@@ -1,4 +1,4 @@
-package Enrollment;
+ï»¿package Enrollment;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -19,7 +19,7 @@ public class EnrollmentPanel extends JPanel{
 		
 		this.setLayout(new FlowLayout());
 		
-		basket = new JLabel("Àå¹Ù±¸´Ï");
+		basket = new JLabel("ìž¥ë°”êµ¬ë‹ˆ");
 		this.add(basket);
 		
 		JScrollPane scrollpane = new JScrollPane();
@@ -28,7 +28,7 @@ public class EnrollmentPanel extends JPanel{
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);
 		
-		apply = new JLabel("¼ö°­½ÅÃ»");
+		apply = new JLabel("ìˆ˜ê°•ì‹ ì²­");
 		this.add(apply);
 		
 		scrollpane = new JScrollPane();

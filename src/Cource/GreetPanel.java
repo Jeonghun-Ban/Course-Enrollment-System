@@ -1,4 +1,4 @@
-package Cource;
+ï»¿package Cource;
 
 import java.awt.event.ActionListener;
 
@@ -14,8 +14,8 @@ public class GreetPanel extends JPanel{
 	
 	public GreetPanel(String name, ActionListener actionListener) {
 		
-		greet = new JLabel("¾È³çÇÏ¼¼¿ä? "+name+"´Ô ¸íÁö´ëÇĞ±³ ¼ö°­½ÅÃ» ½Ã½ºÅÛÀÔ´Ï´Ù.");
-		logout = new JButton("·Î±×¾Æ¿ô");
+		greet = new JLabel("ì•ˆë…•í•˜ì„¸ìš”? "+name+"ë‹˜ ëª…ì§€ëŒ€í•™êµ ìˆ˜ê°•ì‹ ì²­ ì‹œìŠ¤í…œì…ë‹ˆë‹¤.");
+		logout = new JButton("ë¡œê·¸ì•„ì›ƒ");
 		logout.setFocusPainted(false);
 		logout.setActionCommand("logout");
 		logout.addActionListener(actionListener);

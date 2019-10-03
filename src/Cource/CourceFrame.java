@@ -1,4 +1,4 @@
-package Cource;
+ï»¿package Cource;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,18 +33,18 @@ public class CourceFrame extends JFrame {
 	private ActionListener actionListener;
 	private MouseListener mouseListener;
 
-	private String id; // ¾ÆÀÌµğ
+	private String id; // ì•„ì´ë””
 	private String name;
 
 	private CBasket cBasket;
 	private CApply cApply;
 
-	// ¼±ÅÃµÈ ÆĞ³Î
+	// ì„ íƒëœ íŒ¨ë„
 	private boolean lecture = false;
 	private boolean basket = false;
 	private boolean apply = false;
 
-	// ¼±ÅÃÇÑ °­ÁÂ ¸®½ºÆ®
+	// ì„ íƒí•œ ê°•ì¢Œ ë¦¬ìŠ¤íŠ¸
 	Vector<ELecture> lectures;
 	Vector<ELecture> storedLectures;
 
@@ -56,8 +56,8 @@ public class CourceFrame extends JFrame {
 		cBasket = new CBasket();
 		cApply = new CApply();
 
-		this.setTitle("¸íÁö´ëÇĞ±³ ¼ö°­½ÅÃ» ½Ã½ºÅÛ");
-		// ¾ÆÀÌÄÜ ÀÌ¹ÌÁö
+		this.setTitle("ëª…ì§€ëŒ€í•™êµ ìˆ˜ê°•ì‹ ì²­ ì‹œìŠ¤í…œ");
+		// ì•„ì´ì½˜ ì´ë¯¸ì§€
 		File icon = new File("image/icon.gif");
 		try {
 			Image img = ImageIO.read(icon);
@@ -87,7 +87,7 @@ public class CourceFrame extends JFrame {
 		this.add(enrollBtnPanel);
 
 		
-		this.setSize(1200, 1000); // x,yÃà
+		this.setSize(1200, 1000); // x,yì¶•
 		this.setMinimumSize(new Dimension(650, 0));
 		this.setLocationRelativeTo(null);
 

@@ -1,4 +1,4 @@
-package main;
+ï»¿package main;
 
 import java.io.FileNotFoundException;
 
@@ -27,7 +27,7 @@ public class Main {
 			e1.printStackTrace();
 		}
 		
-		if(option[0].equals("ÀÚµ¿·Î±×ÀÎ")) {
+		if(option[0].equals("ìë™ë¡œê·¸ì¸")) {
 			courceFrame = new CourceFrame(option[1], cLogin, option[2]);
 			courceFrame.setVisible(true);
 			courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

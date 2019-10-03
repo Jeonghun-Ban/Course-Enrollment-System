@@ -1,4 +1,4 @@
-package Cource;
+ï»¿package Cource;
 
 import java.awt.Color;
 import java.awt.event.MouseListener;
@@ -14,7 +14,7 @@ public class LectureTable extends JTable {
 	private CLecture cLecture;
 	private Vector<ELecture> eLectures;
 	// model
-	String[] header = { "°­ÁÂ¹øÈ£", "°­ÁÂ¸í", "±³¼ö¸í", "ÇĞÁ¡", "½Ã°£"};
+	String[] header = { "ê°•ì¢Œë²ˆí˜¸", "ê°•ì¢Œëª…", "êµìˆ˜ëª…", "í•™ì ", "ì‹œê°„"};
 	private DefaultTableModel model;
 
 	public LectureTable(MouseListener mouseListener) {
@@ -25,7 +25,7 @@ public class LectureTable extends JTable {
 		this.cLecture = new CLecture();
 		// set model
 		this.model = new DefaultTableModel(null, header) {
-			// ¼öÁ¤ ±İÁö ±â´É
+			// ìˆ˜ì • ê¸ˆì§€ ê¸°ëŠ¥
 			private static final long serialVersionUID = 1L;
 
 			public boolean isCellEditable(int rowIndex, int colIndex) {
@@ -33,8 +33,8 @@ public class LectureTable extends JTable {
 			}
 		};
 		
-		this.getTableHeader().setReorderingAllowed(false); // ÄÃ·³ ÀÌµ¿ ±İÁö
-		this.getTableHeader().setResizingAllowed(false); // ÄÃ·³ »çÀÌÁî Á¶Á¤ ±İÁö
+		this.getTableHeader().setReorderingAllowed(false); // ì»¬ëŸ¼ ì´ë™ ê¸ˆì§€
+		this.getTableHeader().setResizingAllowed(false); // ì»¬ëŸ¼ ì‚¬ì´ì¦ˆ ì¡°ì • ê¸ˆì§€
 		
 		this.setModel(model);
 		this.setBackground(Color.LIGHT_GRAY);

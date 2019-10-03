@@ -1,10 +1,10 @@
-package Account;
+ï»¿package Account;
 
 public class InvalidUserException extends Exception {
 	private static final long serialVersionUID = 1L;
 	
 	public InvalidUserException() {
-		super("À¯È¿ÇÏÁö ¾ÊÀº »ç¿ëÀÚÀÔ´Ï´Ù.");
+		super("ìœ íš¨í•˜ì§€ ì•Šì€ ì‚¬ìš©ìì…ë‹ˆë‹¤.");
 	}
 	
 }

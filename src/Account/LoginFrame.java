@@ -1,4 +1,4 @@
-package Account;
+ï»¿package Account;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -33,8 +33,8 @@ public class LoginFrame extends JFrame {
 	private JLabel label, image, idLb, pwLb;
 	private JTextField idField;
 	private JPasswordField pwField;
-	private JPanel textPanel, checkPanel;// ÆĞ³Î...
-	private JButton loginBtn, registerBtn;// ¹öÆ°
+	private JPanel textPanel, checkPanel;// íŒ¨ë„...
+	private JButton loginBtn, registerBtn;// ë²„íŠ¼
 	private JCheckBox checkId, checkLogin;
 	
 	private boolean idSelect;
@@ -56,13 +56,13 @@ public class LoginFrame extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		this.setTitle("·Î±×ÀÎ");
+		this.setTitle("ë¡œê·¸ì¸");
 		this.setLayout(new FlowLayout());
 
-		// ÆùÆ®
-		Font font = new Font("°íµñ", Font.TRUETYPE_FONT, 15);
+		// í°íŠ¸
+		Font font = new Font("ê³ ë”•", Font.TRUETYPE_FONT, 15);
 
-		// ¾ÆÀÌÄÜ ÀÌ¹ÌÁö
+		// ì•„ì´ì½˜ ì´ë¯¸ì§€
 		File icon = new File("image/icon.gif");
 		try {
 			Image img = ImageIO.read(icon);
@@ -72,15 +72,15 @@ public class LoginFrame extends JFrame {
 			e.printStackTrace();
 		}
 
-		// ·Î°í ÀÌ¹ÌÁö
+		// ë¡œê³  ì´ë¯¸ì§€
 		ImageIcon logo = new ImageIcon("image/logo.jfif");
 		Image logoImg = logo.getImage();
 		Image setSizeImg = logoImg.getScaledInstance(350, 350, Image.SCALE_SMOOTH);
 		ImageIcon newLogo = new ImageIcon(setSizeImg);
 		image = new JLabel(newLogo);
 
-		// ¶óº§
-		label = new JLabel("ID¿Í PW¸¦ ÀÔ·ÂÇÏ¼¼¿ä.");
+		// ë¼ë²¨
+		label = new JLabel("IDì™€ PWë¥¼ ì…ë ¥í•˜ì„¸ìš”.");
 		label.setFont(font);
 
 		textPanel = new JPanel();
@@ -89,8 +89,8 @@ public class LoginFrame extends JFrame {
 		idLb.setFont(font);
 		idField = new JTextField(14);
 		
-		// ¾ÆÀÌµğ°¡ ÀúÀåµÇ¾î ÀÖ´Â °æ¿ì, ¾ÆÀÌµğ ºÒ·¯¿À±â
-		if(option[0].equals("¾ÆÀÌµğÀúÀå")) {
+		// ì•„ì´ë””ê°€ ì €ì¥ë˜ì–´ ìˆëŠ” ê²½ìš°, ì•„ì´ë”” ë¶ˆëŸ¬ì˜¤ê¸°
+		if(option[0].equals("ì•„ì´ë””ì €ì¥")) {
 			idField.setText(option[1]);
 			idSelect = true;
 		}
@@ -108,28 +108,28 @@ public class LoginFrame extends JFrame {
 
 		textPanel.setPreferredSize(new Dimension(220, 60));
 
-		// Ã¼Å©¹Ú½º
+		// ì²´í¬ë°•ìŠ¤
 		checkPanel = new JPanel();
-		checkId = new JCheckBox("¾ÆÀÌµğ ÀúÀå");
-		checkLogin = new JCheckBox("·Î±×ÀÎ Á¤º¸ ÀúÀå");
+		checkId = new JCheckBox("ì•„ì´ë”” ì €ì¥");
+		checkLogin = new JCheckBox("ë¡œê·¸ì¸ ì •ë³´ ì €ì¥");
 		checkId.setSelected(idSelect);
 		checkPanel.add(checkId);
 		checkPanel.add(checkLogin);
 
-		// ·Î±×ÀÎ È¸¿ø°¡ÀÔ ÆĞ³Î
-		loginBtn = new JButton("·Î±×ÀÎ");
+		// ë¡œê·¸ì¸ íšŒì›ê°€ì… íŒ¨ë„
+		loginBtn = new JButton("ë¡œê·¸ì¸");
 		loginBtn.setActionCommand("login");
 		loginBtn.addActionListener(actionListener);
 		loginBtn.setPreferredSize(new Dimension(100, 50));
 
-		registerBtn = new JButton("È¸¿ø°¡ÀÔ");
+		registerBtn = new JButton("íšŒì›ê°€ì…");
 		registerBtn.setActionCommand("register");
 		registerBtn.addActionListener(actionListener);
 		registerBtn.setBorderPainted(false);
 		registerBtn.setContentAreaFilled(false);
 		registerBtn.setFocusPainted(false);
 
-		// ÇÁ·¹ÀÓ¿¡ ÄÄÆ÷³ÍÆ® Ãß°¡
+		// í”„ë ˆì„ì— ì»´í¬ë„ŒíŠ¸ ì¶”ê°€
 		this.add(image);
 		this.add(textPanel);
 		this.add(loginBtn);
@@ -137,7 +137,7 @@ public class LoginFrame extends JFrame {
 		this.add(registerBtn);
 		this.add(label);
 
-		this.setSize(400, 540); // x,yÃà
+		this.setSize(400, 540); // x,yì¶•
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 
@@ -160,11 +160,11 @@ public class LoginFrame extends JFrame {
 				try {
 					cLogin.authenticate(id, pw);
 					String name = cLogin.getName();
-					// ·Î±×ÀÎÀÌ µÇ¾úÀ» ½Ã ½ÇÇàµÇ´Â ÄÚµå
+					// ë¡œê·¸ì¸ì´ ë˜ì—ˆì„ ì‹œ ì‹¤í–‰ë˜ëŠ” ì½”ë“œ
 					if(checkLogin.isSelected()) {
-						cLogin.setOption("ÀÚµ¿·Î±×ÀÎ", id, name);
+						cLogin.setOption("ìë™ë¡œê·¸ì¸", id, name);
 					}else if(checkId.isSelected()) {
-						cLogin.setOption("¾ÆÀÌµğÀúÀå", id, "null");
+						cLogin.setOption("ì•„ì´ë””ì €ì¥", id, "null");
 					}else {
 						cLogin.setOption("null", "null", "null");
 					}

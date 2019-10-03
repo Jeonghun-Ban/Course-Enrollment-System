@@ -1,4 +1,4 @@
-package Account;
+Ôªøpackage Account;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -69,7 +69,7 @@ public class ELogin {
 		option = new String[3];
 		
 		while(scanner.hasNext()) {
-			option[0] = scanner.next(); // ∑Œ±◊¿Œ ø…º«
+			option[0] = scanner.next(); // Î°úÍ∑∏Ïù∏ ÏòµÏÖò
 			option[1] = scanner.next(); // id
 			option[2] = scanner.next(); // names
 		}

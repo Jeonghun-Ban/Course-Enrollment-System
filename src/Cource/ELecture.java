@@ -1,4 +1,4 @@
-package Cource;
+﻿package Cource;
 
 import java.util.Scanner;
 

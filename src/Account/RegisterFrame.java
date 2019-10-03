@@ -1,4 +1,4 @@
-package Account;
+ï»¿package Account;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -42,7 +42,7 @@ public class RegisterFrame extends JFrame {
 	private ActionListener actionListener;
 
 	private CLogin cLogin;
-	String message = "¾Æ·¡ ÆûÀ» ¸ğµÎ ÀÔ·ÂÇØÁÖ¼¼¿ä.";
+	String message = "ì•„ë˜ í¼ì„ ëª¨ë‘ ì…ë ¥í•´ì£¼ì„¸ìš”.";
 	String id, pw, rePw, name;
 
 	private boolean validId, validPw;
@@ -51,12 +51,12 @@ public class RegisterFrame extends JFrame {
 
 		this.cLogin = cLogin;
 
-		this.setTitle("È¸¿ø°¡ÀÔ");
+		this.setTitle("íšŒì›ê°€ì…");
 		this.setSize(400, 545);
 		this.setLayout(new BorderLayout());
 
-		Font font = new Font("°íµñ", Font.BOLD, 15);
-		// ¾ÆÀÌÄÜ ÀÌ¹ÌÁö
+		Font font = new Font("ê³ ë”•", Font.BOLD, 15);
+		// ì•„ì´ì½˜ ì´ë¯¸ì§€
 		File icon = new File("image/icon.gif");
 		try {
 			Image img = ImageIO.read(icon);
@@ -77,21 +77,21 @@ public class RegisterFrame extends JFrame {
 		registerPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 		registerPanel.setLayout(new GridLayout(12, 1));
 
-		// id ÆĞ³Î
-		idLabel = new JLabel("¾ÆÀÌµğ");
+		// id íŒ¨ë„
+		idLabel = new JLabel("ì•„ì´ë””");
 		idField = new JTextField();
 		idField.getDocument().addDocumentListener(documentListener);
 
 		// pw
-		pwLabel = new JLabel("ºñ¹Ğ¹øÈ£");
+		pwLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸");
 		pwField = new JPasswordField();
 		pwField.getDocument().addDocumentListener(documentListener);
-		rePwLabel = new JLabel("ºñ¹Ğ¹øÈ£ È®ÀÎ");
+		rePwLabel = new JLabel("ë¹„ë°€ë²ˆí˜¸ í™•ì¸");
 		rePwField = new JPasswordField();
 		rePwField.getDocument().addDocumentListener(documentListener);
 
 		// name
-		nameLabel = new JLabel("ÀÌ¸§");
+		nameLabel = new JLabel("ì´ë¦„");
 		nameField = new JTextField();
 		nameField.registerKeyboardAction(this.actionListener, "submit", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
 				JComponent.WHEN_FOCUSED);
@@ -107,7 +107,7 @@ public class RegisterFrame extends JFrame {
 		registerPanel.add(nameLabel);
 		registerPanel.add(nameField);
 
-		submit = new JButton("Á¦Ãâ");
+		submit = new JButton("ì œì¶œ");
 		submit.setActionCommand("submit");
 		submit.addActionListener(actionListener);
 		submit.setEnabled(false);
@@ -121,7 +121,7 @@ public class RegisterFrame extends JFrame {
 
 	public void changed(Document document) {
 
-		// ºñ¹Ğ¹øÈ£ À¯È¿¼º Ã¼Å©
+		// ë¹„ë°€ë²ˆí˜¸ ìœ íš¨ì„± ì²´í¬
 		if (document == rePwField.getDocument()) {
 
 			pw = "";
@@ -137,30 +137,30 @@ public class RegisterFrame extends JFrame {
 			}
 
 			if (pw.equals("") || rePw.equals("")) {
-				this.alert.setText("ºñ¹Ğ¹øÈ£¸¦ ÀÔ·ÂÇØÁÖ¼¼¿ä");
+				this.alert.setText("ë¹„ë°€ë²ˆí˜¸ë¥¼ ì…ë ¥í•´ì£¼ì„¸ìš”");
 				this.alert.setForeground(Color.RED);
 			} else if (pw.equals(rePw) && !rePw.equals("")) {
 				validPw = true;
-				this.alert.setText("ºñ¹Ğ¹øÈ£°¡ È®ÀÎµÇ¾ú½À´Ï´Ù.");
+				this.alert.setText("ë¹„ë°€ë²ˆí˜¸ê°€ í™•ì¸ë˜ì—ˆìŠµë‹ˆë‹¤.");
 				this.alert.setForeground(Color.BLACK);
 			} else if (!pw.equals(rePw) && !rePw.equals("")) {
 				validPw = false;
-				this.alert.setText("ºñ¹Ğ¹øÈ£°¡ ÀÏÄ¡ÇÏÁö ¾Ê½À´Ï´Ù.");
+				this.alert.setText("ë¹„ë°€ë²ˆí˜¸ê°€ ì¼ì¹˜í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 				this.alert.setForeground(Color.RED);
 			} else {
 				this.alert.setText(message);
 				this.alert.setForeground(Color.BLACK);
 			}
-		} // ¾ÆÀÌµğ À¯È¿¼º Ã¼Å©
+		} // ì•„ì´ë”” ìœ íš¨ì„± ì²´í¬
 		else if (document == idField.getDocument()) {
 			try {
 				id = idField.getText();
 				validId = this.cLogin.validId(id);
 				if (!validId && !id.equals("")) {
-					this.alert.setText("ÀÌ¹Ì Á¸ÀçÇÏ´Â ¾ÆÀÌµğÀÔ´Ï´Ù.");
+					this.alert.setText("ì´ë¯¸ ì¡´ì¬í•˜ëŠ” ì•„ì´ë””ì…ë‹ˆë‹¤.");
 					this.alert.setForeground(Color.RED);
 				} else if (validId && !id.equals("")) {
-					this.alert.setText("»ç¿ë °¡´ÉÇÑ ¾ÆÀÌµğÀÔ´Ï´Ù.");
+					this.alert.setText("ì‚¬ìš© ê°€ëŠ¥í•œ ì•„ì´ë””ì…ë‹ˆë‹¤.");
 					this.alert.setForeground(Color.BLACK);
 				} else {
 					this.alert.setText(message);
@@ -175,7 +175,7 @@ public class RegisterFrame extends JFrame {
 			this.alert.setForeground(Color.BLACK);
 		}
 
-		// ¾ÆÀÌµğ ºñ¹Ğ¹øÈ£ ¸ğµÎ À¯È¿ÇÑ °æ¿ì ¹öÆ° È°¼ºÈ­
+		// ì•„ì´ë”” ë¹„ë°€ë²ˆí˜¸ ëª¨ë‘ ìœ íš¨í•œ ê²½ìš° ë²„íŠ¼ í™œì„±í™”
 		if (validPw && validId && !nameField.getText().equals("")) {
 			submit.setEnabled(true);
 		} else {
@@ -189,7 +189,7 @@ public class RegisterFrame extends JFrame {
 		try {
 			cLogin.addAccount(id, pw, name);
 
-			// È¸¿ø°¡ÀÔÇÑ »ç¿ëÀÚÀÇ ÆÄÀÏ »ı¼º
+			// íšŒì›ê°€ì…í•œ ì‚¬ìš©ìì˜ íŒŒì¼ ìƒì„±
 			FileWriter basket = new FileWriter("data/basket" + id, false);
 			basket.close();
 			FileWriter apply = new FileWriter("data/apply" + id, false);

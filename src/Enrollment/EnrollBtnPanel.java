@@ -1,4 +1,4 @@
-package Enrollment;
+ï»¿package Enrollment;
 
 import java.awt.event.ActionListener;
 
@@ -11,19 +11,19 @@ public class EnrollBtnPanel extends JPanel {
 	private JButton basketBtn, applyBtn, deleteBtn;
 
 	public EnrollBtnPanel(ActionListener actionListener) {
-		// ¹öÆ° ÀÌº¥Æ®
+		// ë²„íŠ¼ ì´ë²¤íŠ¸
 
-		basketBtn = new JButton("Àå¹Ù±¸´Ï´ã±â");
+		basketBtn = new JButton("ì¥ë°”êµ¬ë‹ˆë‹´ê¸°");
 		basketBtn.setActionCommand("basket");
 		basketBtn.addActionListener(actionListener);
 		this.add(basketBtn);
 
-		applyBtn = new JButton("¼ö°­½ÅÃ»");
+		applyBtn = new JButton("ìˆ˜ê°•ì‹ ì²­");
 		applyBtn.setActionCommand("apply");
 		applyBtn.addActionListener(actionListener);
 		this.add(applyBtn);
 		
-		deleteBtn = new JButton("»èÁ¦");
+		deleteBtn = new JButton("ì‚­ì œ");
 		deleteBtn.setActionCommand("delete");
 		deleteBtn.addActionListener(actionListener);
 		this.add(deleteBtn);
