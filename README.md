@@ -3,7 +3,7 @@ Course-Enrollment-System
 Project in Myongji University major course
 (procedural thinking and programming).
 
-![version](https://img.shields.io/badge/Version-1.5.0-green.svg)
+![version](https://img.shields.io/badge/Version-2.0.0-green.svg)
 ![language](https://img.shields.io/badge/Language-Java-Orange.svg)
 ![swing](https://img.shields.io/badge/GUI-Swing-Blue.svg)
 
