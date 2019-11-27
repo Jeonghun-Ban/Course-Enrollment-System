@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;

@@ -37,7 +37,6 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // 아이디
-	private String name;
 
 	private ICBasket iCBasket;
 	private ICApply iCApply;
@@ -54,7 +53,6 @@ public class CourceFrame extends JFrame {
 	public CourceFrame(String id, String name) {
 
 		this.id = id;
-		this.name = name;
 
 		try {
 			iCBasket = (ICBasket) Constant.registry.lookup("iCBasket");
