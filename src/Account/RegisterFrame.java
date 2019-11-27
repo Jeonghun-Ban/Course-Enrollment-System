@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -29,6 +30,8 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
+import Framework.ICLogin;
+
 public class RegisterFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
@@ -41,15 +44,15 @@ public class RegisterFrame extends JFrame {
 	private DocumentListener documentListener;
 	private ActionListener actionListener;
 
-	private CLogin cLogin;
+	private ICLogin iCLogin;
 	String message = "아래 폼을 모두 입력해주세요.";
 	String id, pw, rePw, name;
 
 	private boolean validId, validPw;
 
-	public RegisterFrame(CLogin cLogin) {
+	public RegisterFrame(ICLogin iCLogin) {
 
-		this.cLogin = cLogin;
+		this.iCLogin = iCLogin;
 
 		this.setTitle("회원가입");
 		this.setSize(400, 545);
@@ -155,7 +158,7 @@ public class RegisterFrame extends JFrame {
 		else if (document == idField.getDocument()) {
 			try {
 				id = idField.getText();
-				validId = this.cLogin.validId(id);
+				validId = this.iCLogin.validId(id);
 				if (!validId && !id.equals("")) {
 					this.alert.setText("이미 존재하는 아이디입니다.");
 					this.alert.setForeground(Color.RED);
@@ -167,6 +170,9 @@ public class RegisterFrame extends JFrame {
 					this.alert.setForeground(Color.BLACK);
 				}
 			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -187,7 +193,7 @@ public class RegisterFrame extends JFrame {
 		// TODO Auto-generated method stub
 		name = nameField.getText();
 		try {
-			cLogin.addAccount(id, pw, name);
+			iCLogin.addAccount(id, pw, name);
 
 			// 회원가입한 사용자의 파일 생성
 			FileWriter basket = new FileWriter("data/basket" + id, false);

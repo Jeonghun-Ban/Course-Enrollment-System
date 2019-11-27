@@ -3,12 +3,14 @@
 import java.awt.Color;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
+import java.rmi.RemoteException;
 import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Cource.ELecture;
+import Framework.ICBasket;
 
 public class BasketTable extends JTable {
 	private static final long serialVersionUID = 1L;
@@ -19,7 +21,7 @@ public class BasketTable extends JTable {
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간" };
 	private DefaultTableModel model;
 
-	public BasketTable(String id, CBasket cBasket, MouseListener mouseListener) {
+	public BasketTable(String id, ICBasket iCBasket, MouseListener mouseListener) {
 		//mouseListener
 		this.addMouseListener(mouseListener);
 		
@@ -40,10 +42,13 @@ public class BasketTable extends JTable {
 		this.setBackground(Color.LIGHT_GRAY);
 		
 		try {
-			lectures = cBasket.show(id);
+			lectures = iCBasket.show(id);
 			this.refresh(lectures);
 			
 		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

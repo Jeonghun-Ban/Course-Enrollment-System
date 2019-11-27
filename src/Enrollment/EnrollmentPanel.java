@@ -8,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
+import Framework.ICApply;
+import Framework.ICBasket;
+
 public class EnrollmentPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	
@@ -15,7 +18,7 @@ public class EnrollmentPanel extends JPanel{
 	public ApplyTable applyTable;
 	private JLabel basket, apply;
 	
-	public EnrollmentPanel(String id, CBasket cBasket, CApply cApply, MouseListener mouseListener) {
+	public EnrollmentPanel(String id, ICBasket iCBasket, ICApply iCApply, MouseListener mouseListener) {
 		
 		this.setLayout(new FlowLayout());
 		
@@ -23,7 +26,7 @@ public class EnrollmentPanel extends JPanel{
 		this.add(basket);
 		
 		JScrollPane scrollpane = new JScrollPane();
-		basketTable = new BasketTable(id, cBasket, mouseListener);
+		basketTable = new BasketTable(id, iCBasket, mouseListener);
 		scrollpane.setViewportView(this.basketTable);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);
@@ -32,7 +35,7 @@ public class EnrollmentPanel extends JPanel{
 		this.add(apply);
 		
 		scrollpane = new JScrollPane();
-		applyTable = new ApplyTable(id, cApply, mouseListener);
+		applyTable = new ApplyTable(id, iCApply, mouseListener);
 		scrollpane.setViewportView(this.applyTable);
 		scrollpane.setPreferredSize(new Dimension(600, 200));
 		this.add(scrollpane);

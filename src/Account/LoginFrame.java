@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.rmi.RemoteException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -26,6 +27,7 @@ import javax.swing.JTextField;
 import javax.swing.KeyStroke;
 
 import Cource.CourceFrame;
+import Framework.ICLogin;
 
 public class LoginFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -39,21 +41,24 @@ public class LoginFrame extends JFrame {
 	
 	private boolean idSelect;
 	private String[] option;
-	private CLogin cLogin;
+	private ICLogin iCLogin;
 
 	private ActionListener actionListener;
 	private CourceFrame courceFrame;
 	private RegisterFrame registerFrame;
 	
-	public LoginFrame(CLogin cLogin) {
+	public LoginFrame(ICLogin iCLogin) {
 		this.actionListener = new ActionHandler();
-		this.cLogin = cLogin;
+		this.iCLogin = iCLogin;
 		
 		try {
-			option = cLogin.getOption();
+			option = iCLogin.getOption();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		this.setTitle("로그인");
@@ -158,18 +163,18 @@ public class LoginFrame extends JFrame {
 				}
 
 				try {
-					cLogin.authenticate(id, pw);
-					String name = cLogin.getName();
+					iCLogin.authenticate(id, pw);
+					String name = iCLogin.getName();
 					// 로그인이 되었을 시 실행되는 코드
 					if(checkLogin.isSelected()) {
-						cLogin.setOption("자동로그인", id, name);
+						iCLogin.setOption("자동로그인", id, name);
 					}else if(checkId.isSelected()) {
-						cLogin.setOption("아이디저장", id, "null");
+						iCLogin.setOption("아이디저장", id, "null");
 					}else {
-						cLogin.setOption("null", "null", "null");
+						iCLogin.setOption("null", "null", "null");
 					}
 					
-					courceFrame = new CourceFrame(id, cLogin, name);
+					courceFrame = new CourceFrame(id, name);
 					courceFrame.setVisible(true);
 					courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -181,7 +186,7 @@ public class LoginFrame extends JFrame {
 				}
 
 			} else if(e.getActionCommand() == "register") {
-				registerFrame = new RegisterFrame(cLogin);
+				registerFrame = new RegisterFrame(iCLogin);
 				registerFrame.setVisible(true);
 				Point point = getLocation();
 				registerFrame.setLocation(point.x+390, point.y);

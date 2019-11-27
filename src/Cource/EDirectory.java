@@ -1,8 +1,14 @@
 ﻿package Cource;
 
+import java.io.Serializable;
 import java.util.Scanner;
 
-public class EDirectory{
+public class EDirectory implements Serializable { 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private int number;
 	private String name;
 	private String hyperLink;

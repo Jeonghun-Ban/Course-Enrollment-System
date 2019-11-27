@@ -3,15 +3,21 @@
 import java.awt.Color;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import Framework.ICLecture;
+import main.Constant;
+
 public class LectureTable extends JTable {
 	private static final long serialVersionUID = 1L;
 	// service
-	private CLecture cLecture;
+	private ICLecture iCLecture;
 	private Vector<ELecture> eLectures;
 	// model
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간"};
@@ -22,7 +28,18 @@ public class LectureTable extends JTable {
 		//mouseListener
 		this.addMouseListener(mouseListener);
 		// create service
-		this.cLecture = new CLecture();
+		try {
+			this.iCLecture = (ICLecture) Constant.registry.lookup("iCLecture");
+		} catch (AccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// set model
 		this.model = new DefaultTableModel(null, header) {
 			// 수정 금지 기능
@@ -52,7 +69,12 @@ public class LectureTable extends JTable {
 		}
 
 	public void refresh(String fileName) throws FileNotFoundException {
-		this.eLectures = this.cLecture.getItems("data/" + fileName);
+		try {
+			this.eLectures = this.iCLecture.getItems("data/" + fileName);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		this.model.setRowCount(0);
 

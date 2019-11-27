@@ -1,6 +1,5 @@
 ﻿package Cource;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
@@ -10,17 +9,21 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
-import Account.CLogin;
 import Account.LoginFrame;
-import Enrollment.CApply;
-import Enrollment.CBasket;
 import Enrollment.EnrollBtnPanel;
 import Enrollment.EnrollmentPanel;
+import Framework.ICApply;
+import Framework.ICBasket;
+import Framework.ICLogin;
+import main.Constant;
 
 public class CourceFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -36,8 +39,8 @@ public class CourceFrame extends JFrame {
 	private String id; // 아이디
 	private String name;
 
-	private CBasket cBasket;
-	private CApply cApply;
+	private ICBasket iCBasket;
+	private ICApply iCApply;
 
 	// 선택된 패널
 	private boolean lecture = false;
@@ -48,14 +51,19 @@ public class CourceFrame extends JFrame {
 	Vector<ELecture> lectures;
 	Vector<ELecture> storedLectures;
 
-	public CourceFrame(String id, CLogin cLogin, String name) {
+	public CourceFrame(String id, String name) {
 
 		this.id = id;
 		this.name = name;
 
-		cBasket = new CBasket();
-		cApply = new CApply();
-
+		try {
+			iCBasket = (ICBasket) Constant.registry.lookup("iCBasket");
+			iCApply = (ICApply) Constant.registry.lookup("iCApply");
+		} catch (RemoteException | NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		this.setTitle("명지대학교 수강신청 시스템");
 		// 아이콘 이미지
 		File icon = new File("image/icon.gif");
@@ -74,7 +82,7 @@ public class CourceFrame extends JFrame {
 		this.greetPanel.setPreferredSize(new Dimension(1000, 50));
 		this.selectionPanel = new SelectionPanel(mouseListener);
 		this.selectionPanel.setPreferredSize(new Dimension(1000, 370));
-		this.enrollmentPanel = new EnrollmentPanel(id, cBasket, cApply, mouseListener);
+		this.enrollmentPanel = new EnrollmentPanel(id, iCBasket, iCApply, mouseListener);
 		this.enrollmentPanel.setPreferredSize(new Dimension(600, 460));
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
 		this.enrollBtnPanel.setPreferredSize(new Dimension(1000, 50));
@@ -102,9 +110,9 @@ public class CourceFrame extends JFrame {
 					lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 					this.deleteLectures();
 				}
-				Vector<ELecture> applyLectures = cApply.show(id);
-				cBasket.add(lectures, applyLectures, id);
-				storedLectures = cBasket.show(id);
+				Vector<ELecture> applyLectures = iCApply.show(id);
+				iCBasket.add(lectures, applyLectures, id);
+				storedLectures = iCBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 
 			} else if (opt.equals("apply")) {
@@ -114,9 +122,9 @@ public class CourceFrame extends JFrame {
 					lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 					this.deleteLectures();
 				}
-				Vector<ELecture> basketLectures = cBasket.show(id);
-				cApply.add(lectures, basketLectures, id);
-				storedLectures = cApply.show(id);
+				Vector<ELecture> basketLectures = iCBasket.show(id);
+				iCApply.add(lectures, basketLectures, id);
+				storedLectures = iCApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
 
@@ -131,8 +139,8 @@ public class CourceFrame extends JFrame {
 		if (basket) {
 			lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 			try {
-				cBasket.delete(lectures, id);
-				storedLectures = cBasket.show(id);
+				iCBasket.delete(lectures, id);
+				storedLectures = iCBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -141,8 +149,8 @@ public class CourceFrame extends JFrame {
 		} else if (apply) {
 			lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 			try {
-				cApply.delete(lectures, id);
-				storedLectures = cApply.show(id);
+				iCApply.delete(lectures, id);
+				storedLectures = iCApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -176,12 +184,24 @@ public class CourceFrame extends JFrame {
 	}
 
 	public void logout() {
-		CLogin cLogin = new CLogin();
-		LoginFrame loginFrame = new LoginFrame(cLogin);
+		ICLogin iCLogin = null;
+		try {
+			iCLogin = (ICLogin) Constant.registry.lookup("iCLogin");
+		} catch (AccessException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (RemoteException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (NotBoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		LoginFrame loginFrame = new LoginFrame(iCLogin);
 		loginFrame.setVisible(true);
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
-			cLogin.setOption("null", "null", "null");
+			iCLogin.setOption("null", "null", "null");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

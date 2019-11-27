@@ -1,21 +1,38 @@
 ﻿package Cource;
 
 import java.io.FileNotFoundException;
+import java.rmi.AccessException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
 import java.util.Vector;
 
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionListener;
 
+import Framework.ICDirectory;
+import main.Constant;
+
 public class DirectoryList extends JList<String> {
 	private static final long serialVersionUID = 1L;
 
-	private CDirectory cDirectory;
+	private ICDirectory iCDirectory;
 	private Vector<EDirectory> eDirectories;
 	Vector<String> listData;
 	
 	public DirectoryList(ListSelectionListener listSelectionListener) {
-		this.cDirectory = new CDirectory();
+		try {
+			this.iCDirectory = (ICDirectory) Constant.registry.lookup("iCDirectory");
+		} catch (AccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NotBoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.listData= new Vector<String>();
 		this.setListData(this.listData);
@@ -31,7 +48,12 @@ public class DirectoryList extends JList<String> {
 	}
 	
 	public String refresh(String fileName) throws FileNotFoundException {
-		this.eDirectories = this.cDirectory.getItems("data/"+fileName);
+		try {
+			this.eDirectories = this.iCDirectory.getItems("data/"+fileName);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		this.listData.clear();
 		for(EDirectory eDirectory: eDirectories) {
