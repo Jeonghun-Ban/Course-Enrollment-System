@@ -18,6 +18,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 
 import Account.LoginFrame;
+import Account.LoginOption;
 import Enrollment.EnrollBtnPanel;
 import Enrollment.EnrollmentPanel;
 import Framework.ICApply;
@@ -40,6 +41,7 @@ public class CourceFrame extends JFrame {
 
 	private ICBasket iCBasket;
 	private ICApply iCApply;
+	private LoginOption loginOption;
 
 	// 선택된 패널
 	private boolean lecture = false;
@@ -201,7 +203,8 @@ public class CourceFrame extends JFrame {
 		loginFrame.setVisible(true);
 		loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		try {
-			iCLogin.setOption("null", "null", "null");
+			loginOption = new LoginOption();
+			loginOption.set("null", "null", "null");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

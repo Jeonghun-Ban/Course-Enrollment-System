@@ -12,7 +12,6 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.rmi.RemoteException;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -42,6 +41,7 @@ public class LoginFrame extends JFrame {
 	private boolean idSelect;
 	private String[] option;
 	private ICLogin iCLogin;
+	private LoginOption loginOption;
 
 	private ActionListener actionListener;
 	private CourceFrame courceFrame;
@@ -50,15 +50,13 @@ public class LoginFrame extends JFrame {
 	public LoginFrame(ICLogin iCLogin) {
 		this.actionListener = new ActionHandler();
 		this.iCLogin = iCLogin;
+		this.loginOption = new LoginOption();
 		
 		try {
-			option = iCLogin.getOption();
+			option = loginOption.get();
 		} catch (FileNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		this.setTitle("로그인");
@@ -167,11 +165,11 @@ public class LoginFrame extends JFrame {
 					String name = iCLogin.getName();
 					// 로그인이 되었을 시 실행되는 코드
 					if(checkLogin.isSelected()) {
-						iCLogin.setOption("자동로그인", id, name);
+						loginOption.set("자동로그인", id, name);
 					}else if(checkId.isSelected()) {
-						iCLogin.setOption("아이디저장", id, "null");
+						loginOption.set("아이디저장", id, "null");
 					}else {
-						iCLogin.setOption("null", "null", "null");
+						loginOption.set("null", "null", "null");
 					}
 					
 					courceFrame = new CourceFrame(id, name);
