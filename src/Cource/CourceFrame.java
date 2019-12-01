@@ -108,9 +108,10 @@ public class CourceFrame extends JFrame {
 					lectures = this.enrollmentPanel.applyTable.getSelectedLectures();
 					this.deleteLectures();
 				}
-				Vector<ELecture> applyLectures = iCApply.show(id);
-				iCBasket.add(lectures, applyLectures, id);
-				storedLectures = iCBasket.show(id);
+				Vector<ELecture> applyLectures = iCApply.show(id); // 신청 목록 가져오기
+				iCBasket.add(lectures, applyLectures, id); // 장바구니 추가함수
+				storedLectures = iCBasket.show(id); // 추가 결과 리턴
+				
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
 
 			} else if (opt.equals("apply")) {
@@ -120,9 +121,10 @@ public class CourceFrame extends JFrame {
 					lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 					this.deleteLectures();
 				}
-				Vector<ELecture> basketLectures = iCBasket.show(id);
-				iCApply.add(lectures, basketLectures, id);
-				storedLectures = iCApply.show(id);
+				Vector<ELecture> basketLectures = iCBasket.show(id); // 장바구니 리스트 가져오기
+				iCApply.add(lectures, basketLectures, id); // 신청목록 추가함수
+				storedLectures = iCApply.show(id); // 추가 결과 리턴
+				
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 			}
 

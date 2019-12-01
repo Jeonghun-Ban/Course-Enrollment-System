@@ -68,7 +68,7 @@ public class BasketTable extends JTable {
 	
 	public void refresh(Vector<ELecture> lectures) {
 		// TODO Auto-generated method stub
-		
+		this.lectures = lectures;
 		this.model.setRowCount(0);
 		
 		for (ELecture lecture : lectures) {
