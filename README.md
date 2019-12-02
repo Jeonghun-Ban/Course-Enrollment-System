@@ -5,16 +5,25 @@ Course-Enrollment-System Client
 ![language](https://img.shields.io/badge/Language-Java-Orange.svg)
 ![swing](https://img.shields.io/badge/GUI-Swing-Blue.svg)
 
-### Info
+Info
+---
 This Project was implemented in the Java language and Swing GUI.
 
-### Version
+Download
+---
+- [Client Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System/releases/tag/v2.0)
+- [Server Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System-Server/releases/tag/v2.0)
+
+
+Version
+---
 - v1.x - Implement Client Program using Swing-GUI
   - Project in Myongji University major course (Procedural Thinking and Programming).
 - v2.x - Implement Client-Server Program using RMI-Communication
   - Project in Myongji University major course (Object-Oriented Thinking and Programming).
 
-### Function
+Function
+---
 - Login
   - remember ID
   - auto login
