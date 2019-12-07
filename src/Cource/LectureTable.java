@@ -70,7 +70,7 @@ public class LectureTable extends JTable {
 
 	public void refresh(String fileName) throws FileNotFoundException {
 		try {
-			this.eLectures = this.iCLecture.getItems("data/" + fileName);
+			this.eLectures = this.iCLecture.getItems(fileName);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -15,6 +15,14 @@ public class ELecture implements Serializable {
 	private int credit;
 	private String time;
 	
+	public void read(Scanner scanner) {
+		this.number = scanner.nextInt();
+		this.name = scanner.next();
+		this.professor = scanner.next();
+		this.credit = scanner.nextInt();
+		this.time = scanner.next();
+	}
+
 	public int getNumber() {
 		return number;
 	}
@@ -48,5 +56,4 @@ public class ELecture implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
-	
 }
