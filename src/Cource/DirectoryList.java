@@ -49,7 +49,7 @@ public class DirectoryList extends JList<String> {
 	
 	public String refresh(String fileName) throws FileNotFoundException {
 		try {
-			this.eDirectories = this.iCDirectory.getItems("data/"+fileName);
+			this.eDirectories = this.iCDirectory.getItems(fileName);
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

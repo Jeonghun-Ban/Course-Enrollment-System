@@ -23,11 +23,9 @@ public class Main {
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		
-		String host = (args.length < 1) ? null : args[0];
 			
 		try {
-			Constant.registry = LocateRegistry.getRegistry(host);
+			Constant.registry = LocateRegistry.getRegistry("localhost");
 			iCLogin = (ICLogin) Constant.registry.lookup("iCLogin");
 			option = loginOption.get();
 		} catch (FileNotFoundException e1) {

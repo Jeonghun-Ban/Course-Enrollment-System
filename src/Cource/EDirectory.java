@@ -1,7 +1,6 @@
 ﻿package Cource;
 
 import java.io.Serializable;
-import java.util.Scanner;
 
 public class EDirectory implements Serializable { 
 	/**
@@ -13,20 +12,23 @@ public class EDirectory implements Serializable {
 	private String name;
 	private String hyperLink;
 	
-	public void read(Scanner scanner) {
-		this.number = scanner.nextInt();
-		this.name = scanner.next();
-		this.hyperLink = scanner.next();
-	}
-	
 	public int getNumber() {
 		return this.number;
+	}
+	public void setNumber(int number) {
+		this.number = number;
 	}
 	public String getName() {
 		return this.name;
 	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	public String getHyperLink() {
 		return this.hyperLink;
+	}
+	public void setHyperLink(String hyperLink) {
+		this.hyperLink = hyperLink;
 	}
 	
 }
