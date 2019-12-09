@@ -34,10 +34,10 @@ import Framework.ICLogin;
 public class RegisterFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private JTextField idField, nameField;
+	private JTextField idField, nameField, majorField, creditField;
 	private JPasswordField pwField, rePwField;
 	private JButton submit;
-	private JLabel idLabel, pwLabel, rePwLabel, nameLabel, alert;
+	private JLabel idLabel, pwLabel, rePwLabel, nameLabel, majorLabel, creditLabel, alert;
 	private JPanel registerPanel;
 
 	private DocumentListener documentListener;
@@ -45,7 +45,8 @@ public class RegisterFrame extends JFrame {
 
 	private ICLogin iCLogin;
 	String message = "아래 폼을 모두 입력해주세요.";
-	String id, pw, rePw, name;
+	String id, pw, rePw, name, major;
+	int credit;
 
 	private boolean validId, validPw;
 
@@ -95,10 +96,20 @@ public class RegisterFrame extends JFrame {
 		// name
 		nameLabel = new JLabel("이름");
 		nameField = new JTextField();
-		nameField.registerKeyboardAction(this.actionListener, "submit", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
-				JComponent.WHEN_FOCUSED);
 		nameField.getDocument().addDocumentListener(documentListener);
 
+		// major
+		majorLabel = new JLabel("전공");
+		majorField = new JTextField();
+		majorField.getDocument().addDocumentListener(documentListener);
+		
+		// id 패널
+		creditLabel = new JLabel("수강가능학점");
+		creditField = new JTextField();
+		creditField.getDocument().addDocumentListener(documentListener);
+		creditField.registerKeyboardAction(this.actionListener, "submit", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
+				JComponent.WHEN_FOCUSED);
+				
 		// add component in registerPanel
 		registerPanel.add(idLabel);
 		registerPanel.add(idField);
@@ -108,6 +119,10 @@ public class RegisterFrame extends JFrame {
 		registerPanel.add(rePwField);
 		registerPanel.add(nameLabel);
 		registerPanel.add(nameField);
+		registerPanel.add(majorLabel);
+		registerPanel.add(majorField);
+		registerPanel.add(creditLabel);
+		registerPanel.add(creditField);
 
 		submit = new JButton("제출");
 		submit.setActionCommand("submit");
@@ -122,6 +137,11 @@ public class RegisterFrame extends JFrame {
 	}
 
 	public void changed(Document document) {
+		
+		major = majorField.getText();
+		if(!creditField.getText().equals("")) {
+			credit = Integer.parseInt(creditField.getText());
+		}
 
 		// 비밀번호 유효성 체크
 		if (document == rePwField.getDocument()) {
@@ -192,7 +212,7 @@ public class RegisterFrame extends JFrame {
 		// TODO Auto-generated method stub
 		name = nameField.getText();
 		try {
-			iCLogin.addAccount(id, pw, name);
+			iCLogin.addAccount(id, pw, name, major, credit);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
