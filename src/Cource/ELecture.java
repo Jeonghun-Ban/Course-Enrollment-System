@@ -1,7 +1,6 @@
 ﻿package Cource;
 
 import java.io.Serializable;
-import java.util.Scanner;
 
 public class ELecture implements Serializable { 
 	/**
@@ -14,14 +13,6 @@ public class ELecture implements Serializable {
 	private String professor;
 	private int credit;
 	private String time;
-	
-	public void read(Scanner scanner) {
-		this.number = scanner.nextInt();
-		this.name = scanner.next();
-		this.professor = scanner.next();
-		this.credit = scanner.nextInt();
-		this.time = scanner.next();
-	}
 
 	public int getNumber() {
 		return number;
