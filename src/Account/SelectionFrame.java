@@ -61,11 +61,11 @@ public class SelectionFrame extends JFrame {
 		try {
 			if (source == null) {
 				major = this.campus.refresh("root");
-				major = this.college.refresh(major);
+				major = this.college.refresh(major, false);
 				major = this.department.refresh(major);
 			} else if (source == this.campus) {
 				major = this.campus.getSelectedFileName();
-				major = this.college.refresh(major);
+				major = this.college.refresh(major, false);
 				major = this.department.refresh(major);
 			} else if (source == this.college) {
 				major = this.college.getSelectedFileName();

@@ -56,6 +56,7 @@ public class DirectoryList extends JList<String> {
 		}
 		
 		this.listData.clear();
+		
 		for(EDirectory eDirectory: eDirectories) {
 			this.listData.add(eDirectory.getName());
 		}
@@ -66,4 +67,27 @@ public class DirectoryList extends JList<String> {
 		return this.eDirectories.get(0).getHyperLink();
 	}
 	
+	public String refresh(String fileName, boolean opt) throws FileNotFoundException {
+		try {
+			this.eDirectories = this.iCDirectory.getItems(fileName);
+		} catch (RemoteException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		this.listData.clear();
+		
+		for(EDirectory eDirectory: eDirectories) {
+			if(opt==false) {
+				opt = true;
+			}else {
+				this.listData.add(eDirectory.getName());	
+			}
+		}
+		
+		this.setSelectedIndex(0);
+		this.updateUI();
+		
+		return this.eDirectories.get(0).getHyperLink();
+	}
 }
