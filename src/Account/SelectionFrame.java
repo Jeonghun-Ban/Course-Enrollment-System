@@ -1,49 +1,56 @@
-﻿package Cource;
+package Account;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 
-import javax.swing.JPanel;
+import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class SelectionPanel extends JPanel {
-	private static final long serialVersionUID = 1L;
+import Cource.DirectoryList;
 
+public class SelectionFrame extends JFrame {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private DirectoryList campus;
 	private DirectoryList college;
 	private DirectoryList department;
-	public LectureTable lecture;
 	
 	private ListSelectionListener listSelectionListener;
+	
+	String major = null;
 
-	public SelectionPanel(MouseListener mouseListener) {
+	public SelectionFrame(MouseListener mouseListener) {
+
+		this.setSize(400, 545);
+		this.setLayout(new FlowLayout());
+		
 		this.listSelectionListener = new ListSelectionHandler();
 		
 		JScrollPane scrollpane = new JScrollPane();
 		this.campus = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.campus);
-		scrollpane.setPreferredSize(new Dimension(195,150));
+		scrollpane.setPreferredSize(new Dimension(350,150));
 		this.add(scrollpane);
 
 		scrollpane = new JScrollPane();
 		this.college = new DirectoryList(this.listSelectionListener);
 		scrollpane.setViewportView(this.college);
-		scrollpane.setPreferredSize(new Dimension(195,150));
+		scrollpane.setPreferredSize(new Dimension(350,150));
 		this.add(scrollpane);
 		
 		scrollpane = new JScrollPane();
 		this.department = new DirectoryList(this.listSelectionListener);
+		this.department.addMouseListener(mouseListener);
 		scrollpane.setViewportView(this.department);
-		scrollpane.setPreferredSize(new Dimension(195,150));
-		this.add(scrollpane);
-		
-		scrollpane = new JScrollPane();
-		this.lecture = new LectureTable(mouseListener);
-		scrollpane.setViewportView(this.lecture);
-		scrollpane.setPreferredSize(new Dimension(600, 200));
+		scrollpane.setPreferredSize(new Dimension(350,150));
 		this.add(scrollpane);
 
 		this.refresh(null);
@@ -53,28 +60,28 @@ public class SelectionPanel extends JPanel {
 	private void refresh(Object source) {
 		try {
 			if (source == null) {
-				String fileName = this.campus.refresh("root");
-				fileName = this.college.refresh(fileName);
-				fileName = this.department.refresh(fileName);
-				this.lecture.refresh(fileName);
+				major = this.campus.refresh("root");
+				major = this.college.refresh(major);
+				major = this.department.refresh(major);
 			} else if (source == this.campus) {
-				String fileName = this.campus.getSelectedFileName();
-				fileName = this.college.refresh(fileName);
-				fileName = this.department.refresh(fileName);
-				this.lecture.refresh(fileName);
+				major = this.campus.getSelectedFileName();
+				major = this.college.refresh(major);
+				major = this.department.refresh(major);
 			} else if (source == this.college) {
-				String fileName = this.college.getSelectedFileName();
-				fileName = this.department.refresh(fileName);
-				this.lecture.refresh(fileName);
+				major = this.college.getSelectedFileName();
+				major = this.department.refresh(major);
 			} else if (source == this.department) {
-				String fileName = this.department.getSelectedFileName();
-				this.lecture.refresh(fileName);
+				major = this.department.getSelectedFileName();
 			}
 
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 		}
 
+	}
+	
+	public String getMajor() {
+		return major;
 	}
 	
 	private class ListSelectionHandler implements ListSelectionListener {
@@ -86,5 +93,5 @@ public class SelectionPanel extends JPanel {
 		}
 
 	}
-	
+
 }

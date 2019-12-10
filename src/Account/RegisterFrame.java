@@ -5,9 +5,12 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -34,14 +37,15 @@ import Framework.ICLogin;
 public class RegisterFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
 
-	private JTextField idField, nameField, majorField, creditField;
+	private JTextField idField, nameField, majorField;
 	private JPasswordField pwField, rePwField;
-	private JButton submit;
-	private JLabel idLabel, pwLabel, rePwLabel, nameLabel, majorLabel, creditLabel, alert;
+	private JButton majorBtn, submit;
+	private JLabel idLabel, pwLabel, rePwLabel, nameLabel, majorLabel, alert;
 	private JPanel registerPanel;
 
 	private DocumentListener documentListener;
 	private ActionListener actionListener;
+	private MouseListener mouseListener;
 
 	private ICLogin iCLogin;
 	String message = "아래 폼을 모두 입력해주세요.";
@@ -49,6 +53,8 @@ public class RegisterFrame extends JFrame {
 	int credit;
 
 	private boolean validId, validPw;
+	
+	private SelectionFrame selectionFrame;
 
 	public RegisterFrame(ICLogin iCLogin) {
 
@@ -71,7 +77,8 @@ public class RegisterFrame extends JFrame {
 
 		documentListener = new DocumentHandler();
 		actionListener = new ActionHandler();
-
+		mouseListener = new MouseHandler();
+		
 		alert = new JLabel(message);
 		alert.setHorizontalAlignment(SwingConstants.CENTER);
 		alert.setFont(font);
@@ -102,12 +109,8 @@ public class RegisterFrame extends JFrame {
 		majorLabel = new JLabel("전공");
 		majorField = new JTextField();
 		majorField.getDocument().addDocumentListener(documentListener);
-		
-		// id 패널
-		creditLabel = new JLabel("수강가능학점");
-		creditField = new JTextField();
-		creditField.getDocument().addDocumentListener(documentListener);
-		creditField.registerKeyboardAction(this.actionListener, "submit", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
+		majorField.setEditable(false);
+		majorField.registerKeyboardAction(this.actionListener, "submit", KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0),
 				JComponent.WHEN_FOCUSED);
 				
 		// add component in registerPanel
@@ -121,8 +124,12 @@ public class RegisterFrame extends JFrame {
 		registerPanel.add(nameField);
 		registerPanel.add(majorLabel);
 		registerPanel.add(majorField);
-		registerPanel.add(creditLabel);
-		registerPanel.add(creditField);
+		
+		majorBtn = new JButton("전공 선택");
+		majorBtn.setActionCommand("major");
+		majorBtn.addActionListener(actionListener);
+		
+		registerPanel.add(majorBtn);
 
 		submit = new JButton("제출");
 		submit.setActionCommand("submit");
@@ -139,10 +146,7 @@ public class RegisterFrame extends JFrame {
 	public void changed(Document document) {
 		
 		major = majorField.getText();
-		if(!creditField.getText().equals("")) {
-			credit = Integer.parseInt(creditField.getText());
-		}
-
+		
 		// 비밀번호 유효성 체크
 		if (document == rePwField.getDocument()) {
 
@@ -201,7 +205,7 @@ public class RegisterFrame extends JFrame {
 		}
 
 		// 아이디 비밀번호 모두 유효한 경우 버튼 활성화
-		if (validPw && validId && !nameField.getText().equals("")) {
+		if (validPw && validId && !nameField.getText().equals("") && !majorField.getText().equals("")) {
 			submit.setEnabled(true);
 		} else {
 			submit.setEnabled(false);
@@ -211,6 +215,8 @@ public class RegisterFrame extends JFrame {
 	public void addAccount() {
 		// TODO Auto-generated method stub
 		name = nameField.getText();
+		// 임시로 수강가능학점 18로 지정
+		credit = 18;
 		try {
 			iCLogin.addAccount(id, pw, name, major, credit);
 		} catch (IOException e) {
@@ -247,10 +253,50 @@ public class RegisterFrame extends JFrame {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			// TODO Auto-generated method stub
-			if (e.getActionCommand() == "submit") {
+			if (e.getActionCommand() == "major") {
+				selectionFrame = new SelectionFrame(mouseListener);
+				selectionFrame.setVisible(true);
+				Point point = getLocation();
+				selectionFrame.setLocation(point.x, point.y);
+			} else if (e.getActionCommand() == "submit") {
 				addAccount();
 				dispose();
-			}
+			}  
+
+		}
+
+	}
+	
+	// 전공 선택 이벤트
+	private class MouseHandler implements MouseListener {
+
+		@Override
+		public void mouseClicked(MouseEvent e) {
+			// TODO Auto-generated method stub
+			major = selectionFrame.getMajor();
+			majorField.setText(major);
+		}
+
+		@Override
+		public void mouseEntered(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mouseExited(MouseEvent e) {
+			// TODO Auto-generated method stub
+
+		}
+
+		@Override
+		public void mousePressed(MouseEvent e) {
+			// TODO Auto-generated method stub
+		}
+
+		@Override
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
 
 		}
 
