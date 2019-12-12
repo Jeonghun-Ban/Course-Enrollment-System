@@ -30,7 +30,7 @@ public class SelectionFrame extends JFrame {
 	private ActionListener actionListener;
 	
 	String major = null;
-	int credit = 17; // 기본 수강가능학점
+	int credit; // 수강가능학점
 
 	public SelectionFrame(MouseListener mouseListener) {
 
@@ -72,13 +72,16 @@ public class SelectionFrame extends JFrame {
 		try {
 			if (source == null) {
 				major = this.campus.getMajor("root", false);
-				if(major.equals("yongin")) {
-					credit+=1; // 용인일 경우 18학점
-				}
+				credit=18; // 용인일 경우 18학점
 				major = this.college.getMajor(major, true); // 교양 항목을 리스트에서 제거
 				major = this.department.getMajor(major, false);
 			} else if (source == this.campus) {
 				major = this.campus.getSelectedFileName();
+				if(major.equals("yongin")) {
+					credit=18; // 용인일 경우 18학점
+				}else {
+					credit=17;
+				}
 				major = this.college.getMajor(major, true);
 				major = this.department.getMajor(major, false);
 			} else if (source == this.college) {
@@ -100,7 +103,7 @@ public class SelectionFrame extends JFrame {
 	
 	public int getCredit() {
 		if(major.equals("digitalContents")||major.equals("software")) {
-			credit+=1; // 인문캠에서 18학점인 유일한 경우
+			credit=18; // 인문캠에서 18학점인 유일한 경우
 		}
 		return credit;
 	}

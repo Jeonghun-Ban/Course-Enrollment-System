@@ -213,6 +213,7 @@ public class RegisterFrame extends JFrame {
 	public void addAccount() {
 		// TODO Auto-generated method stub
 		name = nameField.getText();
+		credit = selectionFrame.getCredit();
 		try {
 			iCLogin.addAccount(id, pw, name, major, credit);
 		} catch (IOException e) {
@@ -270,7 +271,6 @@ public class RegisterFrame extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			major = selectionFrame.getMajor();
-			credit = selectionFrame.getCredit();
 			majorField.setText(major);
 		}
 
