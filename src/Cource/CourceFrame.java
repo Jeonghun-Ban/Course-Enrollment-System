@@ -112,7 +112,7 @@ public class CourceFrame extends JFrame {
 					this.deleteLectures();
 				}
 				Vector<ELecture> applyLectures = iCApply.show(id); // 신청 목록 가져오기
-				if(iCBasket.add(lectures, applyLectures, id)) {
+				if(iCBasket.add(lectures, applyLectures, id)) { // 장바구니 추가함수
 					JOptionPane.showMessageDialog(null, "선택한 강좌 중에 이미 신청하거나 미리담은 강좌가 있습니다."
 							+ "\n(중복되지 않은 강좌가 있다면 정상적으로 추가됩니다.)", "중복된 강의 존재", JOptionPane.ERROR_MESSAGE);
 				};
@@ -128,7 +128,11 @@ public class CourceFrame extends JFrame {
 					this.deleteLectures();
 				}
 				Vector<ELecture> basketLectures = iCBasket.show(id); // 장바구니 리스트 가져오기
-				iCApply.add(lectures, basketLectures, id); // 신청목록 추가함수
+				if (iCApply.add(lectures, basketLectures, id)){ // 신청목록 추가함수
+				JOptionPane.showMessageDialog(null, "선택한 강좌 중에 이미 신청하거나 미리담은 강좌가 있습니다."
+						+ "\n(중복되지 않은 강좌가 있다면 정상적으로 추가됩니다.)", "중복된 강의 존재", JOptionPane.ERROR_MESSAGE);
+			};
+				
 				storedLectures = iCApply.show(id); // 추가 결과 리턴
 				
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
