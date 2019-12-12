@@ -145,7 +145,6 @@ public class CourceFrame extends JFrame {
 	}
 
 	public void deleteLectures() {
-
 		if (basket) {
 			lectures = this.enrollmentPanel.basketTable.getSelectedLectures();
 			try {

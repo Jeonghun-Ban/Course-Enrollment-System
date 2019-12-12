@@ -60,16 +60,16 @@ public class SelectionFrame extends JFrame {
 	private void refresh(Object source) {
 		try {
 			if (source == null) {
-				major = this.campus.refresh("root");
-				major = this.college.refresh(major, false);
-				major = this.department.refresh(major);
+				major = this.campus.getMajor("root");
+				major = this.college.getMajor(major);
+				major = this.department.getMajor(major);
 			} else if (source == this.campus) {
 				major = this.campus.getSelectedFileName();
-				major = this.college.refresh(major, false);
-				major = this.department.refresh(major);
+				major = this.college.getMajor(major);
+				major = this.department.getMajor(major);
 			} else if (source == this.college) {
 				major = this.college.getSelectedFileName();
-				major = this.department.refresh(major);
+				major = this.department.getMajor(major);
 			} else if (source == this.department) {
 				major = this.department.getSelectedFileName();
 			}
