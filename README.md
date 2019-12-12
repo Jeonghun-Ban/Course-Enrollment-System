@@ -1,7 +1,7 @@
 Course-Enrollment-System Client
 ===
 
-![version](https://img.shields.io/badge/Version-2.1.0-green.svg)
+![version](https://img.shields.io/badge/Version-2.2.0-green.svg)
 ![language](https://img.shields.io/badge/Language-Java-Orange.svg)
 ![swing](https://img.shields.io/badge/GUI-Swing-Blue.svg)
 
@@ -11,8 +11,8 @@ This Project was implemented in the Java language and Swing GUI.
 
 Download
 ---
-- [Client Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System/releases/tag/v2.0)
-- [Server Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System-Server/releases/tag/v2.0)
+- [Client Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System/releases/tag/v2.2)
+- [Server Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System-Server/releases/tag/v2.2)
 
 
 Version
