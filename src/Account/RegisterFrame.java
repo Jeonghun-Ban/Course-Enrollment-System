@@ -145,8 +145,6 @@ public class RegisterFrame extends JFrame {
 
 	public void changed(Document document) {
 		
-		major = majorField.getText();
-		
 		// 비밀번호 유효성 체크
 		if (document == rePwField.getDocument()) {
 
@@ -215,8 +213,6 @@ public class RegisterFrame extends JFrame {
 	public void addAccount() {
 		// TODO Auto-generated method stub
 		name = nameField.getText();
-		// 임시로 수강가능학점 18로 지정
-		credit = 18;
 		try {
 			iCLogin.addAccount(id, pw, name, major, credit);
 		} catch (IOException e) {
@@ -274,6 +270,7 @@ public class RegisterFrame extends JFrame {
 		public void mouseClicked(MouseEvent e) {
 			// TODO Auto-generated method stub
 			major = selectionFrame.getMajor();
+			credit = selectionFrame.getCredit();
 			majorField.setText(major);
 		}
 
