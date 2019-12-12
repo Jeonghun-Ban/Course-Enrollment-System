@@ -2,9 +2,12 @@ package Account;
 
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseListener;
 import java.io.FileNotFoundException;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
@@ -24,6 +27,7 @@ public class SelectionFrame extends JFrame {
 	private DirectoryList department;
 	
 	private ListSelectionListener listSelectionListener;
+	private ActionListener actionListener;
 	
 	String major = null;
 
@@ -33,6 +37,7 @@ public class SelectionFrame extends JFrame {
 		this.setLayout(new FlowLayout());
 		
 		this.listSelectionListener = new ListSelectionHandler();
+		this.actionListener = new ActionHandler();
 		
 		JScrollPane scrollpane = new JScrollPane();
 		this.campus = new DirectoryList(this.listSelectionListener);
@@ -52,6 +57,11 @@ public class SelectionFrame extends JFrame {
 		scrollpane.setViewportView(this.department);
 		scrollpane.setPreferredSize(new Dimension(350,150));
 		this.add(scrollpane);
+		
+		JButton submitBtn = new JButton("확인");
+		submitBtn.setActionCommand("submit");
+		submitBtn.addActionListener(actionListener);
+		this.add(submitBtn);
 
 		this.refresh(null);
 
@@ -83,6 +93,19 @@ public class SelectionFrame extends JFrame {
 	public String getMajor() {
 		return major;
 	}
+	
+	private class ActionHandler implements ActionListener {
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			// TODO Auto-generated method stub
+			if (e.getActionCommand() == "submit") {
+				dispose();
+			}
+		}
+
+	}
+
 	
 	private class ListSelectionHandler implements ListSelectionListener {
 
