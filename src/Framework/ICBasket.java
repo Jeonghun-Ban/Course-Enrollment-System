@@ -9,7 +9,7 @@ import java.util.Vector;
 import Cource.ELecture;
 
 public interface ICBasket extends Remote {
-	public void add(Vector<ELecture> lectures, Vector<ELecture> applyLectures, String id) throws IOException, RemoteException;
+	public boolean add(Vector<ELecture> lectures, Vector<ELecture> applyLectures, String id) throws IOException, RemoteException;
 	public Vector<ELecture> show(String id) throws FileNotFoundException, RemoteException;
 	public void delete(Vector<ELecture> lectures, String id) throws IOException, RemoteException;
 }

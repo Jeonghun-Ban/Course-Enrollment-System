@@ -16,6 +16,7 @@ import java.util.Vector;
 
 import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import Account.LoginFrame;
 import Account.LoginOption;
@@ -111,7 +112,10 @@ public class CourceFrame extends JFrame {
 					this.deleteLectures();
 				}
 				Vector<ELecture> applyLectures = iCApply.show(id); // 신청 목록 가져오기
-				iCBasket.add(lectures, applyLectures, id); // 장바구니 추가함수
+				if(iCBasket.add(lectures, applyLectures, id)) {
+					JOptionPane.showMessageDialog(null, "선택한 강좌 중에 이미 신청하거나 미리담은 강좌가 있습니다."
+							+ "\n(중복되지 않은 강좌가 있다면 정상적으로 추가됩니다.)", "중복된 강의 존재", JOptionPane.ERROR_MESSAGE);
+				};
 				storedLectures = iCBasket.show(id); // 추가 결과 리턴
 				
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
