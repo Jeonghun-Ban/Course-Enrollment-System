@@ -60,16 +60,16 @@ public class SelectionFrame extends JFrame {
 	private void refresh(Object source) {
 		try {
 			if (source == null) {
-				major = this.campus.getMajor("root");
-				major = this.college.getMajor(major);
-				major = this.department.getMajor(major);
+				major = this.campus.getMajor("root", false);
+				major = this.college.getMajor(major, true); // 교양 항목을 리스트에서 제거
+				major = this.department.getMajor(major, false);
 			} else if (source == this.campus) {
 				major = this.campus.getSelectedFileName();
-				major = this.college.getMajor(major);
-				major = this.department.getMajor(major);
+				major = this.college.getMajor(major, false);
+				major = this.department.getMajor(major, true);
 			} else if (source == this.college) {
 				major = this.college.getSelectedFileName();
-				major = this.department.getMajor(major);
+				major = this.department.getMajor(major, false);
 			} else if (source == this.department) {
 				major = this.department.getSelectedFileName();
 			}

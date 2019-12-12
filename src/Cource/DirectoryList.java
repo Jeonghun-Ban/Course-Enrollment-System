@@ -67,10 +67,12 @@ public class DirectoryList extends JList<String> {
 		return this.eDirectories.get(0).getHyperLink();
 	}
 	
-	public String getMajor(String fileName) throws FileNotFoundException {
+	public String getMajor(String fileName, boolean remove) throws FileNotFoundException {
 		try {
 			this.eDirectories = this.iCDirectory.getItems(fileName);
-			this.eDirectories.remove(0);
+			if(remove) {
+				this.eDirectories.remove(0);
+			}
 		} catch (RemoteException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
