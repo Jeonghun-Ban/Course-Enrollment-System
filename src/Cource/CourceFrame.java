@@ -40,7 +40,7 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // 아이디
-	private int credit, applyCredit;
+	private int credit, basketCredit, applyCredit;
 
 	private ICBasket iCBasket;
 	private ICApply iCApply;
@@ -104,7 +104,9 @@ public class CourceFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		credit = CurrentUser.credit;
+		basketCredit = CurrentUser.basket;
 		applyCredit = CurrentUser.apply;
+		this.enrollmentPanel.basket.setText("장바구니 (가능학점: " + (credit-applyCredit+7) + ")");
 		this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-applyCredit) + ")");
 	}
 
@@ -126,8 +128,11 @@ public class CourceFrame extends JFrame {
 							+ "\n(중복되지 않은 강좌가 있다면 정상적으로 추가됩니다.)", "중복된 강의 존재", JOptionPane.ERROR_MESSAGE);
 				};
 				storedLectures = iCBasket.show(id); // 추가 결과 리턴
-				
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
+				
+				// 담기가능학점 출력
+				basketCredit = CurrentUser.basket;
+				this.enrollmentPanel.basket.setText("수강신청 (가능학점: " + (credit-basketCredit+7) + ")");
 
 			} else if (opt.equals("apply")) {
 				if (lecture) {
@@ -153,7 +158,7 @@ public class CourceFrame extends JFrame {
 				storedLectures = iCApply.show(id); // 추가 결과 리턴
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 				
-				credit = CurrentUser.credit;
+				// 수강가능학점 출력
 				applyCredit = CurrentUser.apply;
 				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-applyCredit) + ")");
 			}
@@ -171,6 +176,10 @@ public class CourceFrame extends JFrame {
 				iCBasket.delete(lectures, id);
 				storedLectures = iCBasket.show(id);
 				this.enrollmentPanel.basketTable.refresh(storedLectures);
+				
+				// 담기가능학점 출력
+				basketCredit = CurrentUser.basket;
+				this.enrollmentPanel.basket.setText("수강신청 (가능학점: " + (credit-basketCredit+7) + ")");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -182,7 +191,7 @@ public class CourceFrame extends JFrame {
 				storedLectures = iCApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 				
-				credit = CurrentUser.credit;
+				// 신청가능학점 출력
 				applyCredit = CurrentUser.apply;
 				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-applyCredit) + ")");
 			} catch (IOException e) {

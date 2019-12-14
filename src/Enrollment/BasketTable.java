@@ -11,6 +11,7 @@ import javax.swing.table.DefaultTableModel;
 
 import Cource.ELecture;
 import Framework.ICBasket;
+import main.CurrentUser;
 
 public class BasketTable extends JTable {
 	private static final long serialVersionUID = 1L;
@@ -70,6 +71,7 @@ public class BasketTable extends JTable {
 		// TODO Auto-generated method stub
 		this.lectures = lectures;
 		this.model.setRowCount(0);
+		CurrentUser.basket = 0;
 		
 		for (ELecture lecture : lectures) {
 			Vector<String> row = new Vector<>();
@@ -80,6 +82,8 @@ public class BasketTable extends JTable {
 			row.add(lecture.getTime());
 			this.model.addRow(row);
 			this.setAutoCreateRowSorter(true);
+			
+			CurrentUser.basket+=lecture.getCredit();
 		}
 		
 		this.updateUI();
