@@ -132,7 +132,7 @@ public class CourceFrame extends JFrame {
 				
 				// 담기가능학점 출력
 				basketCredit = CurrentUser.basket;
-				this.enrollmentPanel.basket.setText("수강신청 (가능학점: " + (credit-basketCredit+7) + ")");
+				this.enrollmentPanel.basket.setText("장바구니 (가능학점: " + (credit-basketCredit+7) + ")");
 
 			} else if (opt.equals("apply")) {
 				if (lecture) {
@@ -179,7 +179,7 @@ public class CourceFrame extends JFrame {
 				
 				// 담기가능학점 출력
 				basketCredit = CurrentUser.basket;
-				this.enrollmentPanel.basket.setText("수강신청 (가능학점: " + (credit-basketCredit+7) + ")");
+				this.enrollmentPanel.basket.setText("장바구니 (가능학점: " + (credit-basketCredit+7) + ")");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
