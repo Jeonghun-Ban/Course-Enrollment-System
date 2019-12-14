@@ -40,7 +40,7 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // 아이디
-	private int credit, apply_credit;
+	private int credit, applyCredit;
 
 	private ICBasket iCBasket;
 	private ICApply iCApply;
@@ -104,8 +104,8 @@ public class CourceFrame extends JFrame {
 		this.setLocationRelativeTo(null);
 		
 		credit = CurrentUser.credit;
-		apply_credit = CurrentUser.apply;
-		this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-apply_credit) + ")");
+		applyCredit = CurrentUser.apply;
+		this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-applyCredit) + ")");
 	}
 
 	public void addLectures(String opt) {
@@ -142,7 +142,7 @@ public class CourceFrame extends JFrame {
 					selectCredit+=lecture.getCredit();
 				}
 				
-				if(credit-apply_credit-selectCredit<0) {
+				if(credit-applyCredit-selectCredit<0) {
 					JOptionPane.showMessageDialog(null, "최대 수강신청가능한 학점을 초과하였습니다."
 							+ "\n(해당 과목을 신청하시려면 다른 과목을 삭제하십시오.)", "학점제한", JOptionPane.ERROR_MESSAGE);
 				} else if (iCApply.add(lectures, basketLectures, id)){ // 신청목록 추가함수
@@ -154,8 +154,8 @@ public class CourceFrame extends JFrame {
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 				
 				credit = CurrentUser.credit;
-				apply_credit = CurrentUser.apply;
-				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-apply_credit) + ")");
+				applyCredit = CurrentUser.apply;
+				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-applyCredit) + ")");
 			}
 
 		} catch (IOException e) {
@@ -183,8 +183,8 @@ public class CourceFrame extends JFrame {
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
 				
 				credit = CurrentUser.credit;
-				apply_credit = CurrentUser.apply;
-				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-apply_credit) + ")");
+				applyCredit = CurrentUser.apply;
+				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-applyCredit) + ")");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
