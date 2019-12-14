@@ -6,6 +6,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import javax.swing.JFrame;
 
+import Account.InvalidUserException;
 import Account.LoginFrame;
 import Account.LoginOption;
 import Cource.CourceFrame;
@@ -20,6 +21,9 @@ public class Main {
 	
 	static LoginFrame loginFrame;
 	static CourceFrame courceFrame;
+	
+	static String id;
+	static String pw;
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -41,18 +45,27 @@ public class Main {
 		
 		if(option[0].equals("자동로그인")) {
 			// 현재 유저 클래스 정의
+			id = option[1];
+			pw = option[2];
+			
 			try {
-				CurrentUser.id =option[1];
-				CurrentUser.name = option[2];
+				iCLogin.authenticate(id , pw);
+
+				// 현재 유저 정의
+				CurrentUser.id = id;
+				CurrentUser.name = iCLogin.getName();
+				CurrentUser.major = iCLogin.getMajor();
 				CurrentUser.credit = iCLogin.getCredit();
-			} catch (RemoteException e) {
+				
+				courceFrame = new CourceFrame();
+				courceFrame.setVisible(true);
+				courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				
+			} catch (FileNotFoundException | RemoteException | InvalidUserException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
-			courceFrame = new CourceFrame();
-			courceFrame.setVisible(true);
-			courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}else {
 			loginFrame = new LoginFrame(iCLogin);
 			loginFrame.setVisible(true);

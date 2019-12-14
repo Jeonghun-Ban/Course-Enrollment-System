@@ -10,10 +10,10 @@ public class LoginOption {
 	
 	private String[] option = new String[3];;
 	
-	public void set(String opt, String id, String name) throws IOException {
+	public void set(String opt, String id, String pw) throws IOException {
 		// TODO Auto-generated method stub
 		FileWriter fw = new FileWriter("loginOption", false);
-		fw.write(opt+" "+id+" "+name);
+		fw.write(opt+" "+id+" "+pw);
 		fw.close();
 	}
 	
@@ -24,7 +24,7 @@ public class LoginOption {
 		while(scanner.hasNext()) {
 			option[0] = scanner.next(); // 로그인 옵션
 			option[1] = scanner.next(); // id
-			option[2] = scanner.next(); // names
+			option[2] = scanner.next(); // pw
 		}
 		scanner.close();
 		return option;
