@@ -16,7 +16,7 @@ public class EnrollmentPanel extends JPanel{
 	
 	public BasketTable basketTable;
 	public ApplyTable applyTable;
-	private JLabel basket, apply;
+	public JLabel basket, apply;
 	
 	public EnrollmentPanel(String id, ICBasket iCBasket, ICApply iCApply, MouseListener mouseListener) {
 		

@@ -26,6 +26,7 @@ import Framework.ICApply;
 import Framework.ICBasket;
 import Framework.ICLogin;
 import main.Constant;
+import main.CurrentUser;
 
 public class CourceFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -39,6 +40,7 @@ public class CourceFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	private String id; // 아이디
+	private int credit, apply_credit;
 
 	private ICBasket iCBasket;
 	private ICApply iCApply;
@@ -87,7 +89,7 @@ public class CourceFrame extends JFrame {
 		this.enrollmentPanel.setPreferredSize(new Dimension(600, 460));
 		this.enrollBtnPanel = new EnrollBtnPanel(actionListener);
 		this.enrollBtnPanel.setPreferredSize(new Dimension(1000, 50));
-
+		
 		this.setLayout(new FlowLayout());
 		
 		this.add(greetPanel);
@@ -99,7 +101,10 @@ public class CourceFrame extends JFrame {
 		this.setSize(1200, 1000); // x,y축
 		this.setMinimumSize(new Dimension(650, 0));
 		this.setLocationRelativeTo(null);
-
+		
+		credit = CurrentUser.credit;
+		apply_credit = CurrentUser.apply;
+		this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-apply_credit) + ")");
 	}
 
 	public void addLectures(String opt) {
@@ -134,8 +139,11 @@ public class CourceFrame extends JFrame {
 			};
 				
 				storedLectures = iCApply.show(id); // 추가 결과 리턴
-				
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
+				
+				credit = CurrentUser.credit;
+				apply_credit = CurrentUser.apply;
+				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-apply_credit) + ")");
 			}
 
 		} catch (IOException e) {
@@ -161,6 +169,10 @@ public class CourceFrame extends JFrame {
 				iCApply.delete(lectures, id);
 				storedLectures = iCApply.show(id);
 				this.enrollmentPanel.applyTable.refresh(storedLectures);
+				
+				credit = CurrentUser.credit;
+				apply_credit = CurrentUser.apply;
+				this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-apply_credit) + ")");
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

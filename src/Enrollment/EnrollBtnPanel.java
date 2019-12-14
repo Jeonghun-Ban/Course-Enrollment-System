@@ -27,6 +27,7 @@ public class EnrollBtnPanel extends JPanel {
 		deleteBtn.setActionCommand("delete");
 		deleteBtn.addActionListener(actionListener);
 		this.add(deleteBtn);
+		
 	}
 
 }
