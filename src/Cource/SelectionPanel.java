@@ -51,28 +51,23 @@ public class SelectionPanel extends JPanel {
 	}
 
 	private void refresh(Object source) {
-		try {
-			if (source == null) {
-				String fileName = this.campus.refresh("root");
-				fileName = this.college.refresh(fileName);
-				fileName = this.department.refresh(fileName);
-				this.lecture.refresh(fileName);
-			} else if (source == this.campus) {
-				String fileName = this.campus.getSelectedFileName();
-				fileName = this.college.refresh(fileName);
-				fileName = this.department.refresh(fileName);
-				this.lecture.refresh(fileName);
-			} else if (source == this.college) {
-				String fileName = this.college.getSelectedFileName();
-				fileName = this.department.refresh(fileName);
-				this.lecture.refresh(fileName);
-			} else if (source == this.department) {
-				String fileName = this.department.getSelectedFileName();
-				this.lecture.refresh(fileName);
-			}
-
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+		if (source == null) {
+			String fileName = this.campus.refresh("root");
+			fileName = this.college.refresh(fileName);
+			fileName = this.department.refresh(fileName);
+			this.lecture.refresh(fileName);
+		} else if (source == this.campus) {
+			String fileName = this.campus.getSelectedFileName();
+			fileName = this.college.refresh(fileName);
+			fileName = this.department.refresh(fileName);
+			this.lecture.refresh(fileName);
+		} else if (source == this.college) {
+			String fileName = this.college.getSelectedFileName();
+			fileName = this.department.refresh(fileName);
+			this.lecture.refresh(fileName);
+		} else if (source == this.department) {
+			String fileName = this.department.getSelectedFileName();
+			this.lecture.refresh(fileName);
 		}
 
 	}

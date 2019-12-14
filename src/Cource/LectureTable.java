@@ -2,44 +2,39 @@
 
 import java.awt.Color;
 import java.awt.event.MouseListener;
-import java.io.FileNotFoundException;
-import java.rmi.AccessException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.Vector;
 
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 import Framework.ICLecture;
-import main.Constant;
+import Framework.Launcher;
+import main.Connector;
 
 public class LectureTable extends JTable {
 	private static final long serialVersionUID = 1L;
+	private static final Class<ICLecture> icLectureClass = ICLecture.class;
+	private static Method getItemsMethod;
 	// service
-	private ICLecture iCLecture;
 	private Vector<ELecture> eLectures;
 	// model
 	String[] header = { "강좌번호", "강좌명", "교수명", "학점", "시간"};
 	private DefaultTableModel model;
 
+	static {
+		try {
+			getItemsMethod = icLectureClass.getMethod("getItems", String.class);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+	}
+
 	public LectureTable(MouseListener mouseListener) {
 		
 		//mouseListener
 		this.addMouseListener(mouseListener);
-		// create service
-		try {
-			this.iCLecture = (ICLecture) Constant.registry.lookup("iCLecture");
-		} catch (AccessException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		// set model
 		this.model = new DefaultTableModel(null, header) {
 			// 수정 금지 기능
@@ -68,16 +63,14 @@ public class LectureTable extends JTable {
 			return selectedLectures;
 		}
 
-	public void refresh(String fileName) throws FileNotFoundException {
+	public void refresh(String fileName) {
 		try {
-			this.eLectures = this.iCLecture.getItems(fileName);
-		} catch (RemoteException e) {
+			this.eLectures = (Vector<ELecture>) Connector.invoke(new Launcher(icLectureClass.getSimpleName(), getItemsMethod.getName(), getItemsMethod.getParameterTypes(), new Object[]{fileName}));
+		} catch (InvocationTargetException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		this.model.setRowCount(0);
-
 		for (ELecture eLecture : eLectures) {
 			Vector<String> row = new Vector<>();
 			row.add(Integer.toString(eLecture.getNumber()));
