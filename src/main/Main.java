@@ -40,7 +40,17 @@ public class Main {
 		}
 		
 		if(option[0].equals("자동로그인")) {
-			courceFrame = new CourceFrame(option[1], option[2]);
+			// 현재 유저 클래스 정의
+			try {
+				CurrentUser.id =option[1];
+				CurrentUser.name = option[2];
+				CurrentUser.credit = iCLogin.getCredit();
+			} catch (RemoteException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			courceFrame = new CourceFrame();
 			courceFrame.setVisible(true);
 			courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}else {

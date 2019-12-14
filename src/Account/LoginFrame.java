@@ -164,20 +164,21 @@ public class LoginFrame extends JFrame {
 				try {
 					iCLogin.authenticate(id, pw);
 					
-					// 로그인이 되었을 시 실행되는 코드
-					String name = iCLogin.getName();
-					CurrentUser.major = iCLogin.getMajor();
+					// 현재 유저 클래스 정의
+					CurrentUser.id = id;
+					CurrentUser.name = iCLogin.getName();
 					CurrentUser.credit = iCLogin.getCredit();
 					
+					// 로그인이 되었을 시 실행되는 코드
 					if(checkLogin.isSelected()) {
-						loginOption.set("자동로그인", id, name);
+						loginOption.set("자동로그인", id, CurrentUser.name);
 					}else if(checkId.isSelected()) {
 						loginOption.set("아이디저장", id, "null");
 					}else {
 						loginOption.set("null", "null", "null");
 					}
 					
-					courceFrame = new CourceFrame(id, name);
+					courceFrame = new CourceFrame();
 					courceFrame.setVisible(true);
 					courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

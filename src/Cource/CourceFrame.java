@@ -55,9 +55,9 @@ public class CourceFrame extends JFrame {
 	Vector<ELecture> lectures;
 	Vector<ELecture> storedLectures;
 
-	public CourceFrame(String id, String name) {
+	public CourceFrame() {
 
-		this.id = id;
+		this.id = CurrentUser.id;
 
 		try {
 			iCBasket = (ICBasket) Constant.registry.lookup("iCBasket");
@@ -81,7 +81,7 @@ public class CourceFrame extends JFrame {
 		this.actionListener = new ActionHandler();
 		this.mouseListener = new MouseHandler();
 
-		this.greetPanel = new GreetPanel(name, actionListener);
+		this.greetPanel = new GreetPanel(actionListener);
 		this.greetPanel.setPreferredSize(new Dimension(1000, 50));
 		this.selectionPanel = new SelectionPanel(mouseListener);
 		this.selectionPanel.setPreferredSize(new Dimension(1000, 370));
