@@ -163,9 +163,12 @@ public class LoginFrame extends JFrame {
 
 				try {
 					iCLogin.authenticate(id, pw);
-					String name = iCLogin.getName();
-					CurrentUser.credit = iCLogin.getCredit();
+					
 					// 로그인이 되었을 시 실행되는 코드
+					String name = iCLogin.getName();
+					CurrentUser.major = iCLogin.getMajor();
+					CurrentUser.credit = iCLogin.getCredit();
+					
 					if(checkLogin.isSelected()) {
 						loginOption.set("자동로그인", id, name);
 					}else if(checkId.isSelected()) {
