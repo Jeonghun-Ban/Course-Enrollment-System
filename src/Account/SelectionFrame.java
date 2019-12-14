@@ -42,12 +42,14 @@ public class SelectionFrame extends JFrame {
 		
 		JScrollPane scrollpane = new JScrollPane();
 		this.campus = new DirectoryList(this.listSelectionListener);
+		this.campus.addMouseListener(mouseListener);
 		scrollpane.setViewportView(this.campus);
 		scrollpane.setPreferredSize(new Dimension(350,150));
 		this.add(scrollpane);
 
 		scrollpane = new JScrollPane();
 		this.college = new DirectoryList(this.listSelectionListener);
+		this.college.addMouseListener(mouseListener);
 		scrollpane.setViewportView(this.college);
 		scrollpane.setPreferredSize(new Dimension(350,150));
 		this.add(scrollpane);
