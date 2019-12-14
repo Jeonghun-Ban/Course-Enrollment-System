@@ -27,6 +27,7 @@ import javax.swing.KeyStroke;
 
 import Cource.CourceFrame;
 import Framework.ICLogin;
+import main.CurrentUser;
 
 public class LoginFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -163,6 +164,7 @@ public class LoginFrame extends JFrame {
 				try {
 					iCLogin.authenticate(id, pw);
 					String name = iCLogin.getName();
+					CurrentUser.credit = iCLogin.getCredit();
 					// 로그인이 되었을 시 실행되는 코드
 					if(checkLogin.isSelected()) {
 						loginOption.set("자동로그인", id, name);
