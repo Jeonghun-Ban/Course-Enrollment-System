@@ -41,6 +41,7 @@ public class BasketTable extends JTable {
 
 		this.setModel(model);
 		this.setBackground(Color.LIGHT_GRAY);
+		this.setAutoCreateRowSorter(true);
 		
 		try {
 			lectures = iCBasket.show(id);
@@ -81,7 +82,6 @@ public class BasketTable extends JTable {
 			row.add(Integer.toString(lecture.getCredit()));
 			row.add(lecture.getTime());
 			this.model.addRow(row);
-			this.setAutoCreateRowSorter(true);
 			
 			CurrentUser.basket+=lecture.getCredit();
 		}
