@@ -11,8 +11,8 @@ This Project was implemented in the Java language and Swing GUI.
 
 Download
 ---
-- [Client Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System/releases/tag/v2.3)
-- [Server Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System-Server/releases/tag/v2.3)
+- [Client Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System/releases/tag/v2.5.1)
+- [Server Program Source Code](https://github.com/Jeonghun-Ban/Course-Enrollment-System-Server/releases/tag/v2.5.1)
 
 
 Version
