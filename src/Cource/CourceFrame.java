@@ -106,7 +106,7 @@ public class CourceFrame extends JFrame {
 		credit = CurrentUser.credit;
 		basketCredit = CurrentUser.basket;
 		applyCredit = CurrentUser.apply;
-		this.enrollmentPanel.basket.setText("장바구니 (가능학점: " + (credit-applyCredit+7) + ")");
+		this.enrollmentPanel.basket.setText("장바구니 (가능학점: " + (credit-basketCredit+7) + ")");
 		this.enrollmentPanel.apply.setText("수강신청 (가능학점: " + (credit-applyCredit) + ")");
 	}
 
