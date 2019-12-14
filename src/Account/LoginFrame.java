@@ -172,9 +172,9 @@ public class LoginFrame extends JFrame {
 					method = iCLogin.getMethod("getName");
 					CurrentUser.name = (String) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
 					method = iCLogin.getMethod("getMajor");
-					CurrentUser.name = (String) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
+					CurrentUser.major = (String) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
 					method = iCLogin.getMethod("getCredit");
-					CurrentUser.name = (String) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
+					CurrentUser.credit = (int) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
 					CurrentUser.id = id;
 					
 					// 로그인이 되었을 시 실행되는 코드
