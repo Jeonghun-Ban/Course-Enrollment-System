@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -27,6 +29,8 @@ import javax.swing.KeyStroke;
 
 import Cource.CourceFrame;
 import Framework.ICLogin;
+import Framework.Launcher;
+import main.Connector;
 import main.CurrentUser;
 
 public class LoginFrame extends JFrame {
@@ -41,16 +45,14 @@ public class LoginFrame extends JFrame {
 	
 	private boolean idSelect;
 	private String[] option;
-	private ICLogin iCLogin;
 	private LoginOption loginOption;
 
 	private ActionListener actionListener;
 	private CourceFrame courceFrame;
 	private RegisterFrame registerFrame;
 	
-	public LoginFrame(ICLogin iCLogin) {
+	public LoginFrame() {
 		this.actionListener = new ActionHandler();
-		this.iCLogin = iCLogin;
 		this.loginOption = new LoginOption();
 		
 		try {
@@ -94,7 +96,7 @@ public class LoginFrame extends JFrame {
 		idField = new JTextField(14);
 		
 		// 아이디가 저장되어 있는 경우, 아이디 불러오기
-		if(option[0].equals("아이디저장")) {
+		if(option[0].equals("id")) {
 			idField.setText(option[1]);
 			idSelect = true;
 		}
@@ -162,19 +164,24 @@ public class LoginFrame extends JFrame {
 				}
 
 				try {
-					iCLogin.authenticate(id, pw);
 					
-					// 현재 유저 정의
+					// 로그인
+					Class<?> iCLogin = ICLogin.class;
+					Method method = iCLogin.getMethod("authenticate", String.class, String.class);
+					Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{id, pw.toString()}));
+					method = iCLogin.getMethod("getName");
+					CurrentUser.name = (String) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
+					method = iCLogin.getMethod("getMajor");
+					CurrentUser.name = (String) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
+					method = iCLogin.getMethod("getCredit");
+					CurrentUser.name = (String) Connector.invoke(new Launcher(iCLogin.getSimpleName(), method.getName(), method.getParameterTypes(), new Object[]{}));
 					CurrentUser.id = id;
-					CurrentUser.name = iCLogin.getName();
-					CurrentUser.major = iCLogin.getMajor();
-					CurrentUser.credit = iCLogin.getCredit();
 					
 					// 로그인이 되었을 시 실행되는 코드
 					if(checkLogin.isSelected()) {
-						loginOption.set("자동로그인", id, pw);
+						loginOption.set("auto", id, pw);
 					}else if(checkId.isSelected()) {
-						loginOption.set("아이디저장", id, "null");
+						loginOption.set("id", id, "null");
 					}else {
 						loginOption.set("null", "null", "null");
 					}
@@ -184,14 +191,15 @@ public class LoginFrame extends JFrame {
 					courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 					dispose();
-				} catch (InvalidUserException | IOException e1) {
-					// TODO Auto-generated catch block
-					label.setText(e1.getMessage());
-					label.setForeground(Color.RED);
+				} catch (IOException | InvocationTargetException | NoSuchMethodException e1) {
+					if (e1.getCause().getClass().equals(InvalidUserException.class)){
+						label.setText(e1.getCause().getMessage());
+						label.setForeground(Color.RED);
+					}
 				}
 
 			} else if(e.getActionCommand() == "register") {
-				registerFrame = new RegisterFrame(iCLogin);
+				registerFrame = new RegisterFrame();
 				registerFrame.setVisible(true);
 				Point point = getLocation();
 				registerFrame.setLocation(point.x+390, point.y);

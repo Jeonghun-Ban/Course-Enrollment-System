@@ -1,4 +1,4 @@
-﻿package Account;
+package Account;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,7 +14,8 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.rmi.RemoteException;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -33,6 +34,8 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.Document;
 
 import Framework.ICLogin;
+import Framework.Launcher;
+import main.Connector;
 
 public class RegisterFrame extends JFrame {
 	private static final long serialVersionUID = 1L;
@@ -47,7 +50,6 @@ public class RegisterFrame extends JFrame {
 	private ActionListener actionListener;
 	private MouseListener mouseListener;
 
-	private ICLogin iCLogin;
 	String message = "아래 폼을 모두 입력해주세요.";
 	String id, pw, rePw, name, major;
 	int credit;
@@ -56,9 +58,21 @@ public class RegisterFrame extends JFrame {
 	
 	private SelectionFrame selectionFrame;
 
-	public RegisterFrame(ICLogin iCLogin) {
+	private static final Class<ICLogin> icLoginClass = ICLogin.class;
+	private static Method validIDM;
+	private static Method addAccount;
 
-		this.iCLogin = iCLogin;
+	static {
+		try {
+			validIDM = icLoginClass.getMethod("validId", String.class);
+			addAccount = icLoginClass.getMethod("addAccount", String.class, String.class, String.class, String.class, int.class);
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public RegisterFrame() {
+
 
 		this.setTitle("회원가입");
 		this.setSize(400, 545);
@@ -136,8 +150,7 @@ public class RegisterFrame extends JFrame {
 		submit.addActionListener(actionListener);
 		submit.setEnabled(false);
 
-		JScrollPane scrollpane = new JScrollPane();
-		scrollpane.setViewportView(this.registerPanel);
+		JScrollPane scrollpane = new JScrollPane(this.registerPanel);
 		this.add("North", alert);
 		this.add(scrollpane);
 		this.add("South", submit);
@@ -148,38 +161,34 @@ public class RegisterFrame extends JFrame {
 		// 비밀번호 유효성 체크
 		if (document == rePwField.getDocument()) {
 
-			pw = "";
+			StringBuilder pw = new StringBuilder();
 			for (char cha : pwField.getPassword()) {
-				Character.toString(cha);
-				pw += cha;
+				pw.append(cha);
 			}
 
-			rePw = "";
+			StringBuilder rePw = new StringBuilder();
 			for (char cha : rePwField.getPassword()) {
-				Character.toString(cha);
-				rePw += cha;
+				rePw.append(cha);
 			}
-
-			if (pw.equals("") || rePw.equals("")) {
+			String p = pw.toString();
+			String rp = rePw.toString();
+			if (p.equals("") || rp.equals("")) {
 				this.alert.setText("비밀번호를 입력해주세요");
 				this.alert.setForeground(Color.RED);
-			} else if (pw.equals(rePw) && !rePw.equals("")) {
+			} else if (p.equals(rp)) {
 				validPw = true;
 				this.alert.setText("비밀번호가 확인되었습니다.");
 				this.alert.setForeground(Color.BLACK);
-			} else if (!pw.equals(rePw) && !rePw.equals("")) {
+			} else {
 				validPw = false;
 				this.alert.setText("비밀번호가 일치하지 않습니다.");
 				this.alert.setForeground(Color.RED);
-			} else {
-				this.alert.setText(message);
-				this.alert.setForeground(Color.BLACK);
 			}
 		} // 아이디 유효성 체크
 		else if (document == idField.getDocument()) {
 			try {
 				id = idField.getText();
-				validId = this.iCLogin.validId(id);
+				validId = (boolean) Connector.invoke(new Launcher(icLoginClass.getSimpleName(), validIDM.getName(), validIDM.getParameterTypes(), new Object[]{id}));
 				if (!validId && !id.equals("")) {
 					this.alert.setText("이미 존재하는 아이디입니다.");
 					this.alert.setForeground(Color.RED);
@@ -190,12 +199,9 @@ public class RegisterFrame extends JFrame {
 					this.alert.setText(message);
 					this.alert.setForeground(Color.BLACK);
 				}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (RemoteException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} catch (InvocationTargetException e) {
+				if (e.getCause().getClass().equals(FileNotFoundException.class))
+					e.printStackTrace();
 			}
 		} else {
 			this.alert.setText(message);
@@ -215,10 +221,10 @@ public class RegisterFrame extends JFrame {
 		name = nameField.getText();
 		credit = selectionFrame.getCredit();
 		try {
-			iCLogin.addAccount(id, pw, name, major, credit);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Connector.invoke(new Launcher(icLoginClass.getSimpleName(), addAccount.getName(), addAccount.getParameterTypes(), new Object[]{id, pw, name, major, credit}));
+		} catch (InvocationTargetException e) {
+			if (e.getCause().getClass().equals(IOException.class))
+				e.printStackTrace();
 		}
 
 	}
@@ -253,9 +259,6 @@ public class RegisterFrame extends JFrame {
 			if (e.getActionCommand() == "major") {
 				selectionFrame = new SelectionFrame(mouseListener);
 				selectionFrame.setVisible(true);
-				major = selectionFrame.getMajor();
-				majorField.setText(major);
-				
 				Point point = getLocation();
 				selectionFrame.setLocation(point.x, point.y);
 			} else if (e.getActionCommand() == "submit") {

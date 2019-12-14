@@ -1,73 +1,40 @@
-﻿package main;
+package main;
 
-import java.io.FileNotFoundException;
-import java.rmi.NotBoundException;
-import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import javax.swing.JFrame;
 
-import Account.InvalidUserException;
 import Account.LoginFrame;
 import Account.LoginOption;
 import Cource.CourceFrame;
-import Framework.ICLogin;
 
 public class Main {
 
 	private static String[] option;
 	
-	static ICLogin iCLogin = null;
-	static LoginOption loginOption = new LoginOption();
-	
-	static LoginFrame loginFrame;
-	static CourceFrame courceFrame;
-	
-	static String id;
-	static String pw;
+	private static final LoginOption loginOption = new LoginOption();
+
+	private static LoginFrame loginFrame;
+	private static CourceFrame courceFrame;
+	private static InputStream inputStream = null;
+	private static OutputStream outputStream = null;
 	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-			
 		try {
-			Constant.registry = LocateRegistry.getRegistry("localhost");
-			iCLogin = (ICLogin) Constant.registry.lookup("iCLogin");
+			Connector.initialize();
 			option = loginOption.get();
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
+		} catch (IOException e1) {
 			e1.printStackTrace();
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (NotBoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-		
-		if(option[0].equals("자동로그인")) {
-			// 현재 유저 클래스 정의
-			id = option[1];
-			pw = option[2];
-			
-			try {
-				iCLogin.authenticate(id , pw);
 
-				// 현재 유저 정의
-				CurrentUser.id = id;
-				CurrentUser.name = iCLogin.getName();
-				CurrentUser.major = iCLogin.getMajor();
-				CurrentUser.credit = iCLogin.getCredit();
-				
-				courceFrame = new CourceFrame();
-				courceFrame.setVisible(true);
-				courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				
-			} catch (FileNotFoundException | RemoteException | InvalidUserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+		if(option[0].equals("auto")) {
+			courceFrame = new CourceFrame();
+			courceFrame.setVisible(true);
+			courceFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		}else {
-			loginFrame = new LoginFrame(iCLogin);
+			loginFrame = new LoginFrame();
 			loginFrame.setVisible(true);
 			loginFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // close button func//
 		}
