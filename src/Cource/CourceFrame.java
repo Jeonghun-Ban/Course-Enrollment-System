@@ -123,7 +123,14 @@ public class CourceFrame extends JFrame {
 				}
 				Vector<ELecture> applyLectures = iCApply.show(id); // 신청 목록 가져오기
 				
-				if(iCBasket.add(lectures, applyLectures, id)) { // 장바구니 추가함수
+				for(ELecture lecture: lectures) {
+					selectCredit+=lecture.getCredit();
+				}
+				
+				if(credit-basketCredit-selectCredit+7<0) {
+					JOptionPane.showMessageDialog(null, "최대 미리담기가능한 학점을 초과하였습니다."
+							+ "\n(해당 과목을 신청하시려면 다른 과목을 삭제하십시오.)", "학점제한", JOptionPane.ERROR_MESSAGE);
+				} else if(iCBasket.add(lectures, applyLectures, id)) { // 장바구니 추가함수
 					JOptionPane.showMessageDialog(null, "선택한 강좌 중에 이미 신청하거나 미리담은 강좌가 있습니다."
 							+ "\n(중복되지 않은 강좌가 있다면 정상적으로 추가됩니다.)", "중복된 강의 존재", JOptionPane.ERROR_MESSAGE);
 				};
