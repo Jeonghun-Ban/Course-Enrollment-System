@@ -16,7 +16,8 @@ public class Connector {
     private static OutputStream outputStream = null;
 
     public static void initialize() throws IOException {
-        socket = new Socket("15.164.103.147", 10000);
+//    	socket = new Socket("localhost", 10000);
+    	socket = new Socket("15.164.103.147", 10000);
         inputStream = socket.getInputStream();
         outputStream = socket.getOutputStream();
     }

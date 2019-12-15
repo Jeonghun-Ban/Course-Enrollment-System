@@ -263,6 +263,9 @@ public class RegisterFrame extends JFrame {
 			if (e.getActionCommand() == "major") {
 				selectionFrame = new SelectionFrame(mouseListener);
 				selectionFrame.setVisible(true);
+				major = selectionFrame.getMajor();
+				majorField.setText(major);
+				
 				Point point = getLocation();
 				selectionFrame.setLocation(point.x, point.y);
 			} else if (e.getActionCommand() == "submit") {
