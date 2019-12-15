@@ -58,7 +58,7 @@ public class DirectoryList extends JList<String> {
             this.listData.add(eDirectory.getName());
         }
 
-//        this.setSelectedIndex(0);
+        this.setSelectedIndex(0);
         this.updateUI();
 
         return this.eDirectories.get(0).getHyperLink();
@@ -82,7 +82,7 @@ public class DirectoryList extends JList<String> {
             this.listData.add(eDirectory.getName());
         }
 
-//        this.setSelectedIndex(0);
+        this.setSelectedIndex(0);
         this.updateUI();
 
         return this.eDirectories.get(0).getHyperLink();
