@@ -285,6 +285,11 @@ public class CourceFrame extends JFrame {
 		}
 		dispose();
     }
+	
+	public void showUserInfo() {
+		UserInfoFrame userInfoFrame = new UserInfoFrame();
+		userInfoFrame.setVisible(true);
+	}
 
 	private class ActionHandler implements ActionListener {
 
@@ -304,6 +309,8 @@ public class CourceFrame extends JFrame {
             case "logout":
                 logout();
                 break;
+            case "info":
+                showUserInfo();	
 			}
 		}
 
