@@ -22,7 +22,7 @@ public class UserInfoFrame extends JFrame {
 	private JLabel id, name, major, credit;
 	
 	public UserInfoFrame() {
-		this.setSize(400, 545);
+		this.setSize(400, 75);
 		
 		id = new JLabel();
 		id.setText("아이디: " + CurrentUser.id);

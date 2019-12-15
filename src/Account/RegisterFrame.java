@@ -51,7 +51,8 @@ public class RegisterFrame extends JFrame {
 	private MouseListener mouseListener;
 
 	String message = "아래 폼을 모두 입력해주세요.";
-	String id, pw, rePw, name, major;
+	String id, name, major;
+	StringBuilder pw, rePw;
 	int credit;
 
 	private boolean validId, validPw;
@@ -72,7 +73,10 @@ public class RegisterFrame extends JFrame {
 	}
 
 	public RegisterFrame() {
-
+		
+		// 패스워드 변수 초기화
+		pw = new StringBuilder();
+		rePw = new StringBuilder();
 
 		this.setTitle("회원가입");
 		this.setSize(400, 545);
@@ -106,7 +110,7 @@ public class RegisterFrame extends JFrame {
 		idField = new JTextField();
 		idField.getDocument().addDocumentListener(documentListener);
 
-		// pw
+		// pw		
 		pwLabel = new JLabel("비밀번호");
 		pwField = new JPasswordField();
 		pwField.getDocument().addDocumentListener(documentListener);
@@ -161,12 +165,12 @@ public class RegisterFrame extends JFrame {
 		// 비밀번호 유효성 체크
 		if (document == rePwField.getDocument()) {
 
-			StringBuilder pw = new StringBuilder();
+			pw.setLength(0);
 			for (char cha : pwField.getPassword()) {
 				pw.append(cha);
 			}
 
-			StringBuilder rePw = new StringBuilder();
+			rePw.setLength(0);
 			for (char cha : rePwField.getPassword()) {
 				rePw.append(cha);
 			}
@@ -221,7 +225,7 @@ public class RegisterFrame extends JFrame {
 		name = nameField.getText();
 		credit = selectionFrame.getCredit();
 		try {
-			Connector.invoke(new Launcher(icLoginClass.getSimpleName(), addAccount.getName(), addAccount.getParameterTypes(), new Object[]{id, pw, name, major, credit}));
+			Connector.invoke(new Launcher(icLoginClass.getSimpleName(), addAccount.getName(), addAccount.getParameterTypes(), new Object[]{id, pw.toString(), name, major, credit}));
 		} catch (InvocationTargetException e) {
 			if (e.getCause().getClass().equals(IOException.class))
 				e.printStackTrace();
